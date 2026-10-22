@@ -13,7 +13,7 @@
 
 **Controle financeiro pessoal que lê teu extrato e teu holerite, separa os gastos sozinho e te diz quando a reserva bate.**
 
-[Rodar em 1 minuto](#-rodar-em-1-minuto) · [O que ele faz](#-o-que-ele-faz) · [Criar conta](#-criar-conta) · [Configuração](#%EF%B8%8F-configuração) · [Arquitetura](#-arquitetura)
+[Rodar em 1 minuto](#-rodar-em-1-minuto) · [Prompt pra IA](#-ou-pede-pra-uma-ia-rodar-pra-ti) · [O que ele faz](#-o-que-ele-faz) · [Criar conta](#-criar-conta) · [Configuração](#%EF%B8%8F-configuração) · [Arquitetura](#-arquitetura)
 
 <br>
 
@@ -94,6 +94,43 @@ docker compose up --build
 | 👤 Login demo | `demo@saldim.dev` / `Saldim@2026` |
 
 O compose sobe o Postgres, aplica as migrações, roda o seed e abre a web. O usuário demo vem com 2 meses de extrato, um holerite, 6 consignados, limites e uma meta, tudo **inventado**, só pra ter números na tela.
+
+### 🤖 Ou pede pra uma IA rodar pra ti
+
+Copia o prompt abaixo (botão de copiar no canto do bloco) e cola no [Claude Code](https://claude.com/claude-code) ou em outro agente que rode comandos no teu computador (Cursor, Codex, Copilot…). Ele baixa, configura, sobe e te devolve o link.
+
+```text
+Quero rodar o app Saldim (controle financeiro pessoal) no meu computador.
+Repositório: https://github.com/GabriellCastro/saldim
+
+Faz isso pra mim, passo a passo, me contando o que está fazendo:
+
+1. Confere se tenho git e Docker (com o Docker rodando). Se faltar algo, me diz
+   como instalar no meu sistema e para.
+2. Clona o repositório numa pasta "saldim" e entra nela. Se a pasta já existir,
+   só atualiza com git pull.
+3. Cria o .env a partir do .env.example (cp .env.example .env). Não muda nada
+   além disso, a menos que eu peça.
+4. Confere se as portas 3001, 3333 e 5432 estão livres. Se alguma estiver
+   ocupada, me mostra qual processo está usando e pergunta o que fazer.
+5. Sobe tudo com: docker compose up --build -d
+6. Espera a API responder em http://localhost:3333 e a web em
+   http://localhost:3001 (pode levar alguns minutos no primeiro build).
+   Se falhar, mostra o final de: docker compose logs api web
+7. Testa o login do usuário demo com:
+   curl -s -X POST http://localhost:3333/auth/login \
+     -H 'content-type: application/json' \
+     -d '{"email":"demo@saldim.dev","password":"Saldim@2026"}'
+8. No fim, me passa:
+   - o link http://localhost:3001
+   - o login demo: demo@saldim.dev / Saldim@2026 (os dados são fictícios)
+   - como criar minha própria conta em http://localhost:3001/registro
+   - como parar (docker compose down) e subir de novo (docker compose up -d)
+
+Opcional, só se eu quiser: o assistente IA usa o Claude se eu colocar
+ANTHROPIC_API_KEY no .env (depois: docker compose up -d --build api).
+Sem a chave ele funciona com respostas por regras.
+```
 
 ### 🛠️ Desenvolvimento (com hot reload)
 
