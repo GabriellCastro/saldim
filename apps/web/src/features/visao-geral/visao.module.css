@@ -1,0 +1,59 @@
+/* topo: mês (destaque, com a IA no pé) + guardado lado a lado; embaixo os próximos meses */
+.top { display: flex; flex-wrap: wrap; gap: 20px; align-items: stretch; }
+.skelMain { flex: 3 1 520px; }
+.skelSide { flex: 2 1 320px; }
+.goal { flex: 2 1 320px; display: flex; min-width: 0; }
+.goal > * { flex: 1; }
+
+/* mês */
+.monthCard { flex: 3 1 520px; padding: 28px; display: flex; flex-direction: column; gap: 20px; }
+.kv { display: flex; flex-direction: column; gap: 4px; }
+.kvLabel { font-size: 12px; color: var(--mu); }
+.kvVal { font-size: 32px; font-weight: 300; }
+.track { position: relative; height: 8px; border-radius: 999px; background: var(--s3); display: flex; }
+.track > div { border-radius: 999px; }
+/* marca do "ideal até hoje" (limite × dia/diasDoMês) */
+.ideal { position: absolute; top: -3px; bottom: -3px; width: 2px; margin-left: -1px; border-radius: 1px; background: var(--tx); }
+.fcRow { display: flex; flex-direction: column; gap: 8px; padding-top: 14px; border-top: 1px solid var(--ln); }
+.fcLabel { font-size: 13px; color: var(--mu); }
+.fcVals { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font-size: 13px; color: var(--mu); }
+.fcNum { font-size: 16px; font-weight: 600; color: var(--tx); white-space: nowrap; }
+.fcHint { font-size: 12px; color: var(--mu); min-height: 16px; }
+.closeRow { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-top: auto; padding-top: 14px; border-top: 1px solid var(--ln); }
+.closeRow b { font-size: 22px; font-weight: 600; white-space: nowrap; }
+
+/* dica da IA no pé do card do mês */
+.ai { display: flex; gap: 12px; align-items: flex-start; padding-top: 14px; border-top: 1px solid var(--ln); }
+.aiTx { flex: 1; min-width: 0; font-size: 14px; }
+.ai > a { white-space: nowrap; padding-top: 3px; }
+
+/* próximos meses */
+.next { display: flex; flex-direction: column; gap: 14px; margin-top: 20px; }
+.nextList { display: flex; flex-direction: column; gap: 2px; }
+.nextRow { display: grid; grid-template-columns: 72px minmax(0, 1fr) 96px; gap: 12px; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--ln); }
+.nextName { display: flex; flex-direction: column; gap: 2px; }
+.nextName > span:first-child { font-size: 13px; font-weight: 600; text-transform: capitalize; }
+.nextNote { font-size: 10px; color: var(--goldTx); font-weight: 600; min-height: 12px; white-space: nowrap; overflow: visible; }
+.diverge { display: grid; grid-template-columns: 1fr 1fr; height: 8px; }
+.divNeg { display: flex; justify-content: flex-end; border-right: 1px solid var(--ln2); }
+.divNeg div { background: var(--neg); border-radius: 4px 0 0 4px; }
+.divPos { display: flex; }
+.divPos div { background: var(--pos); border-radius: 0 4px 4px 0; }
+.nextVal { font-size: 14px; font-weight: 600; text-align: right; white-space: nowrap; }
+
+.folhaNote { font-size: 12px; line-height: 1.5; color: var(--mu); }
+.folhaNote b { color: var(--pos); font-weight: 600; }
+
+@media (max-width: 767px) {
+  .top { gap: 14px; }
+  .monthCard { padding: 20px 18px; gap: 16px; }
+  .kvVal { font-size: 28px; }
+  .closeRow b { font-size: 19px; }
+  .ai { flex-wrap: wrap; }
+  .next { gap: 4px; margin-top: 14px; }
+  .nextRow { grid-template-columns: 76px minmax(0, 1fr) 92px; gap: 10px; padding: 8px 0; }
+  .nextNote { overflow: hidden; text-overflow: ellipsis; }
+  .diverge { height: 6px; }
+  .nextVal { font-size: 13px; }
+  .folhaNote { padding-top: 10px; }
+}

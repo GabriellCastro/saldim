@@ -1,0 +1,239 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Valores monetários: Decimal(12,2). Saídas negativas, entradas positivas.
+
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  cpf           String    @unique
+  phone         String?
+  passwordHash  String
+  faceEnabled   Boolean   @default(false)
+  privacyMode   Boolean   @default(false)
+  notifications Boolean   @default(true)
+  // Renda: preenchida pelo holerite mais recente ou manualmente
+  netIncome     Decimal?  @db.Decimal(12, 2)
+  grossIncome   Decimal?  @db.Decimal(12, 2)
+  // Média mensal recebida de outra conta própria (ex.: transferências "propria")
+  otherIncome   Decimal?  @db.Decimal(12, 2)
+  // Quanto o usuário diz que já tem guardado pra meta (informado à mão)
+  savedAmount   Decimal   @default(0) @db.Decimal(12, 2)
+  savedAt       DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  accounts     BankAccount[]
+  transactions Transaction[]
+  limits       CategoryLimit[]
+  loans        Loan[]
+  payslips     Payslip[]
+  goals        Goal[]
+  imports      Import[]
+  messages     ChatMessage[]
+  devices      TrustedDevice[]
+  connections  BankConnection[]
+  emailChanges EmailChange[]
+}
+
+model EmailChange {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  newEmail  String
+  code      String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+model BankAccount {
+  id           String          @id @default(cuid())
+  userId       String
+  user         User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  bank         String // ex.: "itau"
+  label        String // ex.: "Itaú · ag. 0001"
+  balance      Decimal?        @db.Decimal(12, 2)
+  lastSyncAt   DateTime?
+  // conta vinda do Open Finance: id da conta na Pluggy + conexão de origem
+  externalId   String?
+  connectionId String?
+  connection   BankConnection? @relation(fields: [connectionId], references: [id], onDelete: SetNull)
+  createdAt    DateTime        @default(now())
+
+  transactions Transaction[]
+  imports      Import[]
+
+  @@unique([userId, externalId])
+}
+
+/// Conexão Open Finance (um "item" da Pluggy = um banco autorizado pelo usuário).
+model BankConnection {
+  id         String    @id @default(cuid())
+  userId     String
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  itemId     String    @unique
+  connector  String // nome do banco, ex.: "Itaú"
+  imageUrl   String?
+  status     String // status do item na Pluggy: UPDATED, UPDATING, LOGIN_ERROR, OUTDATED…
+  error      String?
+  lastSyncAt DateTime?
+  createdAt  DateTime  @default(now())
+
+  accounts BankAccount[]
+
+  @@index([userId])
+}
+
+model Transaction {
+  id          String       @id @default(cuid())
+  userId      String
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accountId   String?
+  account     BankAccount? @relation(fields: [accountId], references: [id], onDelete: SetNull)
+  importId    String?
+  import      Import?      @relation(fields: [importId], references: [id], onDelete: SetNull)
+  date        DateTime     @db.Date
+  description String
+  amount      Decimal      @db.Decimal(12, 2)
+  category    String // id de categoria (ver src/categories/categories.ts)
+  // imprevisto: tipo (ver src/categories/unexpected.ts) + justificativa; fica fora das médias e limites
+  unexpected     String?
+  unexpectedNote String?
+  // id do lançamento na Pluggy (Open Finance): evita duplicar a cada sincronização
+  externalId  String?
+  createdAt   DateTime     @default(now())
+
+  @@unique([userId, date, description, amount, importId])
+  @@unique([userId, externalId])
+  @@index([userId, date])
+  @@index([userId, category])
+}
+
+model CategoryLimit {
+  id       String  @id @default(cuid())
+  userId   String
+  user     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  category String
+  amount   Decimal @db.Decimal(12, 2)
+
+  @@unique([userId, category])
+}
+
+enum LoanSource {
+  FOLHA // descontado no holerite
+  CONTA // debitado na conta
+}
+
+model Loan {
+  id                 String     @id @default(cuid())
+  userId             String
+  user               User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name               String
+  source             LoanSource @default(FOLHA)
+  installment        Decimal    @db.Decimal(12, 2)
+  currentInstallment Int
+  totalInstallments  Int
+  createdAt          DateTime   @default(now())
+}
+
+model Payslip {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  month     String // "2026-09"
+  gross     Decimal  @db.Decimal(12, 2)
+  net       Decimal  @db.Decimal(12, 2)
+  // [{ label, amount, kind: "provento" | "desconto" }]
+  items     Json     @default("[]")
+  fileName  String?
+  createdAt DateTime @default(now())
+
+  @@unique([userId, month])
+}
+
+model Goal {
+  id         String    @id @default(cuid())
+  userId     String
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name       String
+  target     Decimal   @db.Decimal(12, 2)
+  /// opcional: a data da meta é calculada (seguindo os limites); metas antigas guardam o prazo que tinham
+  deadline   DateTime? @db.Date
+  /// quando o guardado bateu o alvo pela primeira vez (gravado sozinho; zera se o alvo muda)
+  reachedAt  DateTime?
+  /// null = meta ativa (no máximo uma por usuário); preenchido quando nasce a próxima e esta vira histórico
+  achievedAt DateTime?
+  createdAt  DateTime  @default(now())
+}
+
+enum ImportKind {
+  EXTRATO
+  HOLERITE
+}
+
+enum ImportStatus {
+  PROCESSING
+  DONE
+  FAILED
+}
+
+model Import {
+  id          String       @id @default(cuid())
+  userId      String
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accountId   String?
+  account     BankAccount? @relation(fields: [accountId], references: [id], onDelete: SetNull)
+  kind        ImportKind
+  status      ImportStatus @default(PROCESSING)
+  fileName    String
+  count       Int          @default(0)
+  periodStart DateTime?    @db.Date
+  periodEnd   DateTime?    @db.Date
+  error       String?
+  createdAt   DateTime     @default(now())
+
+  transactions Transaction[]
+}
+
+enum ChatRole {
+  user
+  assistant
+}
+
+model ChatMessage {
+  id               String   @id @default(cuid())
+  userId           String
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role             ChatRole
+  content          String
+  // uso da IA (só nas respostas que vieram do Claude; resposta por regras fica null)
+  model            String?
+  inputTokens      Int?
+  outputTokens     Int?
+  cacheReadTokens  Int?
+  cacheWriteTokens Int?
+  costUsd          Decimal? @db.Decimal(12, 6)
+  createdAt        DateTime @default(now())
+
+  @@index([userId, createdAt])
+}
+
+/// Aparelho lembrado para "entrar com o rosto": o cookie `saldim_device` guarda o token; aqui só o hash.
+model TrustedDevice {
+  id         String    @id @default(cuid())
+  userId     String
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash  String    @unique
+  expiresAt  DateTime
+  lastUsedAt DateTime?
+  createdAt  DateTime  @default(now())
+
+  @@index([userId])
+}

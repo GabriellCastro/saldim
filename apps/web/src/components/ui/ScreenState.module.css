@@ -1,0 +1,36 @@
+.skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.block {
+  background: var(--s2);
+  border-radius: var(--radius);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+.error {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 18px;
+  border: 1px solid var(--ln2);
+  border-radius: var(--radius);
+  font-size: 14px;
+  color: var(--mu);
+}
+.retry {
+  border: 1px solid var(--ln2);
+  background: transparent;
+  color: var(--tx);
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.retry:hover { border-color: var(--gold); }

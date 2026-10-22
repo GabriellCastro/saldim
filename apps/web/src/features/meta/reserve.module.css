@@ -1,0 +1,35 @@
+.card { display: flex; flex-direction: column; gap: 16px; }
+.saved { font-size: 13px; color: var(--mu); white-space: nowrap; }
+.saved b { color: var(--tx); font-weight: 600; }
+.lead { margin: 0; font-size: 15px; line-height: 1.5; }
+.lead b { font-weight: 600; }
+
+/* régua: 0 → reserva dos sonhos, com o guardado preenchido e um marco por degrau */
+.ruler { position: relative; height: 10px; margin: 6px 0 2px; border-radius: 999px; background: var(--s3); }
+.fill { position: absolute; inset: 0 auto 0 0; border-radius: inherit; background: linear-gradient(90deg, var(--warn), var(--gold) 55%, var(--pos)); transition: width 0.4s; }
+.mark {
+  position: absolute;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  border-radius: 50%;
+  background: var(--s1);
+  border: 2px solid currentColor;
+}
+.mark:last-child { margin-left: -16px; }
+.markOn { background: currentColor; }
+
+.levels { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 12px; }
+.level { display: flex; flex-direction: column; gap: 4px; padding: 12px 14px; border: 1px solid var(--ln); border-top: 2px solid; border-radius: var(--radius-sm); background: var(--s2); }
+.name { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; }
+.dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+.value { font-size: 22px; font-weight: 300; white-space: nowrap; }
+.sub { font-size: 12px; color: var(--mu); line-height: 1.4; }
+.when { font-size: 12px; color: var(--tx); margin-top: 2px; }
+.ok { font-size: 12px; color: var(--pos); font-weight: 600; margin-top: 2px; }
+
+@media (max-width: 767px) {
+  .levels { gap: 8px; }
+  .value { font-size: 20px; }
+}

@@ -1,0 +1,101 @@
+.filters { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 18px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.seg { flex-shrink: 0; }
+
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+.kpi { padding: 22px; display: flex; flex-direction: column; gap: 8px; }
+.kpiVal { font-size: clamp(22px, 2.4vw, 32px); white-space: nowrap; font-weight: 200; letter-spacing: -0.01em; }
+.kpiVal small { font-size: 0.5em; color: var(--mu); margin-left: 4px; }
+.kpiSub { font-size: 12px; color: var(--mu); line-height: 1.4; }
+
+.chartCard { display: flex; flex-direction: column; gap: 14px; }
+.chartHead { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+.legend { display: flex; flex-wrap: wrap; gap: 16px; font-size: 12px; color: var(--mu); }
+.legend span { display: flex; align-items: center; gap: 6px; }
+.legend i { width: 10px; height: 10px; border-radius: 3px; }
+.legend i.legLine { width: 16px; height: 3px; border-radius: 2px; background: var(--gold); }
+.legend i.legDash { width: 16px; height: 0; border-radius: 0; border-top: 2px dashed var(--mu); }
+
+.chart { position: relative; height: 280px; }
+.svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.cols { position: absolute; inset: 0; display: grid; }
+.goalTag { position: absolute; right: 0; transform: translateY(-120%); font-size: 11px; font-weight: 600; color: var(--goldTx); pointer-events: none; }
+.hovDot { position: absolute; width: 10px; height: 10px; border-radius: 999px; background: var(--gold); border: 2px solid var(--bg); transform: translate(-50%, -50%); pointer-events: none; }
+.tip { top: 0; min-width: 190px; font-size: 12px; pointer-events: none; }
+.tipRow { display: flex; justify-content: space-between; gap: 10px; }
+.tipBold { font-weight: 700; }
+.tipNote { font-size: 11px; color: var(--pos); }
+
+.axis { display: grid; gap: 4px; }
+.axis div { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 11px; color: var(--mu); min-height: 32px; }
+.axisSkip > span { visibility: hidden; }
+.tag13, .tagFolha { font-style: normal; font-size: 9px; font-weight: 700; padding: 1px 4px; border-radius: 4px; line-height: 1.3; }
+.tag13 { background: var(--gold); color: var(--onGold); }
+.tagFolha { background: var(--s3); color: var(--pos); }
+.marks { display: flex; flex-wrap: wrap; gap: 16px; font-size: 11px; color: var(--mu); }
+.marks span { display: flex; align-items: center; gap: 6px; }
+
+.table { padding: 8px 24px; overflow-x: auto; }
+.summary { padding: 12px 0; font-size: 11px; color: var(--mu); font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; cursor: pointer; list-style: none; }
+.summary::-webkit-details-marker { display: none; }
+.summary::after { content: ' ▾'; }
+.table:not([open]) .summary::after { content: ' ▸'; }
+.tr { display: grid; grid-template-columns: 110px repeat(4, minmax(110px, 1fr)); gap: 12px; padding: 11px 0; font-size: 14px; border-bottom: 1px solid var(--ln); }
+.tr6 { grid-template-columns: 110px repeat(5, minmax(110px, 1fr)); }
+.tr > span:not(:first-child) { text-align: right; white-space: nowrap; }
+.tr:last-child { border-bottom: 0; }
+.trMark { background: linear-gradient(90deg, var(--s2), transparent 60%); }
+.th { padding: 10px 0; font-size: 11px; color: var(--mu); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; border-bottom-color: var(--ln2); }
+.trLink { color: inherit; text-decoration: none; cursor: pointer; transition: background 0.15s; }
+.trLink:hover { background: var(--s2); }
+.trLink:hover .tdMonth { color: var(--goldTx); }
+.tdMonth { font-weight: 600; display: flex; align-items: center; gap: 6px; }
+.tdBold { font-weight: 600; }
+
+.rvp { display: flex; flex-direction: column; gap: 16px; }
+.rvpHead { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.rvpGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 12px; }
+.rvpItem { display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; border: 1px solid var(--ln); border-radius: var(--radius-sm); background: var(--s2); }
+.rvpLabel { font-size: 12px; font-weight: 600; color: var(--mu); }
+.rvpVal { font-size: 26px; font-weight: 200; white-space: nowrap; }
+.rvpPlan { font-size: 12px; color: var(--mu); }
+.rvpBar { height: 6px; margin-top: 6px; border-radius: 999px; background: var(--s3); overflow: hidden; }
+.rvpBar > div { height: 100%; border-radius: inherit; }
+.rvpPct { font-size: 12px; color: var(--mu); }
+.rvpPct b { color: var(--tx); font-weight: 600; }
+.rvpNote { font-size: 12px; color: var(--mu); line-height: 1.4; margin-top: 2px; }
+.rvpNote b { color: var(--pos); font-weight: 600; }
+.diff { font-size: 12px; font-weight: 600; margin-top: 2px; }
+
+/* tabela: meses que já aconteceram (real × IA) */
+.trReal { background: linear-gradient(90deg, rgba(252, 192, 0, 0.06), transparent 70%); }
+.tagReal { font-style: normal; font-size: 9px; font-weight: 700; padding: 1px 5px; border-radius: 4px; line-height: 1.3; color: var(--goldTx); border: 1px solid currentColor; }
+.dual { display: flex; flex-direction: column; align-items: flex-end; gap: 1px; }
+.dual b { font-weight: 600; }
+.dual small { font-size: 11px; color: var(--mu); }
+.tr > .dual { text-align: right; }
+.cell { display: flex; flex-direction: column; align-items: flex-end; gap: 1px; }
+.realSub { font-size: 11px; font-weight: 600; color: var(--goldTx); }
+
+@media (max-width: 767px) {
+  .filters { padding: 12px; flex-direction: column; align-items: stretch; }
+  .chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  .chips > * { flex-shrink: 0; }
+  .seg { width: 100%; }
+  .seg > button { flex: 1; }
+  .kpis { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .kpi { padding: 14px; gap: 4px; }
+  .kpi:first-child { grid-column: span 2; }
+  .kpiVal { font-size: 20px; font-weight: 300; }
+  .chartCard { padding: 16px; gap: 10px; }
+  .legend { gap: 10px; font-size: 11px; }
+  .chart { height: 190px; }
+  .axis div { font-size: 9px; min-height: 26px; }
+  .axisSkip > span { visibility: hidden; }
+  .axis div:not(:first-child):not(:last-child) > span { visibility: hidden; }
+  .tip { padding: 8px 10px; min-width: 160px; }
+  .table { padding: 4px 16px; }
+  .tr, .tr6 { grid-template-columns: 74px repeat(2, minmax(0, 1fr)); font-size: 13px; gap: 8px; }
+  .tr > span:nth-child(2), .tr > span:nth-child(3), .tr6 > span:nth-child(6) { display: none; }
+  .rvpVal { font-size: 22px; }
+}

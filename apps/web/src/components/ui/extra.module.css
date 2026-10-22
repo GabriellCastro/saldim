@@ -1,0 +1,101 @@
+/* Primitivos adicionais (Segmented, Pill, Chip, AiMark, estados). */
+.seg {
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--edge);
+  border-radius: 999px;
+  background: rgba(18, 18, 17, 0.7);
+  backdrop-filter: blur(10px);
+}
+.segStretch { display: grid; grid-auto-columns: 1fr; grid-auto-flow: column; gap: 3px; }
+.segBtn {
+  border: 0;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  background: transparent;
+  color: var(--mu);
+  white-space: nowrap;
+}
+.segStretch .segBtn { height: 36px; padding: 0 10px; }
+.segOn { background: var(--s3); color: var(--tx); }
+.segGold { background: var(--gold); color: var(--onGold); }
+
+.pill {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  padding: 3px 8px;
+  border: 1px solid currentColor;
+  white-space: nowrap;
+}
+.t_pos { color: var(--pos); }
+.t_warn { color: var(--warn); }
+.t_neg { color: var(--neg); }
+.t_mu { color: var(--mu); }
+.t_gold { color: var(--goldTx); }
+
+.chip {
+  height: 28px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid var(--ln2);
+  background: transparent;
+  color: var(--mu);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.chip:hover { color: var(--tx); }
+.chipOn { background: rgba(252, 192, 0, 0.14); border-color: rgba(252, 192, 0, 0.45); color: var(--goldTx); }
+.chipOn:hover { color: var(--goldTx); }
+
+.ai { display: flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; color: var(--goldTx); }
+.aiDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--gold);
+  box-shadow: 0 0 0 4px rgba(252, 192, 0, 0.16), 0 0 14px rgba(252, 192, 0, 0.85);
+}
+
+.skel { border-radius: var(--radius); background: var(--s2); animation: pulse 1.4s ease-in-out infinite; }
+@keyframes pulse { 50% { opacity: 0.55; } }
+
+.state {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 20px;
+  border: 1px solid var(--edge);
+  border-radius: var(--radius);
+  background: var(--glass);
+  font-size: 14px;
+  color: var(--mu);
+}
+.stateBtn {
+  border: 1px solid var(--ln2);
+  background: transparent;
+  color: var(--tx);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.stateBtn:hover { background: var(--s2); }
+.stateCta {
+  background: var(--gold);
+  color: var(--onGold);
+  border-radius: 999px;
+  padding: 9px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.stateCta:hover { background: var(--goldHover); color: var(--onGold); }

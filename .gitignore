@@ -1,0 +1,17 @@
+node_modules
+dist
+.next*
+.env
+*.log
+coverage
+.DS_Store
+.turbo
+next-env.d.ts
+
+.env.prod
+
+# deploy da instância pessoal e rascunhos de planejamento: ficam só na máquina
+deploy/
+docker-compose.prod.yml
+docs/superpowers/
+.superpowers/

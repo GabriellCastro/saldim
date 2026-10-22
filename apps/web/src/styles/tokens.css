@@ -1,0 +1,43 @@
+/* Tokens do design "Saldim" (extraídos de design/*.dc.html). Use sempre var(--x), nunca hex solto. */
+@font-face{font-family:'Exo 2';font-weight:200;src:url('/fonts/Exo2-ExtraLight.ttf') format('truetype');font-display:swap}
+@font-face{font-family:'Exo 2';font-weight:300;src:url('/fonts/Exo2-Light.ttf') format('truetype');font-display:swap}
+@font-face{font-family:'Exo 2';font-weight:400;src:url('/fonts/Exo2-Regular.ttf') format('truetype');font-display:swap}
+@font-face{font-family:'Exo 2';font-weight:500;src:url('/fonts/Exo2-Medium.ttf') format('truetype');font-display:swap}
+@font-face{font-family:'Exo 2';font-weight:600;src:url('/fonts/Exo2-SemiBold.ttf') format('truetype');font-display:swap}
+@font-face{font-family:'Exo 2';font-weight:700;src:url('/fonts/Exo2-Bold.ttf') format('truetype');font-display:swap}
+@font-face{font-family:'Exo 2';font-weight:800;src:url('/fonts/Exo2-ExtraBold.ttf') format('truetype');font-display:swap}
+
+:root {
+  --bg: #0F0F0E;
+  --s1: #171716;
+  --s2: #1F1F1D;
+  --s3: #2A2A27;
+  --ln: rgba(245,243,241,0.07);
+  --ln2: rgba(245,243,241,0.16);
+  --tx: #F5F3F1;
+  --mu: #A19C94;
+  --placeholder: #6F6B65;
+  --pos: #3CC274;
+  --neg: #FF5A5F;
+  --warn: #F5A05E;
+  --gold: #FCC000;
+  --goldHover: #F7A600;
+  --goldTx: #FCC000;
+  --onGold: #1D1D1B;
+  --red: #E31621;
+  --bar: #F5F3F1;
+  --glass: linear-gradient(180deg,rgba(32,32,30,0.72),rgba(18,18,17,0.62));
+  --edge: rgba(252,192,0,0.13);
+  --page-bg:
+    radial-gradient(900px 520px at 78% -8%, rgba(252,192,0,0.09), transparent 60%),
+    radial-gradient(700px 500px at 0% 100%, rgba(237,108,38,0.06), transparent 60%),
+    var(--bg);
+  /* paleta categórica dos gráficos (donut "Para onde vai"): gold, chart-2, red, chart-4, bar, chart-6 */
+  --chart-2: #ED6C26;
+  --chart-4: #C8D400;
+  --chart-6: #5E5A55;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --font: 'Exo 2', Tahoma, sans-serif;
+  /* breakpoint mobile: 768px (sidebar vira tab bar) */
+}

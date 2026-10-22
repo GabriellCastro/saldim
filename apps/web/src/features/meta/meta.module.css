@@ -1,0 +1,61 @@
+.card { flex: 1 1 320px; padding: 24px; display: flex; flex-direction: column; gap: 14px; }
+.head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.muted { font-size: 13px; color: var(--mu); }
+.track { height: 8px; border-radius: 999px; background: var(--s3); overflow: hidden; }
+.track > div { height: 100%; background: var(--gold); border-radius: 999px; transition: width 0.4s; }
+.big { font-size: 26px; font-weight: 300; line-height: 1.2; margin: 0; }
+.until { font-size: 16px; color: var(--mu); }
+.text { font-size: 14px; line-height: 1.5; margin: 0; color: var(--tx); }
+.ok { font-size: 14px; margin: 0; color: var(--pos); }
+.warn { font-size: 13px; margin: 0; color: var(--warn); }
+/* ações: mesma altura e canto do Button; "Editar meta" é link de texto à direita */
+.actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: auto; padding-top: 4px; }
+.actions > * { min-height: 44px; white-space: nowrap; }
+.edit { margin-left: auto; padding: 0 4px; border: 0; background: none; color: var(--mu); font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; transition: color 0.15s; }
+.edit:hover { color: var(--goldTx); }
+.edit + .edit { margin-left: 0; }
+.empty { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+/* card Guardado (visão geral): meta + degraus da reserva */
+.monthFlow { font-size: 13px; font-weight: 600; white-space: nowrap; }
+.goalBox { display: flex; flex-direction: column; gap: 8px; padding-top: 14px; border-top: 1px solid var(--ln); }
+.goalHead { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 14px; font-weight: 600; }
+.levels { display: flex; flex-direction: column; padding-top: 6px; border-top: 1px solid var(--ln); }
+.level { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 7px 0; font-size: 13px; }
+.levelName { display: flex; align-items: center; gap: 8px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+.level .ok, .level .muted { font-size: 12px; white-space: nowrap; }
+.summary { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
+.summary > div { display: flex; flex-direction: column; gap: 10px; flex: 1 1 320px; }
+
+/* meta batida: card dourado + bloco que chama pra próxima (não obriga) */
+.won { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold), 0 0 36px color-mix(in srgb, var(--gold) 22%, transparent); }
+.win { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding: 16px; border-radius: var(--radius-sm); border: 1px solid color-mix(in srgb, var(--gold) 40%, transparent); background: color-mix(in srgb, var(--gold) 9%, transparent); }
+.win > button { margin-top: 4px; min-height: 44px; }
+.winTitle { display: flex; align-items: center; gap: 8px; font-size: 20px; font-weight: 600; color: var(--goldTx); }
+.winIcon { display: inline-block; animation: cheer 2.4s ease-in-out infinite; transform-origin: 50% 80%; }
+@keyframes cheer { 0%, 70%, 100% { transform: rotate(0) scale(1); } 78% { transform: rotate(-14deg) scale(1.15); } 86% { transform: rotate(12deg) scale(1.15); } }
+@media (prefers-reduced-motion: reduce) { .winIcon { animation: none; } }
+/* histórico de metas batidas */
+.history { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; max-height: 50vh; overflow-y: auto; }
+.history li { display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; padding: 10px 0; border-top: 1px solid var(--ln); font-size: 14px; }
+.history li:first-child { border-top: 0; }
+.history li > .muted { grid-column: 1 / -1; font-size: 12px; }
+.historyName { display: flex; align-items: center; gap: 8px; font-weight: 600; }
+.badge { font-size: 11px; font-weight: 600; padding: 1px 8px; border-radius: 999px; color: var(--goldTx); border: 1px solid var(--edge); }
+
+/* modais (mesmo visual do LoanForm) */
+.overlay { position: fixed; inset: 0; z-index: 50; background: rgba(5, 5, 5, 0.72); display: flex; align-items: center; justify-content: center; padding: 16px; }
+.dialog { width: min(440px, 100%); background: var(--s1); border: 1px solid var(--edge); border-radius: var(--radius); padding: 24px; display: flex; flex-direction: column; gap: 14px; }
+.dialogTitle { font-size: 22px; font-weight: 300; }
+.formError { font-size: 13px; color: var(--neg); }
+.formActions { display: flex; justify-content: flex-end; gap: 8px; }
+
+@media (max-width: 767px) {
+  .card { padding: 20px 18px; flex-basis: 100%; }
+  .big { font-size: 24px; }
+  .overlay { align-items: flex-end; padding: 0; }
+  .dialog { width: 100%; border-radius: var(--radius) var(--radius) 0 0; padding-bottom: calc(24px + env(safe-area-inset-bottom)); }
+  /* principal ocupa o resto da linha; "Editar meta" ao lado */
+  .actions { display: grid; grid-template-columns: 1fr auto; gap: 8px; }
+  .edit { margin-left: 0; padding: 0 16px; border: 1px solid var(--ln2); border-radius: var(--radius-sm); color: var(--tx); }
+}

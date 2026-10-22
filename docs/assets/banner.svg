@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="320" viewBox="0 0 1200 320" role="img" aria-label="Saldim: teu holerite e teu extrato, lidos pela IA">
+  <defs>
+    <radialGradient id="glow" cx="0.8" cy="-0.1" r="0.9">
+      <stop offset="0" stop-color="#FCC000" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#FCC000" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="0" cy="1" r="0.7">
+      <stop offset="0" stop-color="#ED6C26" stop-opacity="0.14"/>
+      <stop offset="1" stop-color="#ED6C26" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="area" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3CC274" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#3CC274" stop-opacity="0"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#F5F3F1" stroke-opacity="0.04"/>
+    </pattern>
+  </defs>
+  <style>
+    text { font-family: 'Exo 2', 'Segoe UI', system-ui, -apple-system, sans-serif; }
+    .title { font-size: 64px; font-weight: 700; fill: #F5F3F1; letter-spacing: -1px; }
+    .kicker { font-size: 13px; font-weight: 600; fill: #A19C94; letter-spacing: 4px; }
+    .tag { font-size: 24px; font-weight: 300; fill: #F5F3F1; }
+    .gold { fill: #FCC000; }
+    .label { font-size: 12px; fill: #A19C94; }
+    .money { font-size: 22px; font-weight: 600; fill: #3CC274; }
+    .fade { opacity: 0; animation: in .8s ease-out forwards; }
+    .d1 { animation-delay: .2s } .d2 { animation-delay: .7s } .d3 { animation-delay: 1.2s } .d4 { animation-delay: 2.6s }
+    @keyframes in { from { opacity: 0; transform: translateY(8px) } to { opacity: 1; transform: none } }
+    .bar { transform-box: fill-box; transform-origin: bottom; transform: scaleY(0); animation: grow 1s cubic-bezier(.2,.8,.2,1) forwards; }
+    @keyframes grow { to { transform: scaleY(1) } }
+    .line { stroke-dasharray: 600; stroke-dashoffset: 600; animation: draw 2.2s ease-in-out 1s forwards; }
+    @keyframes draw { to { stroke-dashoffset: 0 } }
+    .areaFill { opacity: 0; animation: in 1s ease-out 2.4s forwards; }
+    .pulse { animation: pulse 2s ease-in-out 3s infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes pulse { 0%,100% { transform: scale(1); opacity: 1 } 50% { transform: scale(1.8); opacity: .3 } }
+    @media (prefers-reduced-motion: reduce) {
+      .fade, .areaFill { opacity: 1; animation: none }
+      .bar { transform: none; animation: none }
+      .line { stroke-dashoffset: 0; animation: none }
+      .pulse { animation: none }
+    }
+  </style>
+
+  <rect width="1200" height="320" rx="24" fill="#0F0F0E"/>
+  <rect width="1200" height="320" rx="24" fill="url(#grid)"/>
+  <rect width="1200" height="320" rx="24" fill="url(#glow)"/>
+  <rect width="1200" height="320" rx="24" fill="url(#glow2)"/>
+  <rect x="0.5" y="0.5" width="1199" height="319" rx="23.5" fill="none" stroke="#FCC000" stroke-opacity="0.15"/>
+
+  <!-- marca -->
+  <g class="fade d1">
+    <rect x="64" y="64" width="56" height="56" rx="14" fill="#FCC000"/>
+    <path d="M100 79c-3-3-12-4-15 1-3 6 4 8 8 9 5 2 10 5 7 11-3 5-12 4-15 0" fill="none" stroke="#1D1D1B" stroke-width="5" stroke-linecap="round"/>
+    <path d="M92 72v40" stroke="#1D1D1B" stroke-width="4" stroke-linecap="round"/>
+    <text x="140" y="112" class="title">Saldim</text>
+  </g>
+  <text x="66" y="170" class="kicker fade d2">CONTROLE FINANCEIRO PESSOAL COM IA</text>
+  <text x="64" y="214" class="tag fade d3">Teu holerite e teu extrato, <tspan class="gold">lidos pela IA.</tspan></text>
+  <text x="64" y="252" class="tag fade d3" style="font-size:18px;fill:#A19C94">Separa os gastos, controla limites e projeta tua reserva mês a mês.</text>
+
+  <!-- gráfico: gastos por mês (barras) + projeção da reserva (linha) -->
+  <g transform="translate(760 60)">
+    <text x="0" y="0" class="label fade d2">PROJEÇÃO DA RESERVA</text>
+    <line x1="0" y1="200" x2="380" y2="200" stroke="#F5F3F1" stroke-opacity="0.12"/>
+    <rect class="bar" style="animation-delay:.4s" x="10" y="120" width="34" height="80" rx="6" fill="#FCC000"/>
+    <rect class="bar" style="animation-delay:.5s" x="62" y="140" width="34" height="60" rx="6" fill="#ED6C26"/>
+    <rect class="bar" style="animation-delay:.6s" x="114" y="100" width="34" height="100" rx="6" fill="#FCC000"/>
+    <rect class="bar" style="animation-delay:.7s" x="166" y="130" width="34" height="70" rx="6" fill="#C8D400"/>
+    <rect class="bar" style="animation-delay:.8s" x="218" y="150" width="34" height="50" rx="6" fill="#F5F3F1" fill-opacity="0.8"/>
+    <rect class="bar" style="animation-delay:.9s" x="270" y="160" width="34" height="40" rx="6" fill="#5E5A55"/>
+    <rect class="bar" style="animation-delay:1s" x="322" y="165" width="34" height="35" rx="6" fill="#E31621"/>
+    <path class="areaFill" d="M10 180 C70 170 110 150 170 120 S270 60 356 30 L356 200 L10 200Z" fill="url(#area)"/>
+    <path class="line" d="M10 180 C70 170 110 150 170 120 S270 60 356 30" fill="none" stroke="#3CC274" stroke-width="3.5" stroke-linecap="round"/>
+    <circle class="fade d4" cx="356" cy="30" r="6" fill="#3CC274"/>
+    <circle class="pulse" cx="356" cy="30" r="6" fill="#3CC274" fill-opacity="0.5"/>
+    <text x="214" y="14" class="money fade d4">+R$ 10 mil</text>
+  </g>
+</svg>

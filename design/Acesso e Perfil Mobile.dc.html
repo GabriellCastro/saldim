@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Saldim · Acesso (mobile)</title>
+<style>
+@font-face{font-family:'Exo 2';font-weight:200;src:url('fonts/Exo2-ExtraLight.ttf') format('truetype');font-display:swap}
+@font-face{font-family:'Exo 2';font-weight:300;src:url('fonts/Exo2-Light.ttf') format('truetype');font-display:swap}
+@font-face{font-family:'Exo 2';font-weight:400;src:url('fonts/Exo2-Regular.ttf') format('truetype');font-display:swap}
+@font-face{font-family:'Exo 2';font-weight:500;src:url('fonts/Exo2-Medium.ttf') format('truetype');font-display:swap}
+@font-face{font-family:'Exo 2';font-weight:600;src:url('fonts/Exo2-SemiBold.ttf') format('truetype');font-display:swap}
+@font-face{font-family:'Exo 2';font-weight:700;src:url('fonts/Exo2-Bold.ttf') format('truetype');font-display:swap}
+@font-face{font-family:'Exo 2';font-weight:800;src:url('fonts/Exo2-ExtraBold.ttf') format('truetype');font-display:swap}
+html,body{margin:0;background:#0F0F0E;color:#F5F3F1;font-family:'Exo 2',Tahoma,sans-serif;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+*{box-sizing:border-box}
+a{color:#FCC000}a:hover{color:#F7A600}
+button{font-family:inherit;cursor:pointer}
+input{font-family:inherit}
+input::placeholder{color:#6F6B65}
+</style>
+</helmet>
+<div style="--bg:#0F0F0E;--s1:#171716;--s2:#1F1F1D;--s3:#2A2A27;--ln:rgba(245,243,241,0.07);--ln2:rgba(245,243,241,0.16);--tx:#F5F3F1;--mu:#A19C94;--pos:#3CC274;--neg:#FF5A5F;--gold:#FCC000;--onGold:#1D1D1B;--glass:linear-gradient(180deg,rgba(32,32,30,0.72),rgba(18,18,17,0.62));--edge:rgba(252,192,0,0.13);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px 16px;background:#0A0A09;color:var(--tx)">
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="{{ true }}" hint-size="402px,874px">
+<div style="height:100%;display:flex;flex-direction:column;background:radial-gradient(420px 320px at 90% -4%,rgba(252,192,0,0.12),transparent 60%),radial-gradient(360px 300px at 0% 100%,rgba(237,108,38,0.06),transparent 60%),var(--bg);color:var(--tx)">
+<div style="flex:1;min-height:0;overflow-y:auto;scrollbar-width:none;color-scheme:dark;padding-top:54px">
+
+<sc-if value="{{ isAuth }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-direction:column;min-height:100%">
+
+  <sc-if value="{{ showBrand }}" hint-placeholder-val="{{ true }}">
+  <div data-screen-label="Marca" style="display:flex;align-items:center;gap:10px;padding:12px 20px 0;width:100%">
+    <div style="width:30px;height:30px;border-radius:8px;background:var(--gold);color:var(--onGold);box-shadow:0 0 0 1px rgba(252,192,0,0.5),0 0 22px rgba(252,192,0,0.45);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.5 3A4.5 4.5 0 0 0 12.5 12Z"/div>
+    <div style="font-weight:700;font-size:15px">Saldim</div>
+  </div>
+  </sc-if>
+
+  <main style="flex:1;min-width:0;display:flex;align-items:flex-start;justify-content:center;padding:24px 20px 32px">
+    <div style="width:100%;max-width:480px;display:flex;flex-direction:column;gap:28px">
+
+      <sc-if value="{{ isLogin }}" hint-placeholder-val="{{ true }}">
+        <section data-screen-label="Login" style="display:flex;flex-direction:column;gap:28px">
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="font-size:11px;color:var(--mu);font-weight:600;letter-spacing:0.22em;text-transform:uppercase">Entrar</div>
+            <h2 style="margin:0;font-size:28px;font-weight:300;letter-spacing:-0.01em">Bom te ver de novo</h2>
+          </div>
+          <button onClick="{{ goFaceLogin }}" style="display:flex;align-items:center;gap:16px;width:100%;text-align:left;padding:18px 20px;border-radius:16px;border:1px solid rgba(252,192,0,0.35);background:var(--glass);color:var(--tx);box-shadow:inset 0 1px 0 rgba(245,243,241,0.06),0 0 30px rgba(252,192,0,0.08)" style-hover="border-color:rgba(252,192,0,0.7)">
+            <span style="width:44px;height:44px;flex-shrink:0;border-radius:12px;border:1.5px solid var(--gold);display:grid;place-items:center;box-shadow:0 0 16px rgba(252,192,0,0.35)">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FCC000" stroke-width="1.6" stroke-linecap="round"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"></path><path d="M9 10v1M15 10v1M12 10v3h-1M9.5 16c1.5 1 3.5 1 5 0"></path></svg>
+            </span>
+            <span style="display:flex;flex-direction:column;gap:2px;flex:1;min-width:0">
+              <span style="font-size:15px;font-weight:600">Entrar com reconhecimento facial</span>
+              <span style="font-size:13px;color:var(--mu)">Lucas M. da Rocha · neste dispositivo</span>
+            </span>
+            <span style="color:var(--gold);font-size:18px">›</span>
+          </button>
+          <div style="display:flex;align-items:center;gap:12px;font-size:12px;color:var(--mu)"><span style="flex:1;height:1px;background:var(--ln2)"></span>ou com e-mail<span style="flex:1;height:1px;background:var(--ln2)"></span></div>
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <label style="display:flex;flex-direction:column;gap:8px">
+              <span style="font-size:12px;color:var(--mu);font-weight:600">E-mail</span>
+              <input type="email" value="{{ f.loginEmail }}" onChange="{{ on.loginEmail }}" placeholder="voce@email.com" style="height:50px;padding:0 16px;border-radius:12px;border:1px solid var(--ln2);background:rgba(18,18,17,0.8);color:var(--tx);font-size:15px;outline:none" style-focus="border-color:var(--gold);box-shadow:0 0 0 3px rgba(252,192,0,0.15)"></input>
+            </label>
+            <label style="display:flex;flex-direction:column;gap:8px">
+              <span style="display:flex;justify-content:space-between;font-size:12px;color:var(--mu);font-weight:600"><span>Senha</span><a href="#" style="font-weight:600">Esqueci a senha</a></span>
+              <span style="position:relative;display:flex">
+                <input type="{{ pwType }}" value="{{ f.loginPw }}" onChange="{{ on.loginPw }}" placeholder="••••••••" style="flex:1;min-width:0;height:50px;padding:0 64px 0 16px;border-radius:12px;border:1px solid var(--ln2);background:rgba(18,18,17,0.8);color:var(--tx);font-size:15px;outline:none" style-focus="border-color:var(--gold);box-shadow:0 0 0 3px rgba(252,192,0,0.15)"></input>
+                <button type="button" onClick="{{ togglePw }}" style="position:absolute;right:8px;top:8px;height:34px;padding:0 10px;border:0;border-radius:8px;background:transparent;color:var(--mu);font-size:12px;font-weight:600" style-hover="color:var(--tx)">{{ pwLabel }}</button>
+              </span>
+            </label>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <a href="Controle Financeiro Mobile v3.dc.html" style="display:flex;align-items:center;justify-content:center;height:52px;border-radius:999px;background:var(--gold);color:var(--onGold);font-size:15px;font-weight:700;text-decoration:none;box-shadow:0 0 0 1px rgba(252,192,0,0.45),0 0 26px rgba(252,192,0,0.32)" style-hover="background:#F7A600;color:var(--onGold)">Entrar</a>
+            <div style="text-align:center;font-size:14px;color:var(--mu)">Ainda não tem conta? <button onClick="{{ goReg }}" style="border:0;background:transparent;padding:0;color:var(--gold);font-size:14px;font-weight:700">Criar conta</button></div>
+          </div>
+        </section>
+      </sc-if>
+
+      <sc-if value="{{ isReg }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:20px">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+            <button onClick="{{ regBack }}" style="border:0;background:transparent;padding:0;color:var(--mu);font-size:13px;font-weight:600" style-hover="color:var(--tx)">‹ {{ backLabel }}</button>
+            <span style="font-size:12px;color:var(--mu)">Etapa {{ step }} de 4</span>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px">
+            <sc-for list="{{ steps }}" as="s" hint-placeholder-count="4">
+              <div style="display:flex;flex-direction:column;gap:8px;min-width:0">
+                <div style="height:3px;border-radius:2px;background:{{ s.bar }};box-shadow:{{ s.glow }}"></div>
+                <span style="font-size:11px;font-weight:600;color:{{ s.color }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ s.label }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isS1 }}" hint-placeholder-val="{{ false }}">
+        <section data-screen-label="Registro 1 · Conta" style="display:flex;flex-direction:column;gap:24px">
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <h2 style="margin:0;font-size:26px;font-weight:300;letter-spacing:-0.01em">Criar tua conta</h2>
+            <p style="margin:0;font-size:14px;color:var(--mu)">Leva uns 3 minutos com os documentos em mãos.</p>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;color:var(--mu);font-weight:600">Nome completo</span><input value="{{ f.name }}" onChange="{{ on.name }}" placeholder="Como está no documento" style="height:50px;padding:0 16px;border-radius:12px;border:1px solid var(--ln2);background:rgba(18,18,17,0.8);color:var(--tx);font-size:15px;outline:none" style-focus="border-color:var(--gold);box-shadow:0 0 0 3px rgba(252,192,0,0.15)"></input></label>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:16px">
+              <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;color:var(--mu);font-weight:600">CPF</span><input value="{{ f.cpf }}" onChange="{{ on.cpf }}" placeholder="000.000.000-00" inputMode="numeric" style="height:50px;padding:0 16px;border-radius:12px;border:1px solid var(--ln2);background:rgba(18,18,17,0.8);color:var(--tx);font-size:15px;outline:none" style-focus="border-color:var(--gold);box-shadow:0 0 0 3px rgba(252,192,0,0.15)"></input></label>
+              <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;color:var(--mu);font-weight:600">Celular</span><input value="{{ f.phone }}" onChange="{{ on.phone }}" placeholder="(00) 00000-0000" inputMode="tel" style="height:50px;padding:0 16px;border-radius:12px;border:1px solid var(--ln2);background:rgba(18,18,17,0.8);color:var(--tx);font-size:15px;outline:none" style-focus="border-color:var(--gold);box-shadow:0 0 0 3px rgba(252,192,0,0.15)"></input></label>
+            </div>
+            <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;color:var(--mu);font-weight:600">E-mail</span><input type="email" value="{{ f.email }}" onChange="{{ on.email }}" placeholder="voce@email.com" style="height:50px;padding:0 16px;border-radius:12px;border:1px solid var(--ln2);background:rgba(18,18,17,0.8);color:var(--tx);font-size:15px;outline:none" style-focus="border-color:var(--gold);box-shadow:0 0 0 3px rgba(252,192,0,0.15)"></input></label>
+            <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;color:var(--mu);font-weight:600">Senha</span><input type="{{ pwType }}" value="{{ f.pw }}" onChange="{{ on.pw }}" placeholder="Mínimo 8 caracteres" style="height:50px;padding:0 16px;border-radius:12px;border:1px solid var(--ln2);background:rgba(18,18,17,0.8);color:var(--tx);font-size:15px;outline:none" style-focus="border-color:var(--gold);box-shadow:0 0 0 3px rgba(252,192,0,0.15)"></input>
+              <span style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px"><sc-for list="{{ pwBars }}" as="b" hint-placeholder-count="4"><span style="height:3px;border-radius:2px;background:{{ b.bg }}"></span></sc-for></span>
+            </label>
+            <button onClick="{{ toggleTerms }}" style="display:flex;align-items:flex-start;gap:10px;border:0;background:transparent;padding:0;color:var(--mu);font-size:13px;line-height:1.5;text-align:left">
+              <span style="width:18px;height:18px;flex-shrink:0;margin-top:1px;border-radius:5px;border:1.5px solid {{ termsBd }};background:{{ termsBg }};color:var(--onGold);font-size:12px;font-weight:800;display:grid;place-items:center">{{ termsMark }}</span>
+              <span>Li e aceito os <a href="#">Termos de uso</a> e a <a href="#">Política de privacidade</a>.</span>
+            </button>
+          </div>
+          <button onClick="{{ next }}" style="height:52px;border:0;border-radius:999px;background:var(--gold);color:var(--onGold);font-size:15px;font-weight:700;box-shadow:0 0 0 1px rgba(252,192,0,0.45),0 0 26px rgba(252,192,0,0.32)" style-hover="background:#F7A600">Continuar</button>
+        </section>
+      </sc-if>
+
+      <sc-if value="{{ isS2 }}" hint-placeholder-val="{{ false }}">
+        <section data-screen-label="Registro 2 · Renda e gastos" style="display:flex;flex-direction:column;gap:24px">
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <h2 style="margin:0;font-size:26px;font-weight:300;letter-spacing:-0.01em">Como a IA vai ler teu dinheiro?</h2>
+            <p style="margin:0;font-size:14px;color:var(--mu);line-height:1.55">Ela precisa da tua renda e dos teus gastos. Dá para trocar depois no perfil.</p>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <sc-for list="{{ modes }}" as="m" hint-placeholder-count="2">
+              <button onClick="{{ m.pick }}" style="display:flex;gap:16px;align-items:flex-start;text-align:left;padding:20px;border-radius:16px;border:1px solid {{ m.bd }};background:var(--glass);color:var(--tx);box-shadow:{{ m.shadow }}">
+                <span style="width:20px;height:20px;flex-shrink:0;margin-top:2px;border-radius:999px;border:1.5px solid {{ m.ring }};display:grid;place-items:center"><span style="width:10px;height:10px;border-radius:999px;background:{{ m.dot }}"></span></span>
+                <span style="display:flex;flex-direction:column;gap:6px;flex:1;min-width:0">
+                  <span style="display:flex;flex-wrap:wrap;align-items:center;gap:8px"><span style="font-size:16px;font-weight:600">{{ m.title }}</span><span style="font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:{{ m.tagColor }}">{{ m.tag }}</span></span>
+                  <span style="font-size:13px;color:var(--mu);line-height:1.5">{{ m.desc }}</span>
+                </span>
+              </button>
+            </sc-for>
+          </div>
+          <button onClick="{{ next }}" style="height:52px;border:0;border-radius:999px;background:var(--gold);color:var(--onGold);font-size:15px;font-weight:700;box-shadow:0 0 0 1px rgba(252,192,0,0.45),0 0 26px rgba(252,192,0,0.32)" style-hover="background:#F7A600">Continuar</button>
+        </section>
+      </sc-if>
+
+      <sc-if value="{{ isS3Docs }}" hint-placeholder-val="{{ false }}">
+        <section data-screen-label="Registro 3 · Documentos" style="display:flex;flex-direction:column;gap:24px">
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <h2 style="margin:0;font-size:26px;font-weight:300;letter-spacing:-0.01em">Envia teus documentos</h2>
+            <p style="margin:0;font-size:14px;color:var(--mu);line-height:1.55">PDF, foto ou arquivo do banco. A IA lê e tu confere antes de salvar.</p>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <sc-for list="{{ docs }}" as="d" hint-placeholder-count="2">
+              <label onDragOver="{{ d.over }}" onDrop="{{ d.drop }}" style="display:flex;align-items:center;gap:16px;padding:20px;border-radius:16px;border:1.5px {{ d.bdStyle }} {{ d.bd }};background:var(--glass);cursor:pointer" style-hover="border-color:rgba(252,192,0,0.6)">
+                <input type="file" accept="{{ d.accept }}" onChange="{{ d.change }}" style="display:none"></input>
+                <span style="width:44px;height:44px;flex-shrink:0;border-radius:12px;background:{{ d.iconBg }};color:{{ d.iconColor }};display:grid;place-items:center;font-size:18px;font-weight:700">{{ d.icon }}</span>
+                <span style="display:flex;flex-direction:column;gap:3px;flex:1;min-width:0">
+                  <span style="font-size:15px;font-weight:600">{{ d.title }}</span>
+                  <span style="font-size:13px;color:{{ d.subColor }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ d.sub }}</span>
+                </span>
+                <span style="flex-shrink:0;font-size:12px;font-weight:700;color:var(--gold)">{{ d.action }}</span>
+              </label>
+            </sc-for>
+          </div>
+          <div style="font-size:12px;color:var(--mu);line-height:1.5">Extrato dos últimos 3 meses deixa a projeção mais precisa. Aceita PDF, OFX e CSV.</div>
+          <button onClick="{{ next }}" disabled="{{ docsBlocked }}" style="height:52px;border:0;border-radius:999px;background:var(--gold);color:var(--onGold);font-size:15px;font-weight:700;box-shadow:0 0 0 1px rgba(252,192,0,0.45),0 0 26px rgba(252,192,0,0.32);opacity:{{ docsOp }}" style-hover="background:#F7A600">Continuar</button>
+        </section>
+      </sc-if>
+
+      <sc-if value="{{ isS3Bank }}" hint-placeholder-val="{{ false }}">
+        <section data-screen-label="Registro 3 · Conectar conta" style="display:flex;flex-direction:column;gap:24px">
+          <sc-if value="{{ bankPick }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <h2 style="margin:0;font-size:26px;font-weight:300;letter-spacing:-0.01em">Qual é teu banco?</h2>
+              <p style="margin:0;font-size:14px;color:var(--mu);line-height:1.55">Conexão via Open Finance. Tu autoriza no app do banco, só leitura.</p>
+            </div>
+            <input value="{{ f.bankQ }}" onChange="{{ on.bankQ }}" placeholder="Buscar banco" style="height:50px;padding:0 16px;border-radius:12px;border:1px solid var(--ln2);background:rgba(18,18,17,0.8);color:var(--tx);font-size:15px;outline:none" style-focus="border-color:var(--gold);box-shadow:0 0 0 3px rgba(252,192,0,0.15)"></input>
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px">
+              <sc-for list="{{ banks }}" as="b" hint-placeholder-count="8">
+                <button onClick="{{ b.pick }}" style="display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:14px;border-radius:14px;border:1px solid var(--ln2);background:var(--glass);color:var(--tx);text-align:left" style-hover="border-color:rgba(252,192,0,0.6)">
+                  <span style="width:32px;height:32px;border-radius:9px;background:var(--s3);display:grid;place-items:center;font-size:12px;font-weight:700">{{ b.short }}</span>
+                  <span style="font-size:13px;font-weight:600">{{ b.name }}</span>
+                </button>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ bankConsent }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <h2 style="margin:0;font-size:26px;font-weight:300;letter-spacing:-0.01em">Autorizar {{ bankName }}</h2>
+              <p style="margin:0;font-size:14px;color:var(--mu);line-height:1.55">Tu vai para o app do {{ bankName }} confirmar. O acesso vale 12 meses e pode ser revogado a qualquer momento.</p>
+            </div>
+            <div style="display:flex;flex-direction:column;background:var(--glass);border:1px solid var(--edge);border-radius:16px;padding:6px 20px">
+              <sc-for list="{{ consent }}" as="c" hint-placeholder-count="4">
+                <div style="display:flex;gap:12px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--ln)">
+                  <span style="color:{{ c.color }};font-weight:700;font-size:14px;width:14px">{{ c.mark }}</span>
+                  <span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:14px;font-weight:600">{{ c.title }}</span><span style="font-size:12px;color:var(--mu)">{{ c.sub }}</span></span>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <button onClick="{{ connect }}" style="height:52px;border:0;border-radius:999px;background:var(--gold);color:var(--onGold);font-size:15px;font-weight:700;box-shadow:0 0 0 1px rgba(252,192,0,0.45),0 0 26px rgba(252,192,0,0.32)" style-hover="background:#F7A600">Ir para o {{ bankName }}</button>
+              <button onClick="{{ bankChange }}" style="height:44px;border:0;background:transparent;color:var(--mu);font-size:13px;font-weight:600" style-hover="color:var(--tx)">Escolher outro banco</button>
+            </div>
+          </sc-if>
+          <sc-if value="{{ bankBusy }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:20px;padding:32px 0;text-align:center">
+              <span style="width:64px;height:64px;border-radius:18px;background:{{ bankIconBg }};color:{{ bankIconColor }};display:grid;place-items:center;font-size:22px;font-weight:700;box-shadow:{{ bankIconGlow }}">{{ bankIcon }}</span>
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <h2 style="margin:0;font-size:26px;font-weight:300">{{ bankTitle }}</h2>
+                <p style="margin:0;font-size:14px;color:var(--mu)">{{ bankSub }}</p>
+              </div>
+              <div style="width:100%;max-width:320px;height:4px;border-radius:999px;background:var(--s3);overflow:hidden"><div style="height:100%;width:{{ bankProgW }};background:var(--gold);box-shadow:0 0 10px rgba(252,192,0,0.7);transition:width .2s linear"></div></div>
+            </div>
+            <button onClick="{{ next }}" disabled="{{ bankBlocked }}" style="height:52px;border:0;border-radius:999px;background:var(--gold);color:var(--onGold);font-size:15px;font-weight:700;box-shadow:0 0 0 1px rgba(252,192,0,0.45),0 0 26px rgba(252,192,0,0.32);opacity:{{ bankOp }}" style-hover="background:#F7A600">Continuar</button>
+          </sc-if>
+        </section>
+      </sc-if>
+
+      <sc-if value="{{ showFace }}" hint-placeholder-val="{{ false }}">
+        <section data-screen-label="Reconhecimento facial" style="display:flex;flex-direction:column;align-items:center;gap:24px;text-align:center">
+          <sc-if value="{{ isFaceLogin }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ goLogin }}" style="align-self:flex-start;border:0;background:transparent;padding:0;color:var(--mu);font-size:13px;font-weight:600" style-hover="color:var(--tx)">‹ Voltar</button>
+          </sc-if>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <h2 style="margin:0;font-size:26px;font-weight:300;letter-spacing:-0.01em">{{ faceTitle }}</h2>
+            <p style="margin:0;font-size:14px;color:var(--mu);line-height:1.55;max-width:360px">{{ faceSub }}</p>
+          </div>
+          <div style="position:relative;width:260px;height:260px">
+            <div style="position:absolute;inset:18px;border-radius:999px;overflow:hidden;background:radial-gradient(circle at 50% 40%,#2A2A27,#121211 70%)">
+              <video ref="{{ videoRef }}" autoPlay="{{ true }}" muted="{{ true }}" playsInline="{{ true }}" style="width:100%;height:100%;object-fit:cover;transform:scaleX(-1);opacity:{{ camOp }}"></video>
+              <svg viewBox="0 0 100 100" style="position:absolute;inset:0;width:100%;height:100%;opacity:{{ silOp }}"><ellipse cx="50" cy="42" rx="17" ry="21" fill="none" stroke="rgba(245,243,241,0.22)" stroke-width="1" stroke-dasharray="2 2"></ellipse><path d="M20 96c4-18 16-26 30-26s26 8 30 26" fill="none" stroke="rgba(245,243,241,0.22)" stroke-width="1" stroke-dasharray="2 2"></path></svg>
+              <div style="position:absolute;left:0;right:0;top:{{ scanTop }};height:2px;background:linear-gradient(90deg,transparent,#FCC000,transparent);box-shadow:0 0 12px #FCC000;opacity:{{ scanOp }}"></div>
+            </div>
+            <svg viewBox="0 0 260 260" style="position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)">
+              <circle cx="130" cy="130" r="122" fill="none" stroke="rgba(245,243,241,0.08)" stroke-width="4"></circle>
+              <circle cx="130" cy="130" r="122" fill="none" stroke="{{ ringColor }}" stroke-width="4" stroke-linecap="round" stroke-dasharray="766.5" stroke-dashoffset="{{ ringOff }}" style="filter:drop-shadow(0 0 6px rgba(252,192,0,0.6));transition:stroke-dashoffset .12s linear"></circle>
+            </svg>
+            <sc-if value="{{ faceOk }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute;inset:18px;border-radius:999px;background:rgba(15,15,14,0.72);display:grid;place-items:center">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#3CC274" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
+              </div>
+            </sc-if>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:8px 14px;border:1px solid var(--edge);border-radius:999px;background:rgba(18,18,17,0.7);font-size:12px;font-weight:600;color:{{ faceStatusColor }}"><span style="width:6px;height:6px;border-radius:999px;background:{{ faceStatusColor }}"></span>{{ faceStatus }}</div>
+          <div style="width:100%;display:flex;flex-direction:column;gap:10px">
+            <sc-if value="{{ faceIdle }}" hint-placeholder-val="{{ true }}">
+              <button onClick="{{ startScan }}" style="height:52px;border:0;border-radius:999px;background:var(--gold);color:var(--onGold);font-size:15px;font-weight:700;box-shadow:0 0 0 1px rgba(252,192,0,0.45),0 0 26px rgba(252,192,0,0.32)" style-hover="background:#F7A600">{{ faceCta }}</button>
+            </sc-if>
+            <sc-if value="{{ faceDoneLogin }}" hint-placeholder-val="{{ false }}">
+              <a href="Controle Financeiro Mobile v3.dc.html" style="display:flex;align-items:center;justify-content:center;height:52px;border-radius:999px;background:var(--gold);color:var(--onGold);font-size:15px;font-weight:700;text-decoration:none;box-shadow:0 0 0 1px rgba(252,192,0,0.45),0 0 26px rgba(252,192,0,0.32)" style-hover="background:#F7A600;color:var(--onGold)">Abrir meu painel</a>
+            </sc-if>
+            <sc-if value="{{ faceDoneReg }}" hint-placeholder-val="{{ false }}">
+              <button onClick="{{ finish }}" style="height:52px;border:0;border-radius:999px;background:var(--gold);color:var(--onGold);font-size:15px;font-weight:700;box-shadow:0 0 0 1px rgba(252,192,0,0.45),0 0 26px rgba(252,192,0,0.32)" style-hover="background:#F7A600">Concluir cadastro</button>
+            </sc-if>
+            <button onClick="{{ faceAlt }}" style="height:44px;border:0;background:transparent;color:var(--mu);font-size:13px;font-weight:600" style-hover="color:var(--tx)">{{ faceAltLabel }}</button>
+          </div>
+        </section>
+      </sc-if>
+
+      <sc-if value="{{ isDone }}" hint-placeholder-val="{{ false }}">
+        <section data-screen-label="Registro concluído" style="display:flex;flex-direction:column;gap:24px">
+          <div style="width:56px;height:56px;border-radius:16px;border:1.5px solid var(--pos);display:grid;place-items:center;box-shadow:0 0 22px rgba(60,194,116,0.3)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3CC274" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <h2 style="margin:0;font-size:26px;font-weight:300;letter-spacing:-0.01em">Tudo pronto, {{ firstName }}</h2>
+            <p style="margin:0;font-size:14px;color:var(--mu);line-height:1.55">A IA está montando teu primeiro plano. Leva menos de um minuto.</p>
+          </div>
+          <div style="display:flex;flex-direction:column;background:var(--glass);border:1px solid var(--edge);border-radius:16px;padding:6px 20px">
+            <sc-for list="{{ summary }}" as="r" hint-placeholder-count="3">
+              <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--ln)">
+                <span style="font-size:13px;color:var(--mu)">{{ r.k }}</span>
+                <span style="display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;text-align:right"><span style="width:6px;height:6px;border-radius:999px;background:{{ r.dot }}"></span>{{ r.v }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <a href="Controle Financeiro Mobile v3.dc.html" style="display:flex;align-items:center;justify-content:center;height:52px;border-radius:999px;background:var(--gold);color:var(--onGold);font-size:15px;font-weight:700;text-decoration:none;box-shadow:0 0 0 1px rgba(252,192,0,0.45),0 0 26px rgba(252,192,0,0.32)" style-hover="background:#F7A600;color:var(--onGold)">Abrir meu painel</a>
+            <button onClick="{{ goProfile }}" style="height:44px;border:0;background:transparent;color:var(--mu);font-size:13px;font-weight:600" style-hover="color:var(--tx)">Ver meu perfil</button>
+          </div>
+        </section>
+      </sc-if>
+
+    </div>
+  </main>
+</div>
+</sc-if>
+
+<sc-if value="{{ isProfile }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Perfil" style="max-width:1080px;margin:0 auto;padding:12px 16px 40px;display:flex;flex-direction:column;gap:16px">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap">
+    <div style="display:flex;align-items:center;gap:10px">
+      <div style="width:30px;height:30px;border-radius:8px;background:var(--gold);color:var(--onGold);box-shadow:0 0 0 1px rgba(252,192,0,0.5),0 0 22px rgba(252,192,0,0.45);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.5 3A4.5 4.5 0 0 0 12.5 12Z"/div>
+      <a href="Controle Financeiro Mobile v3.dc.html" style="color:var(--mu);font-size:13px;font-weight:600;text-decoration:none" style-hover="color:var(--tx)">‹ Voltar ao painel</a>
+    </div>
+    <button onClick="{{ goLogin }}" style="border:1px solid var(--ln2);background:transparent;color:var(--tx);border-radius:999px;padding:9px 16px;font-size:13px;font-weight:600" style-hover="border-color:var(--neg);color:var(--neg)">Sair</button>
+  </div>
+
+  <header style="display:flex;flex-wrap:wrap;align-items:center;gap:16px;padding:20px;background:var(--glass);border:1px solid var(--edge);border-radius:16px;box-shadow:inset 0 1px 0 rgba(245,243,241,0.06),0 24px 48px -28px rgba(0,0,0,0.9);backdrop-filter:blur(14px)">
+    <div style="position:relative;width:76px;height:76px;flex-shrink:0;border-radius:999px;background:radial-gradient(circle at 30% 25%,#3A3A36,#1F1F1D);border:1.5px solid rgba(252,192,0,0.5);box-shadow:0 0 24px rgba(252,192,0,0.2);display:grid;place-items:center;font-size:26px;font-weight:300">GS</div>
+    <div style="display:flex;flex-direction:column;gap:4px;flex:1;min-width:180px">
+      <div style="font-size:11px;color:var(--mu);font-weight:600;letter-spacing:0.22em;text-transform:uppercase">Perfil</div>
+      <h1 style="margin:0;font-size:26px;font-weight:300;letter-spacing:-0.01em">{{ profName }}</h1>
+      <span style="font-size:13px;color:var(--mu)">Cliente desde ago/2026</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid var(--edge);border-radius:999px;background:rgba(18,18,17,0.7);font-size:10px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--mu)"><span style="width:6px;height:6px;border-radius:999px;background:var(--pos);box-shadow:0 0 8px #3CC274"></span>Itaú sincronizado · 14:30</div>
+  </header>
+
+  <sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;align-items:center;gap:10px;padding:14px 18px;border-radius:12px;border:1px solid rgba(60,194,116,0.45);background:rgba(60,194,116,0.1);font-size:14px;font-weight:600"><span style="color:var(--pos);font-weight:800">✓</span>{{ toast }}</div>
+  </sc-if>
+
+  <sc-if value="{{ pvEdit }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Perfil · Configurar conta" style="display:flex;flex-wrap:wrap;gap:20px;align-items:flex-start">
+    <nav style="flex:1 1 100%;min-width:0;display:flex;flex-wrap:wrap;gap:4px">
+      <button onClick="{{ goMain }}" style="border:0;background:transparent;flex-basis:100%;padding:0 0 8px;color:var(--mu);font-size:13px;font-weight:600;text-align:left" style-hover="color:var(--tx)">‹ Voltar ao perfil</button>
+      <sc-for list="{{ pvTabs }}" as="t" hint-placeholder-count="3">
+        <button onClick="{{ t.go }}" style="display:flex;align-items:center;gap:10px;text-align:left;border:0;border-radius:10px;padding:10px 12px;font-size:14px;font-weight:{{ t.weight }};background:{{ t.bg }};color:{{ t.color }}" style-hover="background:var(--s2)">
+          <span style="width:3px;height:16px;border-radius:2px;background:{{ t.dot }};box-shadow:{{ t.glow }};flex-shrink:0"></span>{{ t.label }}
+        </button>
+      </sc-for>
+    </nav>
+
+    <section style="flex:1 1 100%;min-width:0;background:var(--glass);border:1px solid var(--edge);border-radius:16px;box-shadow:inset 0 1px 0 rgba(245,243,241,0.06),0 24px 48px -28px rgba(0,0,0,0.9);backdrop-filter:blur(14px);padding:20px;display:flex;flex-direction:column;gap:20px">
+
+      <sc-if value="{{ pvDados }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:6px"><h2 style="margin:0;font-size:26px;font-weight:300">Dados pessoais</h2><p style="margin:0;font-size:14px;color:var(--mu)">CPF não pode ser alterado. Fala com o suporte se estiver errado.</p></div>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;color:var(--mu);font-weight:600">Nome completo</span><input value="{{ pf.name }}" onChange="{{ pon.name }}" style="height:50px;padding:0 16px;border-radius:12px;border:1px solid var(--ln2);background:rgba(18,18,17,0.8);color:var(--tx);font-size:15px;outline:none" style-focus="border-color:var(--gold);box-shadow:0 0 0 3px rgba(252,192,0,0.15)"></input></label>
+          <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;color:var(--mu);font-weight:600">Celular</span><input value="{{ pf.phone }}" onChange="{{ pon.phone }}" inputMode="tel" style="height:50px;padding:0 16px;border-radius:12px;border:1px solid var(--ln2);background:rgba(18,18,17,0.8);color:var(--tx);font-size:15px;outline:none" style-focus="border-color:var(--gold);box-shadow:0 0 0 3px rgba(252,192,0,0.15)"></input></label>
+          <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;color:var(--mu);font-weight:600">CPF</span><input value="•••.482.310-••" disabled="{{ true }}" style="height:50px;padding:0 16px;border-radius:12px;border:1px solid var(--ln);background:transparent;color:var(--mu);font-size:15px;outline:none"></input></label>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px">
+          <button onClick="{{ saveDados }}" style="height:48px;padding:0 24px;border:0;border-radius:999px;background:var(--gold);color:var(--onGold);font-size:14px;font-weight:700;box-shadow:0 0 0 1px rgba(252,192,0,0.45),0 0 26px rgba(252,192,0,0.32)" style-hover="background:#F7A600">Salvar alterações</button>
+          <button onClick="{{ goMain }}" style="height:48px;padding:0 20px;border:1px solid var(--ln2);border-radius:999px;background:transparent;color:var(--tx);font-size:14px;font-weight:600" style-hover="background:var(--s2)">Cancelar</button>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ pvEmail }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:6px"><h2 style="margin:0;font-size:26px;font-weight:300">Alterar e-mail</h2><p style="margin:0;font-size:14px;color:var(--mu);line-height:1.55">Atual: <b style="color:var(--tx);font-weight:600">{{ email }}</b>. Vamos mandar um código para o novo endereço.</p></div>
+        <sc-if value="{{ emailAsk }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;color:var(--mu);font-weight:600">Novo e-mail</span><input type="email" value="{{ pf.newEmail }}" onChange="{{ pon.newEmail }}" placeholder="novo@email.com" style="height:50px;padding:0 16px;border-radius:12px;border:1px solid var(--ln2);background:rgba(18,18,17,0.8);color:var(--tx);font-size:15px;outline:none" style-focus="border-color:var(--gold);box-shadow:0 0 0 3px rgba(252,192,0,0.15)"></input></label>
+            <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;color:var(--mu);font-weight:600">Senha atual</span><input type="password" value="{{ pf.emailPw }}" onChange="{{ pon.emailPw }}" placeholder="Para confirmar que é tu" style="height:50px;padding:0 16px;border-radius:12px;border:1px solid var(--ln2);background:rgba(18,18,17,0.8);color:var(--tx);font-size:15px;outline:none" style-focus="border-color:var(--gold);box-shadow:0 0 0 3px rgba(252,192,0,0.15)"></input></label>
+          </div>
+          <button onClick="{{ sendCode }}" disabled="{{ emailBlocked }}" style="align-self:flex-start;height:48px;padding:0 24px;border:0;border-radius:999px;background:var(--gold);color:var(--onGold);font-size:14px;font-weight:700;box-shadow:0 0 0 1px rgba(252,192,0,0.45),0 0 26px rgba(252,192,0,0.32);opacity:{{ emailOp }}" style-hover="background:#F7A600">Enviar código</button>
+        </sc-if>
+        <sc-if value="{{ emailCode }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <span style="font-size:14px;line-height:1.55">Digita o código de 6 dígitos enviado para <b style="font-weight:600">{{ pf.newEmail }}</b>.</span>
+            <input value="{{ pf.code }}" onChange="{{ pon.code }}" maxLength="6" inputMode="numeric" placeholder="000000" style="width:220px;max-width:100%;height:56px;padding:0 16px;border-radius:12px;border:1px solid var(--ln2);background:rgba(18,18,17,0.8);color:var(--tx);font-size:24px;letter-spacing:0.4em;outline:none" style-focus="border-color:var(--gold);box-shadow:0 0 0 3px rgba(252,192,0,0.15)"></input>
+            <div style="display:flex;gap:16px;font-size:13px"><button onClick="{{ resend }}" style="border:0;background:transparent;padding:0;color:var(--gold);font-weight:700">Reenviar código</button><button onClick="{{ editEmail }}" style="border:0;background:transparent;padding:0;color:var(--mu);font-weight:600">Trocar endereço</button></div>
+          </div>
+          <button onClick="{{ confirmEmail }}" disabled="{{ codeBlocked }}" style="align-self:flex-start;height:48px;padding:0 24px;border:0;border-radius:999px;background:var(--gold);color:var(--onGold);font-size:14px;font-weight:700;box-shadow:0 0 0 1px rgba(252,192,0,0.45),0 0 26px rgba(252,192,0,0.32);opacity:{{ codeOp }}" style-hover="background:#F7A600">Confirmar novo e-mail</button>
+        </sc-if>
+      </sc-if>
+
+      <sc-if value="{{ pvSenha }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:6px"><h2 style="margin:0;font-size:26px;font-weight:300">Alterar senha</h2><p style="margin:0;font-size:14px;color:var(--mu)">Os outros dispositivos vão precisar entrar de novo.</p></div>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;color:var(--mu);font-weight:600">Senha atual</span><input type="{{ npwType }}" value="{{ pf.curPw }}" onChange="{{ pon.curPw }}" style="height:50px;padding:0 16px;border-radius:12px;border:1px solid var(--ln2);background:rgba(18,18,17,0.8);color:var(--tx);font-size:15px;outline:none" style-focus="border-color:var(--gold);box-shadow:0 0 0 3px rgba(252,192,0,0.15)"></input></label>
+          <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;color:var(--mu);font-weight:600">Nova senha</span><input type="{{ npwType }}" value="{{ pf.newPw }}" onChange="{{ pon.newPw }}" style="height:50px;padding:0 16px;border-radius:12px;border:1px solid var(--ln2);background:rgba(18,18,17,0.8);color:var(--tx);font-size:15px;outline:none" style-focus="border-color:var(--gold);box-shadow:0 0 0 3px rgba(252,192,0,0.15)"></input>
+            <span style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px"><sc-for list="{{ npwBars }}" as="b" hint-placeholder-count="4"><span style="height:3px;border-radius:2px;background:{{ b.bg }}"></span></sc-for></span>
+          </label>
+          <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;color:var(--mu);font-weight:600">Confirmar nova senha</span><input type="{{ npwType }}" value="{{ pf.newPw2 }}" onChange="{{ pon.newPw2 }}" style="height:50px;padding:0 16px;border-radius:12px;border:1px solid var(--ln2);background:rgba(18,18,17,0.8);color:var(--tx);font-size:15px;outline:none" style-focus="border-color:var(--gold);box-shadow:0 0 0 3px rgba(252,192,0,0.15)"></input></label>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:8px">
+            <sc-for list="{{ rules }}" as="r" hint-placeholder-count="4">
+              <span style="display:flex;align-items:center;gap:8px;font-size:13px;color:{{ r.color }}"><span style="width:16px;font-weight:800">{{ r.mark }}</span>{{ r.label }}</span>
+            </sc-for>
+          </div>
+          <button onClick="{{ toggleNpw }}" style="align-self:flex-start;border:0;background:transparent;padding:0;color:var(--mu);font-size:13px;font-weight:600" style-hover="color:var(--tx)">{{ npwLabel }}</button>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px">
+          <button onClick="{{ savePw }}" disabled="{{ pwBlocked }}" style="height:48px;padding:0 24px;border:0;border-radius:999px;background:var(--gold);color:var(--onGold);font-size:14px;font-weight:700;box-shadow:0 0 0 1px rgba(252,192,0,0.45),0 0 26px rgba(252,192,0,0.32);opacity:{{ pwOp }}" style-hover="background:#F7A600">Salvar nova senha</button>
+          <button onClick="{{ goMain }}" style="height:48px;padding:0 20px;border:1px solid var(--ln2);border-radius:999px;background:transparent;color:var(--tx);font-size:14px;font-weight:600" style-hover="background:var(--s2)">Cancelar</button>
+        </div>
+      </sc-if>
+
+    </section>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ pvMain }}" hint-placeholder-val="{{ true }}">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px;align-items:start">
+
+    <section style="background:var(--glass);border:1px solid var(--edge);border-radius:16px;box-shadow:inset 0 1px 0 rgba(245,243,241,0.06),0 24px 48px -28px rgba(0,0,0,0.9);backdrop-filter:blur(14px);padding:20px;display:flex;flex-direction:column;gap:8px;min-width:0">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px"><span style="font-size:11px;color:var(--mu);font-weight:600;letter-spacing:0.22em;text-transform:uppercase">Conta e dados pessoais</span><button onClick="{{ goDados }}" style="border:0;background:transparent;padding:0;color:var(--gold);font-size:12px;font-weight:700">Editar</button></div>
+      <sc-for list="{{ personal }}" as="p" hint-placeholder-count="5">
+        <div style="display:flex;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid var(--ln);font-size:14px">
+          <span style="color:var(--mu);flex-shrink:0">{{ p.k }}</span>
+          <span style="flex:1;font-weight:600;text-align:right;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ p.v }}</span>
+          <button onClick="{{ p.go }}" style="flex-shrink:0;width:56px;border:0;background:transparent;padding:0;color:var(--gold);font-size:12px;font-weight:700;text-align:right;visibility:{{ p.vis }}">Alterar</button>
+        </div>
+      </sc-for>
+    </section>
+
+    <section style="background:var(--glass);border:1px solid var(--edge);border-radius:16px;box-shadow:inset 0 1px 0 rgba(245,243,241,0.06),0 24px 48px -28px rgba(0,0,0,0.9);backdrop-filter:blur(14px);padding:20px;display:flex;flex-direction:column;gap:8px;min-width:0">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px"><span style="font-size:11px;color:var(--mu);font-weight:600;letter-spacing:0.22em;text-transform:uppercase">Fontes de dados</span><button onClick="{{ goRegSources }}" style="border:0;background:transparent;padding:0;color:var(--gold);font-size:12px;font-weight:700">+ Adicionar</button></div>
+      <sc-for list="{{ sources }}" as="s" hint-placeholder-count="3">
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--ln)">
+          <span style="width:38px;height:38px;flex-shrink:0;border-radius:10px;background:var(--s3);display:grid;place-items:center;font-size:12px;font-weight:700">{{ s.icon }}</span>
+          <span style="display:flex;flex-direction:column;gap:2px;flex:1;min-width:0">
+            <span style="font-size:14px;font-weight:600">{{ s.title }}</span>
+            <span style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--mu)"><span style="width:6px;height:6px;border-radius:999px;background:var(--pos)"></span>{{ s.sub }}</span>
+          </span>
+          <button style="flex-shrink:0;border:1px solid var(--ln2);background:transparent;color:var(--tx);border-radius:999px;padding:7px 12px;font-size:12px;font-weight:600" style-hover="background:var(--s2)">{{ s.action }}</button>
+        </div>
+      </sc-for>
+    </section>
+
+    <section style="background:var(--glass);border:1px solid var(--edge);border-radius:16px;box-shadow:inset 0 1px 0 rgba(245,243,241,0.06),0 24px 48px -28px rgba(0,0,0,0.9);backdrop-filter:blur(14px);padding:20px;display:flex;flex-direction:column;gap:8px;min-width:0">
+      <div style="margin-bottom:8px;font-size:11px;color:var(--mu);font-weight:600;letter-spacing:0.22em;text-transform:uppercase">Segurança e privacidade</div>
+      <sc-for list="{{ toggles }}" as="t" hint-placeholder-count="3">
+        <button onClick="{{ t.flip }}" style="display:flex;align-items:center;gap:16px;width:100%;padding:12px 0;border:0;border-bottom:1px solid var(--ln);background:transparent;color:var(--tx);text-align:left">
+          <span style="display:flex;flex-direction:column;gap:2px;flex:1;min-width:0"><span style="font-size:14px;font-weight:600">{{ t.title }}</span><span style="font-size:12px;color:var(--mu)">{{ t.sub }}</span></span>
+          <span style="position:relative;width:44px;height:26px;flex-shrink:0;border-radius:999px;background:{{ t.track }};box-shadow:{{ t.glow }};transition:background .15s"><span style="position:absolute;top:3px;left:{{ t.knob }};width:20px;height:20px;border-radius:999px;background:{{ t.knobBg }};transition:left .15s"></span></span>
+        </button>
+      </sc-for>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;padding-top:8px">
+        <button onClick="{{ goFaceReset }}" style="border:1px solid var(--ln2);background:transparent;color:var(--tx);border-radius:999px;padding:9px 14px;font-size:12px;font-weight:600" style-hover="background:var(--s2)">Recadastrar rosto</button>
+        <button onClick="{{ goSenha }}" style="border:1px solid var(--ln2);background:transparent;color:var(--tx);border-radius:999px;padding:9px 14px;font-size:12px;font-weight:600" style-hover="background:var(--s2)">Alterar senha</button>
+      </div>
+    </section>
+
+    <section style="background:var(--glass);border:1px solid var(--edge);border-radius:16px;box-shadow:inset 0 1px 0 rgba(245,243,241,0.06),0 24px 48px -28px rgba(0,0,0,0.9);backdrop-filter:blur(14px);padding:20px;display:flex;flex-direction:column;gap:8px;min-width:0">
+      <div style="margin-bottom:8px;font-size:11px;color:var(--mu);font-weight:600;letter-spacing:0.22em;text-transform:uppercase">Dispositivos com acesso</div>
+      <sc-for list="{{ devices }}" as="d" hint-placeholder-count="2">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--ln)">
+          <span style="display:flex;flex-direction:column;gap:2px;min-width:0"><span style="font-size:14px;font-weight:600">{{ d.name }}</span><span style="font-size:12px;color:var(--mu)">{{ d.sub }}</span></span>
+          <span style="flex-shrink:0;font-size:12px;font-weight:600;color:{{ d.color }}">{{ d.tag }}</span>
+        </div>
+      </sc-for>
+      <button style="align-self:flex-start;margin-top:8px;border:0;background:transparent;padding:0;color:var(--neg);font-size:12px;font-weight:700">Excluir minha conta</button>
+    </section>
+
+  </div>
+  </sc-if>
+</div>
+</sc-if>
+
+</div></div></x-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;login&quot;,&quot;registro&quot;,&quot;facial&quot;,&quot;perfil&quot;],&quot;default&quot;:&quot;login&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;showBrandPanel&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = {
+    screen: null, step: 1, mode: 'docs', terms: false, showPw: false,
+    f: { loginEmail: 'demo@saldim.dev', loginPw: '', name: '', cpf: '', phone: '', email: '', pw: '', bankQ: '' },
+    files: { holerite: null, extrato: null },
+    bank: null, bankPhase: 'pick', bankProg: 0,
+    faceFor: 'login', facePhase: 'idle', faceProg: 0, camOn: false,
+    tg: { face: true, priv: false, notif: true },
+    pv: 'main', emailStep: 'ask', npwShow: false, toast: '',
+    prof: { name: 'Lucas M. da Rocha', phone: '(11) 91234-5678', email: 'demo@saldim.dev' },
+    pf: { name: 'Lucas M. da Rocha', phone: '(11) 91234-5678', newEmail: '', emailPw: '', code: '', curPw: '', newPw: '', newPw2: '' }
+  };
+  setPv(pv) { this.setState(s => ({ pv, emailStep: 'ask', toast: '', pf: { ...s.pf, name: s.prof.name, phone: s.prof.phone, newEmail: '', emailPw: '', code: '', curPw: '', newPw: '', newPw2: '' } })); }
+  flash(toast, extra) {
+    clearTimeout(this.tt);
+    this.setState({ pv: 'main', toast, ...extra });
+    this.tt = setTimeout(() => this.setState({ toast: '' }), 3500);
+  }
+  videoRef = React.createRef();
+
+  componentWillUnmount() { this.stopCam(); clearInterval(this.fi); clearInterval(this.bi); }
+
+  screen() { return this.state.screen || ({ registro: 'reg', facial: 'face', perfil: 'profile' }[this.props.startScreen] || 'login'); }
+
+  go(screen, extra = {}) {
+    clearInterval(this.fi); this.stopCam();
+    this.setState({ screen, facePhase: 'idle', faceProg: 0, ...extra });
+    if (screen === 'face' || extra.step === 4) setTimeout(() => this.startCam(), 50);
+  }
+
+  startCam() {
+    if (this.stream || !navigator.mediaDevices?.getUserMedia) return;
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } }).then(s => {
+      this.stream = s;
+      if (this.videoRef.current) this.videoRef.current.srcObject = s;
+      this.setState({ camOn: true });
+    }).catch(() => {});
+  }
+  stopCam() { if (this.stream) { this.stream.getTracks().forEach(t => t.stop()); this.stream = null; this.setState({ camOn: false }); } }
+
+  scan() {
+    if (this.stream && this.videoRef.current && !this.videoRef.current.srcObject) this.videoRef.current.srcObject = this.stream;
+    this.setState({ facePhase: 'scan', faceProg: 0 });
+    clearInterval(this.fi);
+    this.fi = setInterval(() => this.setState(s => {
+      const p = Math.min(100, s.faceProg + 3);
+      if (p >= 100) { clearInterval(this.fi); return { faceProg: 100, facePhase: 'ok' }; }
+      return { faceProg: p };
+    }), 60);
+  }
+
+  pickFile(key, file) {
+    if (!file) return;
+    this.setState(s => ({ files: { ...s.files, [key]: { name: file.name, st: 'reading' } } }));
+    setTimeout(() => this.setState(s => ({ files: { ...s.files, [key]: { name: file.name, st: 'ok' } } })), 1400);
+  }
+
+  connect() {
+    this.setState({ bankPhase: 'busy', bankProg: 0 });
+    clearInterval(this.bi);
+    this.bi = setInterval(() => this.setState(s => {
+      const p = Math.min(100, s.bankProg + 4);
+      if (p >= 100) clearInterval(this.bi);
+      return { bankProg: p };
+    }), 80);
+  }
+
+  profileVals(gold, mu, pos) {
+    const s = this.state, pf = s.pf, pv = s.pv;
+    const pon = {}; Object.keys(pf).forEach(k => pon[k] = e => { const v = e.target.value; this.setState(st => ({ pf: { ...st.pf, [k]: v } })); });
+    const row = (k, v, go) => ({ k, v, go: go || (() => {}), vis: go ? 'visible' : 'hidden' });
+    const np = pf.newPw;
+    const rules = [
+      { ok: np.length >= 8, label: 'Mínimo 8 caracteres' },
+      { ok: /\d/.test(np), label: 'Um número' },
+      { ok: /[A-Za-z]/.test(np) && /[^A-Za-z0-9]/.test(np), label: 'Letra e símbolo' },
+      { ok: np.length > 0 && np === pf.newPw2, label: 'As duas senhas iguais' }
+    ];
+    const score = rules.slice(0, 3).filter(r => r.ok).length + (np.length >= 12 ? 1 : 0);
+    const col = ['', '#FF5A5F', '#F5A05E', gold, pos][score];
+    const pwOk = pf.curPw.length > 0 && rules.every(r => r.ok);
+    const emailOk = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(pf.newEmail) && pf.emailPw.length > 0;
+    const codeOk = /^\d{6}$/.test(pf.code);
+    const maskPhone = p => p.replace(/(\d{2})\)\s?(\d)\d{4}/, '$1) $2••••');
+    return {
+      profName: s.prof.name, email: s.prof.email,
+      pvMain: pv === 'main', pvEdit: pv !== 'main', pvDados: pv === 'dados', pvEmail: pv === 'email', pvSenha: pv === 'senha',
+      hasToast: !!s.toast, toast: s.toast,
+      goMain: () => this.setPv('main'), goDados: () => this.setPv('dados'), goEmail: () => this.setPv('email'), goSenha: () => this.setPv('senha'),
+      pvTabs: [['dados', 'Dados pessoais'], ['email', 'E-mail'], ['senha', 'Senha']].map(([id, label]) => {
+        const a = pv === id;
+        return { label, go: () => this.setPv(id), weight: a ? 600 : 500, bg: a ? 'var(--s2)' : 'transparent', color: a ? '#F5F3F1' : mu, dot: a ? gold : 'transparent', glow: a ? '0 0 8px rgba(252,192,0,0.8)' : 'none' };
+      }),
+      personal: [
+        row('E-mail', s.prof.email, () => this.setPv('email')),
+        row('Senha', '••••••••', () => this.setPv('senha')),
+        row('Celular', maskPhone(s.prof.phone), () => this.setPv('dados')),
+        row('CPF', '•••.482.310-••'),
+        row('Renda líquida', 'Lida do holerite set/26')
+      ],
+      pf, pon,
+      saveDados: () => this.flash('Dados atualizados', { prof: { ...s.prof, name: pf.name.trim() || s.prof.name, phone: pf.phone } }),
+      emailAsk: s.emailStep === 'ask', emailCode: s.emailStep === 'code',
+      emailBlocked: !emailOk, emailOp: emailOk ? 1 : 0.4,
+      sendCode: () => this.setState({ emailStep: 'code' }),
+      resend: () => this.setState(st => ({ pf: { ...st.pf, code: '' } })),
+      editEmail: () => this.setState({ emailStep: 'ask' }),
+      codeBlocked: !codeOk, codeOp: codeOk ? 1 : 0.4,
+      confirmEmail: () => this.flash('E-mail alterado para ' + pf.newEmail, { prof: { ...s.prof, email: pf.newEmail } }),
+      npwType: s.npwShow ? 'text' : 'password', npwLabel: s.npwShow ? 'Ocultar senhas' : 'Mostrar senhas',
+      toggleNpw: () => this.setState({ npwShow: !s.npwShow }),
+      npwBars: [1, 2, 3, 4].map(i => ({ bg: i <= score ? col : 'rgba(245,243,241,0.1)' })),
+      rules: rules.map(r => ({ label: r.label, mark: r.ok ? '✓' : '·', color: r.ok ? pos : mu })),
+      pwBlocked: !pwOk, pwOp: pwOk ? 1 : 0.4,
+      savePw: () => this.flash('Senha alterada. Os outros dispositivos foram desconectados.')
+    };
+  }
+
+  renderVals() {
+    const s = this.state, sc = this.screen(), step = s.step;
+    const gold = '#FCC000', mu = '#A19C94', pos = '#3CC274';
+    const isReg = sc === 'reg' && step <= 4;
+    const set = k => e => { const v = e.target.value; this.setState(st => ({ f: { ...st.f, [k]: v } })); };
+    const on = {}; Object.keys(s.f).forEach(k => on[k] = set(k));
+
+    const labels = ['Conta', 'Renda e gastos', s.mode === 'docs' ? 'Documentos' : 'Conectar', 'Rosto'];
+    const steps = labels.map((label, i) => {
+      const n = i + 1, done = n < step, cur = n === step;
+      return { label, bar: done || cur ? gold : 'rgba(245,243,241,0.12)', glow: cur ? '0 0 10px rgba(252,192,0,0.7)' : 'none', color: cur ? '#F5F3F1' : done ? mu : '#6F6B65' };
+    });
+
+    const pwLen = s.f.pw.length, pwScore = pwLen === 0 ? 0 : pwLen < 6 ? 1 : pwLen < 8 ? 2 : /\d/.test(s.f.pw) && /[A-Za-z]/.test(s.f.pw) ? 4 : 3;
+    const pwCol = ['', '#FF5A5F', '#F5A05E', gold, pos][pwScore];
+
+    const modeDefs = [
+      { id: 'docs', title: 'Enviar holerite e extrato', tag: 'Mais rápido', desc: 'Sobe o PDF do holerite e o extrato do banco. A IA lê descontos, empréstimos e cada gasto.' },
+      { id: 'bank', title: 'Conectar minha conta', tag: 'Atualiza sozinho', desc: 'Autoriza pelo Open Finance. Saldo e lançamentos entram todo dia, sem precisar enviar nada.' }
+    ];
+    const modes = modeDefs.map(m => {
+      const a = s.mode === m.id;
+      return { ...m, pick: () => this.setState({ mode: m.id }), bd: a ? 'rgba(252,192,0,0.6)' : 'var(--ln2)', shadow: a ? '0 0 28px rgba(252,192,0,0.12)' : 'none', ring: a ? gold : mu, dot: a ? gold : 'transparent', tagColor: a ? gold : mu };
+    });
+
+    const docDefs = [
+      { k: 'holerite', title: 'Holerite', hint: 'Último mês · PDF ou foto', accept: '.pdf,image/*', icon: 'H' },
+      { k: 'extrato', title: 'Extrato bancário', hint: 'Últimos 3 meses · PDF, OFX ou CSV', accept: '.pdf,.ofx,.csv', icon: 'E' }
+    ];
+    const docs = docDefs.map(d => {
+      const f = s.files[d.k], ok = f && f.st === 'ok', rd = f && f.st === 'reading';
+      return {
+        title: d.title, accept: d.accept,
+        icon: ok ? '✓' : d.icon,
+        iconBg: ok ? 'rgba(60,194,116,0.14)' : 'var(--s3)', iconColor: ok ? pos : '#F5F3F1',
+        sub: ok ? f.name + ' · lido pela IA' : rd ? 'Lendo ' + f.name + '…' : d.hint,
+        subColor: ok ? pos : rd ? gold : mu,
+        action: f ? 'Trocar' : 'Escolher',
+        bd: ok ? 'rgba(60,194,116,0.5)' : 'var(--ln2)', bdStyle: f ? 'solid' : 'dashed',
+        change: e => this.pickFile(d.k, e.target.files[0]),
+        over: e => e.preventDefault(),
+        drop: e => { e.preventDefault(); this.pickFile(d.k, e.dataTransfer.files[0]); }
+      };
+    });
+    const docsReady = docs.length && s.files.holerite?.st === 'ok' && s.files.extrato?.st === 'ok';
+
+    const bankList = [['Itaú', 'IT'], ['Nubank', 'NU'], ['Bradesco', 'BR'], ['Banco do Brasil', 'BB'], ['Santander', 'SA'], ['Caixa', 'CX'], ['Inter', 'IN'], ['C6 Bank', 'C6']];
+    const q = s.f.bankQ.trim().toLowerCase();
+    const banks = bankList.filter(b => !q || b[0].toLowerCase().includes(q)).map(([name, short]) => ({ name, short, pick: () => this.setState({ bank: name, bankPhase: 'consent' }) }));
+    const bankDone = s.bankProg >= 100;
+
+    const fp = s.faceProg, fOk = s.facePhase === 'ok', fScan = s.facePhase === 'scan', fLogin = s.faceFor === 'login';
+    const showFace = sc === 'face' || (sc === 'reg' && step === 4);
+    const firstName = (s.f.name.trim().split(' ')[0]) || 'Lucas';
+
+    const tgDefs = [
+      { k: 'face', title: 'Entrar com reconhecimento facial', sub: 'Substitui a senha neste dispositivo' },
+      { k: 'priv', title: 'Ocultar valores ao abrir', sub: 'Mostra R$ ••• até tu tocar' },
+      { k: 'notif', title: 'Avisos da IA', sub: 'Quando uma categoria passar do limite' }
+    ];
+
+    return {
+      isAuth: sc !== 'profile', isProfile: sc === 'profile', showBrand: this.props.showBrandPanel ?? true,
+      isLogin: sc === 'login', isReg, step: Math.min(step, 4), steps,
+      isS1: isReg && step === 1, isS2: isReg && step === 2,
+      isS3Docs: isReg && step === 3 && s.mode === 'docs', isS3Bank: isReg && step === 3 && s.mode === 'bank',
+      isDone: sc === 'reg' && step === 5,
+      backLabel: step === 1 ? 'Já tenho conta' : 'Voltar',
+      f: s.f, on,
+      pwType: s.showPw ? 'text' : 'password', pwLabel: s.showPw ? 'Ocultar' : 'Mostrar',
+      togglePw: () => this.setState({ showPw: !s.showPw }),
+      pwBars: [1, 2, 3, 4].map(i => ({ bg: i <= pwScore ? pwCol : 'rgba(245,243,241,0.1)' })),
+      toggleTerms: () => this.setState({ terms: !s.terms }),
+      termsBd: s.terms ? gold : mu, termsBg: s.terms ? gold : 'transparent', termsMark: s.terms ? '✓' : '',
+      goLogin: () => this.go('login'),
+      goReg: () => this.go('reg', { step: 1 }),
+      goFaceLogin: () => this.go('face', { faceFor: 'login' }),
+      goFaceReset: () => this.go('face', { faceFor: 'reset' }),
+      goProfile: () => this.go('profile'),
+      goRegSources: () => this.go('reg', { step: 2 }),
+      next: () => this.go('reg', { step: step + 1, faceFor: 'reg' }),
+      regBack: () => {
+        if (step === 1) return this.go('login');
+        if (step === 3 && s.mode === 'bank' && s.bankPhase === 'consent') return this.setState({ bankPhase: 'pick' });
+        this.go('reg', { step: step - 1 });
+      },
+      finish: () => this.go('reg', { step: 5, faceEnrolled: true }),
+      modes, docs, docsBlocked: !docsReady, docsOp: docsReady ? 1 : 0.4,
+      bankPick: s.bankPhase === 'pick', bankConsent: s.bankPhase === 'consent', bankBusy: s.bankPhase === 'busy',
+      banks, bankName: s.bank || '',
+      consent: [
+        { mark: '✓', color: pos, title: 'Saldos e lançamentos', sub: 'Conta corrente e cartão, últimos 12 meses' },
+        { mark: '✓', color: pos, title: 'Dados cadastrais', sub: 'Nome e CPF, para confirmar que a conta é tua' },
+        { mark: '✓', color: pos, title: 'Empréstimos e financiamentos', sub: 'Parcelas e prazo, para projetar a folha' },
+        { mark: '×', color: '#FF5A5F', title: 'Movimentar dinheiro', sub: 'O app nunca faz Pix, pagamento ou transferência' }
+      ],
+      connect: () => this.connect(), bankChange: () => this.setState({ bankPhase: 'pick' }),
+      bankIcon: bankDone ? '✓' : (bankList.find(b => b[0] === s.bank) || ['', '?'])[1],
+      bankIconBg: bankDone ? 'rgba(60,194,116,0.14)' : 'var(--s3)', bankIconColor: bankDone ? pos : '#F5F3F1',
+      bankIconGlow: bankDone ? '0 0 24px rgba(60,194,116,0.3)' : '0 0 24px rgba(252,192,0,0.15)',
+      bankTitle: bankDone ? s.bank + ' conectado' : 'Conectando ao ' + s.bank + '…',
+      bankSub: bankDone ? 'Importamos 12 meses de lançamentos.' : 'Confirma no app do banco se ele abrir.',
+      bankProgW: s.bankProg + '%', bankBlocked: !bankDone, bankOp: bankDone ? 1 : 0.4,
+      showFace, isFaceLogin: sc === 'face',
+      videoRef: this.videoRef, camOp: s.camOn ? 1 : 0, silOp: s.camOn ? 0 : 1,
+      ringOff: String(766.5 * (1 - fp / 100)), ringColor: fOk ? pos : gold,
+      scanTop: (15 + (fp * 1.4) % 70) + '%', scanOp: fScan ? 1 : 0,
+      faceOk: fOk, faceIdle: !fOk,
+      faceDoneLogin: fOk && fLogin, faceDoneReg: fOk && !fLogin,
+      faceTitle: fLogin ? (fOk ? 'Bem-vindo de volta, Lucas' : 'Olha para a câmera') : s.faceFor === 'reset' ? 'Recadastrar rosto' : 'Cadastrar teu rosto',
+      faceSub: fLogin ? 'Centraliza o rosto no círculo, em um lugar com boa luz.' : 'Para entrar sem senha da próxima vez. A imagem fica só neste dispositivo.',
+      faceStatus: fOk ? (fLogin ? 'Identidade confirmada' : 'Rosto cadastrado') : fScan ? 'Analisando · ' + fp + '%' : s.camOn ? 'Câmera pronta' : 'Aguardando câmera',
+      faceStatusColor: fOk ? pos : fScan ? gold : mu,
+      faceCta: fScan ? 'Analisando…' : fLogin ? 'Escanear rosto' : 'Começar',
+      startScan: () => { if (!fScan) this.scan(); },
+      faceAltLabel: fLogin ? 'Entrar com senha' : s.faceFor === 'reset' ? 'Cancelar' : 'Pular por agora',
+      faceAlt: () => fLogin ? this.go('login') : s.faceFor === 'reset' ? this.go('profile') : this.go('reg', { step: 5 }),
+      firstName,
+      summary: [
+        { k: 'Conta', v: s.f.email || 'demo@saldim.dev', dot: pos },
+        s.mode === 'docs'
+          ? { k: 'Documentos', v: 'Holerite e extrato lidos', dot: pos }
+          : { k: 'Banco', v: (s.bank || 'Itaú') + ' via Open Finance', dot: pos },
+        { k: 'Entrar com rosto', v: s.faceEnrolled ? 'Ativado' : 'Desativado', dot: s.faceEnrolled ? pos : mu }
+      ],
+      ...this.profileVals(gold, mu, pos),
+      sources: [
+        { icon: 'IT', title: 'Itaú · conta corrente', sub: 'Open Finance · sincronizado 14:30', action: 'Gerenciar' },
+        { icon: 'H', title: 'Holerite set/26', sub: 'Enviado em 02/10', action: 'Enviar novo' },
+        { icon: 'E', title: 'Extrato Itaú', sub: 'Até 07/10', action: 'Enviar novo' }
+      ],
+      toggles: tgDefs.map(t => {
+        const v = s.tg[t.k];
+        return { ...t, flip: () => this.setState(st => ({ tg: { ...st.tg, [t.k]: !st.tg[t.k] } })), track: v ? gold : 'var(--s3)', glow: v ? '0 0 12px rgba(252,192,0,0.35)' : 'none', knob: v ? '21px' : '3px', knobBg: v ? '#1D1D1B' : '#A19C94' };
+      }),
+      devices: [
+        { name: 'Chrome · Windows', sub: 'Porto Alegre · agora', tag: 'Este', color: pos },
+        { name: 'iPhone 15', sub: 'Rosto cadastrado · ontem', tag: 'Encerrar', color: '#FF5A5F' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

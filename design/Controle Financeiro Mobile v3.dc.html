@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+<title>Saldim · Mobile v3</title>
+<style>
+@font-face{font-family:'Exo 2';font-weight:200;src:url('fonts/Exo2-ExtraLight.ttf') format('truetype');font-display:swap}
+@font-face{font-family:'Exo 2';font-weight:300;src:url('fonts/Exo2-Light.ttf') format('truetype');font-display:swap}
+@font-face{font-family:'Exo 2';font-weight:400;src:url('fonts/Exo2-Regular.ttf') format('truetype');font-display:swap}
+@font-face{font-family:'Exo 2';font-weight:500;src:url('fonts/Exo2-Medium.ttf') format('truetype');font-display:swap}
+@font-face{font-family:'Exo 2';font-weight:600;src:url('fonts/Exo2-SemiBold.ttf') format('truetype');font-display:swap}
+@font-face{font-family:'Exo 2';font-weight:700;src:url('fonts/Exo2-Bold.ttf') format('truetype');font-display:swap}
+@font-face{font-family:'Exo 2';font-weight:800;src:url('fonts/Exo2-ExtraBold.ttf') format('truetype');font-display:swap}
+html,body{margin:0;background:#050505;color:#F5F3F1;font-family:'Exo 2',Tahoma,sans-serif;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+*{box-sizing:border-box}
+*::-webkit-scrollbar{display:none}
+a{color:#FCC000}a:hover{color:#F7A600}
+button{font-family:inherit;cursor:pointer}
+input{font-family:inherit}
+</style>
+</helmet>
+<div style="--bg:#0F0F0E;--s1:#171716;--s2:#1F1F1D;--s3:#2A2A27;--ln:rgba(245,243,241,0.07);--ln2:rgba(245,243,241,0.16);--tx:#F5F3F1;--mu:#A19C94;--pos:#3CC274;--neg:#FF5A5F;--warn:#F5A05E;--gold:#FCC000;--goldTx:#FCC000;--onGold:#1D1D1B;--red:#E31621;--bar:#F5F3F1;--glass:linear-gradient(180deg,rgba(32,32,30,0.72),rgba(18,18,17,0.62));--edge:rgba(252,192,0,0.13);min-height:100vh;background:#050505;display:flex;align-items:center;justify-content:center;padding:32px 16px;font-family:'Exo 2',Tahoma,sans-serif;color:var(--tx)">
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="{{ true }}" hint-size="402px,874px">
+<div style="height:100%;display:flex;flex-direction:column;background:radial-gradient(420px 320px at 90% -4%,rgba(252,192,0,0.12),transparent 60%),radial-gradient(360px 300px at 0% 100%,rgba(237,108,38,0.07),transparent 60%),linear-gradient(rgba(245,243,241,0.03) 1px,transparent 1px) 0 0/32px 32px,linear-gradient(90deg,rgba(245,243,241,0.03) 1px,transparent 1px) 0 0/32px 32px,var(--bg);color:var(--tx);font-family:'Exo 2',Tahoma,sans-serif;font-variant-numeric:tabular-nums">
+  <div style="flex:1;min-height:0;overflow-y:auto;scrollbar-width:none;color-scheme:dark;padding:62px 16px 24px;display:flex;flex-direction:column;gap:14px">
+
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px">
+      <div style="display:flex;align-items:center;gap:10px;min-width:0">
+        <sc-if value="{{ isSub }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ goMais }}" style="width:44px;height:44px;margin-left:-8px;border:0;border-radius:999px;background:transparent;color:var(--tx);font-size:22px">‹</button>
+        </sc-if>
+        <div style="display:flex;flex-direction:column;gap:3px;min-width:0">
+          <span style="font-size:11px;color:var(--mu);font-weight:600;letter-spacing:0.2em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ mhead.kicker }}</span>
+          <span style="font-size:26px;font-weight:300;letter-spacing:-0.01em">{{ mhead.title }}</span>
+        </div>
+      </div>
+      <button onClick="{{ togglePriv }}" style="flex-shrink:0;height:36px;padding:0 12px;border:1px solid var(--ln2);border-radius:999px;background:transparent;color:var(--mu);font-size:12px;font-weight:600">{{ privShort }}</button>
+    </div>
+
+    <sc-if value="{{ isGeral }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;align-self:flex-start;align-items:center;gap:8px;padding:7px 12px;border:1px solid var(--edge);border-radius:999px;background:rgba(18,18,17,0.7);font-size:10px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--mu)"><span style="width:6px;height:6px;border-radius:999px;background:var(--pos);box-shadow:0 0 8px #3CC274"></span>Itaú sincronizado · 14:30</div>
+      <div style="background:var(--glass);border:1px solid var(--edge);border-radius:18px;box-shadow:inset 0 1px 0 rgba(245,243,241,0.06),0 20px 40px -26px rgba(0,0,0,0.9);backdrop-filter:blur(14px);padding:20px 18px 14px;display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px"><span style="font-size:11px;color:var(--mu);font-weight:600;letter-spacing:0.2em;text-transform:uppercase">Reserva projetada em</span><div style="display:flex;align-items:center;gap:6px"><button onClick="{{ resPrev }}" disabled="{{ resAtStart }}" aria-label="Mês anterior" style="width:32px;height:32px;display:grid;place-items:center;border:1px solid var(--edge);border-radius:999px;background:rgba(18,18,17,0.8);color:var(--goldTx);font-size:14px;cursor:pointer;opacity:{{ resAtStartOp }}">‹</button><select value="{{ resIdx }}" onChange="{{ onResIdx }}" aria-label="Mês da projeção" style="height:32px;padding:0 30px 0 12px;border:1px solid rgba(252,192,0,0.4);border-radius:999px;background:rgba(18,18,17,0.8) url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2210%22 height=%226%22><path d=%22M1 1l4 4 4-4%22 fill=%22none%22 stroke=%22%23FCC000%22 stroke-width=%221.5%22/></svg>') no-repeat right 12px center;color:var(--goldTx);font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;appearance:none;-webkit-appearance:none;cursor:pointer;box-shadow:0 0 14px rgba(252,192,0,0.18);outline:none"><sc-for list="{{ resOpts }}" as="o" hint-placeholder-count="15"><option value="{{ o.v }}" style="background:#121211;color:#F5F3F1">{{ o.label }}</option></sc-for></select><button onClick="{{ resNext }}" disabled="{{ resAtEnd }}" aria-label="Próximo mês" style="width:32px;height:32px;display:grid;place-items:center;border:1px solid var(--edge);border-radius:999px;background:rgba(18,18,17,0.8);color:var(--goldTx);font-size:14px;cursor:pointer;opacity:{{ resAtEndOp }}">›</button></div></div>
+<div style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ resQuick }}" as="q" hint-placeholder-count="4"><button onClick="{{ q.go }}" style="height:28px;padding:0 12px;border-radius:999px;border:1px solid {{ q.bd }};background:{{ q.bg }};color:{{ q.color }};font-size:11px;font-weight:600;letter-spacing:0.04em;cursor:pointer">{{ q.label }}</button></sc-for></div>
+          <span style="font-size:40px;font-weight:200;line-height:1;letter-spacing:-0.02em;white-space:nowrap;text-shadow:0 0 30px rgba(252,192,0,0.3)">{{ k.reserveEnd }}</span>
+<span style="font-size:12px;color:{{ k.resGoalColor }};font-weight:600">{{ k.resGoal }}</span>
+          <span style="font-size:13px;color:var(--mu)">Meta de R$ 10 mil em <b style="color:var(--goldTx)">{{ k.goalWhen }}</b></span>
+        </div>
+        <div onMouseLeave="{{ clearHov }}" style="position:relative;height:150px">
+          <svg viewBox="0 0 600 220" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible">
+            <defs><linearGradient id="gAreaM" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FCC000" stop-opacity="0.28"></stop><stop offset="1" stop-color="#FCC000" stop-opacity="0"></stop></linearGradient></defs>
+            <line x1="0" x2="600" y1="{{ rc.goalY }}" y2="{{ rc.goalY }}" stroke="var(--ln2)" stroke-dasharray="3 4" vector-effect="non-scaling-stroke"></line>
+            <line x1="0" x2="600" y1="{{ rc.zeroY }}" y2="{{ rc.zeroY }}" stroke="var(--ln)" vector-effect="non-scaling-stroke"></line>
+            <path d="{{ rc.area }}" fill="url(#gAreaM)"></path>
+            <path d="{{ rc.alt }}" fill="none" stroke="var(--mu)" stroke-width="1.5" stroke-dasharray="4 4" vector-effect="non-scaling-stroke"></path>
+            <path d="{{ rc.line }}" fill="none" stroke="#FCC000" stroke-width="2.5" style="filter:drop-shadow(0 0 6px rgba(252,192,0,0.6))" vector-effect="non-scaling-stroke" stroke-linejoin="round"></path>
+          </svg>
+          <div style="position:absolute;right:0;top:{{ rc.goalTop }};transform:translateY(-130%);font-size:10px;color:var(--mu);font-weight:600">Meta R$ 10 mil</div>
+          <div style="position:absolute;left:{{ rc.goalDotLeft }};top:{{ rc.goalDotTop }};width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:999px;background:var(--gold);box-shadow:0 0 0 4px rgba(252,192,0,0.16),0 0 14px rgba(252,192,0,0.85)"></div>
+          <sc-if value="{{ hasHov }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute;top:0;bottom:0;left:{{ hov.left }};width:1px;background:var(--ln2)"></div>
+            <div style="position:absolute;top:-8px;left:{{ hov.left }};transform:{{ hov.tx }};background:var(--s3);border:1px solid var(--ln2);border-radius:10px;padding:8px 10px;display:flex;flex-direction:column;gap:2px;pointer-events:none;z-index:2;white-space:nowrap">
+              <span style="font-size:10px;color:var(--mu);font-weight:600;text-transform:uppercase;letter-spacing:0.08em">{{ hov.label }}</span>
+              <span style="font-size:14px;font-weight:600">{{ hov.res }}</span>
+            </div>
+          </sc-if>
+          <div style="position:absolute;inset:0;display:grid;grid-template-columns:repeat(15,minmax(0,1fr))">
+            <sc-for list="{{ hovCols }}" as="c" hint-placeholder-count="15"><div onMouseEnter="{{ c.enter }}" onClick="{{ c.enter }}" style="height:100%"></div></sc-for>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--mu)"><span>out/26</span><span>abr/27</span><span>dez/27</span></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;padding:3px;border:1px solid var(--edge);border-radius:999px;background:rgba(18,18,17,0.7)">
+          <button onClick="{{ planOff }}" style="height:36px;border:0;border-radius:999px;font-size:12px;font-weight:600;background:{{ planOffBg }};color:{{ planOffColor }}">Como hoje</button>
+          <button onClick="{{ planOn }}" style="height:36px;border:0;border-radius:999px;font-size:12px;font-weight:600;background:{{ planOnBg }};color:{{ planOnColor }}">Com plano IA</button>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div style="background:var(--glass);border:1px solid var(--edge);border-radius:18px;box-shadow:inset 0 1px 0 rgba(245,243,241,0.06),0 20px 40px -26px rgba(0,0,0,0.9);backdrop-filter:blur(14px);padding:16px;display:flex;flex-direction:column;gap:4px"><span style="font-size:12px;color:var(--mu)">Entra no mês</span><span style="font-size:19px;font-weight:300;white-space:nowrap">{{ k.net }}</span></div>
+        <div style="background:var(--glass);border:1px solid var(--edge);border-radius:18px;box-shadow:inset 0 1px 0 rgba(245,243,241,0.06),0 20px 40px -26px rgba(0,0,0,0.9);backdrop-filter:blur(14px);padding:16px;display:flex;flex-direction:column;gap:4px"><span style="font-size:12px;color:var(--mu)">Sai no mês</span><span style="font-size:19px;font-weight:300;white-space:nowrap">{{ k.exp }}</span></div>
+        <div style="background:var(--glass);border:1px solid var(--edge);border-radius:18px;box-shadow:inset 0 1px 0 rgba(245,243,241,0.06),0 20px 40px -26px rgba(0,0,0,0.9);backdrop-filter:blur(14px);padding:16px;display:flex;justify-content:space-between;align-items:center;grid-column:span 2"><span style="font-size:13px;color:var(--mu)">Saldo de outubro</span><span style="font-size:20px;font-weight:600;color:{{ k.saldoColor }};white-space:nowrap">{{ k.saldo }}</span></div>
+      </div>
+
+      <div style="background:var(--glass);border:1px solid var(--edge);border-radius:18px;box-shadow:inset 0 1px 0 rgba(245,243,241,0.06),0 20px 40px -26px rgba(0,0,0,0.9);backdrop-filter:blur(14px);padding:18px;display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;align-items:center;gap:8px"><span style="width:7px;height:7px;border-radius:999px;background:var(--gold);box-shadow:0 0 0 4px rgba(252,192,0,0.16),0 0 14px rgba(252,192,0,0.85)"></span><span style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:var(--goldTx)">IA</span></div>
+        <div style="font-size:14px;line-height:1.55;text-wrap:pretty">Setembro teve <b>{{ k.setOut }}</b> de saídas para <b>{{ k.setIn }}</b> de renda. Como hoje, cada mês fecha em <b style="color:var(--neg)">{{ k.monthNo }}</b>. Com os limites, sobra <b style="color:var(--pos)">{{ k.monthPlan }}</b>.</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <button onClick="{{ goIA }}" style="height:44px;border:1px solid var(--ln2);background:transparent;color:var(--tx);border-radius:999px;font-size:13px;font-weight:600">Perguntar</button>
+          <button onClick="{{ goMetas }}" style="height:44px;border:0;background:var(--gold);color:var(--onGold);box-shadow:0 0 0 1px rgba(252,192,0,0.45),0 0 24px rgba(252,192,0,0.32);border-radius:999px;font-size:13px;font-weight:700">Ver o plano</button>
+        </div>
+      </div>
+
+      <div style="background:var(--glass);border:1px solid var(--edge);border-radius:18px;box-shadow:inset 0 1px 0 rgba(245,243,241,0.06),0 20px 40px -26px rgba(0,0,0,0.9);backdrop-filter:blur(14px);padding:18px;display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:11px;color:var(--mu);font-weight:600;letter-spacing:0.2em;text-transform:uppercase">Para onde vai</span><button onClick="{{ goGastos }}" style="border:0;background:none;padding:0;color:var(--mu);font-size:12px;font-weight:600">Ver gastos →</button></div>
+        <div style="display:flex;align-items:center;gap:16px">
+          <div style="position:relative;width:120px;height:120px;flex-shrink:0">
+            <svg viewBox="0 0 42 42" style="width:100%;height:100%;transform:rotate(-90deg)">
+              <circle cx="21" cy="21" r="15.9155" fill="none" stroke="var(--s3)" stroke-width="4.2"></circle>
+              <sc-for list="{{ donut }}" as="d" hint-placeholder-count="6"><circle cx="21" cy="21" r="15.9155" fill="none" stroke="{{ d.color }}" stroke-width="{{ d.sw }}" stroke-dasharray="{{ d.dash }}" stroke-dashoffset="{{ d.off }}"></circle></sc-for>
+            </svg>
+            <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;text-align:center;padding:0 18px"><span style="font-size:10px;color:var(--mu)">{{ donutCenter.label }}</span><span style="font-size:13px;font-weight:600;white-space:nowrap">{{ donutCenter.value }}</span></div>
+          </div>
+          <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px">
+            <sc-for list="{{ donutLegend }}" as="d" hint-placeholder-count="6">
+              <div onClick="{{ d.enter }}" style="display:grid;grid-template-columns:8px minmax(0,1fr) auto;gap:8px;align-items:center;font-size:12px;padding:5px 6px;border-radius:8px;background:{{ d.bg }}">
+                <span style="width:8px;height:8px;border-radius:2px;background:{{ d.color }}"></span>
+                <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ d.label }}</span>
+                <span style="color:var(--mu)">{{ d.share }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--glass);border:1px solid var(--edge);border-radius:18px;box-shadow:inset 0 1px 0 rgba(245,243,241,0.06),0 20px 40px -26px rgba(0,0,0,0.9);backdrop-filter:blur(14px);padding:18px;display:flex;flex-direction:column;gap:4px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px"><span style="font-size:11px;color:var(--mu);font-weight:600;letter-spacing:0.2em;text-transform:uppercase">Sobra por mês</span><button onClick="{{ goProjecao }}" style="border:0;background:none;padding:0;color:var(--mu);font-size:12px;font-weight:600">Projeção →</button></div>
+        <sc-for list="{{ next6 }}" as="m" hint-placeholder-count="6">
+          <div style="display:grid;grid-template-columns:76px minmax(0,1fr) 92px;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--ln)">
+            <div style="display:flex;flex-direction:column;gap:1px"><span style="font-size:13px;font-weight:600;text-transform:capitalize">{{ m.label }}</span><span style="font-size:10px;color:var(--goldTx);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ m.note }}</span></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;height:6px">
+              <div style="display:flex;justify-content:flex-end;border-right:1px solid var(--ln2)"><div style="width:{{ m.negW }};background:var(--neg);border-radius:3px 0 0 3px"></div></div>
+              <div style="display:flex"><div style="width:{{ m.posW }};background:var(--pos);border-radius:0 3px 3px 0"></div></div>
+            </div>
+            <span style="font-size:13px;font-weight:600;text-align:right;color:{{ m.saldoColor }};white-space:nowrap">{{ m.saldo }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isGastos }}" hint-placeholder-val="{{ false }}">
+      <div style="background:var(--glass);border:1px solid var(--edge);border-radius:18px;box-shadow:inset 0 1px 0 rgba(245,243,241,0.06),0 20px 40px -26px rgba(0,0,0,0.9);backdrop-filter:blur(14px);padding:18px;display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:11px;color:var(--mu);font-weight:600;letter-spacing:0.2em;text-transform:uppercase">Variáveis em outubro</span><span style="font-size:12px;color:var(--mu)">dia 7 de 31</span></div>
+        <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap"><span style="font-size:28px;font-weight:200;white-space:nowrap">{{ k.varSpent }}</span><span style="font-size:12px;color:var(--mu)">de {{ k.varLim }}</span></div>
+        <div style="position:relative;height:90px">
+          <svg viewBox="0 0 310 120" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%">
+            <line x1="0" y1="120" x2="310" y2="{{ pace.limY }}" stroke="var(--ln2)" stroke-dasharray="3 4" vector-effect="non-scaling-stroke"></line>
+            <path d="{{ pace.area }}" fill="rgba(252,192,0,0.14)"></path>
+            <path d="{{ pace.line }}" fill="none" stroke="#FCC000" stroke-width="2.5" style="filter:drop-shadow(0 0 6px rgba(252,192,0,0.6))" vector-effect="non-scaling-stroke"></path>
+          </svg>
+        </div>
+        <span style="font-size:12px;color:var(--mu)">Tu tá <b style="color:{{ pace.color }}">{{ pace.diff }}</b> {{ pace.word }} do ritmo ideal.</span>
+      </div>
+      <div style="background:var(--glass);border:1px solid var(--edge);border-radius:18px;box-shadow:inset 0 1px 0 rgba(245,243,241,0.06),0 20px 40px -26px rgba(0,0,0,0.9);backdrop-filter:blur(14px);padding:18px;display:flex;flex-direction:column;gap:6px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px"><span style="font-size:11px;color:var(--mu);font-weight:600;letter-spacing:0.2em;text-transform:uppercase">Setembro por categoria</span><span style="font-size:11px;color:var(--mu)">toca pra filtrar</span></div>
+        <sc-for list="{{ allCats }}" as="c" hint-placeholder-count="9">
+          <div onClick="{{ c.go }}" style="display:flex;flex-direction:column;gap:6px;padding:8px;margin:0 -8px;border-radius:10px;background:{{ c.bg }};cursor:pointer">
+            <div style="display:flex;justify-content:space-between;gap:10px;font-size:13px"><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.label }}</span><span style="font-weight:600;white-space:nowrap">{{ c.value }}</span></div>
+            <div style="height:4px;background:var(--s3);border-radius:999px;overflow:hidden"><div style="height:100%;width:{{ c.w }};background:{{ c.color }};border-radius:999px"></div></div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="background:var(--glass);border:1px solid var(--edge);border-radius:18px;box-shadow:inset 0 1px 0 rgba(245,243,241,0.06),0 20px 40px -26px rgba(0,0,0,0.9);backdrop-filter:blur(14px);padding:18px;display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;align-items:center;gap:8px"><span style="width:7px;height:7px;border-radius:999px;background:var(--gold);box-shadow:0 0 0 4px rgba(252,192,0,0.16),0 0 14px rgba(252,192,0,0.85)"></span><span style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:var(--goldTx)">IA</span></div>
+        <div style="font-size:14px;line-height:1.55;text-wrap:pretty"><b>{{ k.jrN }} compras</b> na Cantina Central em 2 meses, somando <b>{{ k.jrSum }}</b>. Lanches, delivery e Pix pra pessoas passaram de <b>{{ k.leakSet }}</b> em setembro.</div>
+      </div>
+      <div style="background:var(--glass);border:1px solid var(--edge);border-radius:18px;box-shadow:inset 0 1px 0 rgba(245,243,241,0.06),0 20px 40px -26px rgba(0,0,0,0.9);backdrop-filter:blur(14px);padding:18px;display:flex;flex-direction:column">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px"><span style="font-size:11px;color:var(--mu);font-weight:600;letter-spacing:0.2em;text-transform:uppercase">{{ txHead.title }}</span><button onClick="{{ txClear }}" style="border:0;background:none;padding:0;font-size:12px;color:var(--mu);font-weight:600">{{ txHead.action }}</button></div>
+        <sc-for list="{{ tx }}" as="t" hint-placeholder-count="10">
+          <div style="display:grid;grid-template-columns:36px minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--ln)">
+            <div style="width:36px;height:36px;border-radius:10px;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--mu)">{{ t.ini }}</div>
+            <div style="display:flex;flex-direction:column;gap:2px;min-width:0"><span style="font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ t.name }}</span><span style="font-size:11px;color:var(--mu);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ t.d }} · {{ t.cat }}</span></div>
+            <span style="font-size:13px;font-weight:600;color:{{ t.color }};white-space:nowrap">{{ t.v }}</span>
+          </div>
+        </sc-for>
+        <button onClick="{{ txToggleAll }}" style="margin-top:12px;height:44px;border:1px solid var(--ln2);background:transparent;color:var(--tx);border-radius:999px;font-size:13px;font-weight:600">{{ txHead.more }}</button>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isMetas }}" hint-placeholder-val="{{ false }}">
+      <div style="background:var(--glass);border:1px solid var(--edge);border-radius:18px;box-shadow:inset 0 1px 0 rgba(245,243,241,0.06),0 20px 40px -26px rgba(0,0,0,0.9);backdrop-filter:blur(14px);padding:20px;display:flex;flex-direction:column;gap:14px">
+        <span style="font-size:11px;color:var(--mu);font-weight:600;letter-spacing:0.2em;text-transform:uppercase">Reserva de R$ 10 mil</span>
+        <span style="font-size:40px;font-weight:200;line-height:1;color:var(--goldTx);text-transform:capitalize;text-shadow:0 0 30px rgba(252,192,0,0.4)">{{ k.goalWhenPlan }}</span>
+        <span style="font-size:13px;color:var(--mu)">seguindo os limites · economia de <b style="color:var(--pos);white-space:nowrap">{{ k.saving }}/mês</b></span>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="display:flex;justify-content:space-between;font-size:12px"><span>Com limites</span><b>{{ k.goalWhenPlan }}</b></div>
+          <div style="height:6px;background:var(--s3);border-radius:999px"><div style="height:100%;width:{{ k.planBarW }};background:var(--gold);border-radius:999px"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--mu);margin-top:6px"><span>Como hoje</span><b>{{ k.goalWhenNo }}</b></div>
+          <div style="height:6px;background:var(--s3);border-radius:999px"><div style="height:100%;width:{{ k.noBarW }};background:var(--mu);border-radius:999px"></div></div>
+        </div>
+      </div>
+      <sc-for list="{{ limits }}" as="l" hint-placeholder-count="6">
+        <div style="background:var(--glass);border:1px solid var(--edge);border-radius:18px;box-shadow:inset 0 1px 0 rgba(245,243,241,0.06),0 20px 40px -26px rgba(0,0,0,0.9);backdrop-filter:blur(14px);padding:16px;display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:center;gap:14px">
+            <div style="position:relative;width:56px;height:56px;flex-shrink:0">
+              <svg viewBox="0 0 42 42" style="width:100%;height:100%;transform:rotate(-90deg)">
+                <circle cx="21" cy="21" r="15.9155" fill="none" stroke="var(--s3)" stroke-width="3.6"></circle>
+                <circle cx="21" cy="21" r="15.9155" fill="none" stroke="{{ l.statusColor }}" stroke-width="3.6" stroke-linecap="round" stroke-dasharray="{{ l.dash }}"></circle>
+              </svg>
+              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600">{{ l.pctLabel }}</div>
+            </div>
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px">
+              <div style="display:flex;justify-content:space-between;gap:8px;align-items:center"><span style="font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ l.label }}</span><span style="flex-shrink:0;font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:{{ l.statusColor }}">{{ l.status }}</span></div>
+              <span style="font-size:13px"><b style="font-weight:600">{{ l.spent }}</b> <span style="color:var(--mu)">· média {{ l.avg }}</span></span>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:4px;border:1px solid var(--ln);border-radius:999px">
+            <button onClick="{{ l.dec }}" style="width:44px;height:36px;border-radius:999px;border:0;background:var(--s2);font-size:18px;color:var(--tx)">−</button>
+            <span style="font-size:13px;color:var(--mu)">limite <b style="color:var(--tx)">{{ l.limit }}</b></span>
+            <button onClick="{{ l.inc }}" style="width:44px;height:36px;border-radius:999px;border:0;background:var(--s2);font-size:18px;color:var(--tx)">+</button>
+          </div>
+        </div>
+      </sc-for>
+    </sc-if>
+
+    <sc-if value="{{ isIA }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;gap:8px;overflow-x:auto;margin:0 -16px;padding:0 16px">
+        <sc-for list="{{ alerts }}" as="a" hint-placeholder-count="3">
+          <div style="background:var(--glass);border:1px solid var(--edge);border-radius:18px;box-shadow:inset 0 1px 0 rgba(245,243,241,0.06),0 20px 40px -26px rgba(0,0,0,0.9);backdrop-filter:blur(14px);flex:0 0 240px;padding:14px;display:flex;flex-direction:column;gap:5px">
+            <span style="display:flex;align-items:center;gap:6px;font-size:10px;font-weight:700;letter-spacing:0.1em;color:{{ a.color }}"><span style="width:6px;height:6px;border-radius:999px;background:{{ a.color }}"></span>{{ a.tag }}</span>
+            <span style="font-size:13px;font-weight:600">{{ a.title }}</span>
+            <span style="font-size:12px;color:var(--mu);line-height:1.4">{{ a.body }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px;padding-top:4px">
+        <sc-for list="{{ chat }}" as="m" hint-placeholder-count="2">
+          <div style="display:flex;gap:8px;justify-content:{{ m.justify }};align-items:flex-start">
+            <span style="width:7px;height:7px;border-radius:999px;background:var(--gold);margin-top:8px;flex-shrink:0;display:{{ m.dotDisplay }}"></span>
+            <div style="max-width:84%;padding:{{ m.pad }};border-radius:16px;font-size:14px;line-height:1.55;white-space:pre-wrap;background:{{ m.bg }}">{{ m.text }}</div>
+          </div>
+        </sc-for>
+        <sc-if value="{{ thinking }}" hint-placeholder-val="{{ false }}"><span style="font-size:12px;color:var(--mu);padding-left:15px">Analisando teus números…</span></sc-if>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px">
+        <sc-for list="{{ prompts }}" as="p" hint-placeholder-count="4">
+          <button onClick="{{ p.go }}" style="min-height:36px;border:1px solid var(--ln2);background:transparent;border-radius:999px;padding:6px 12px;font-size:12px;color:var(--tx)">{{ p.text }}</button>
+        </sc-for>
+      </div>
+      <div style="display:flex;gap:8px;padding:6px;border:1px solid var(--edge);border-radius:999px;background:rgba(18,18,17,0.8)">
+        <input value="{{ draft }}" onChange="{{ onDraft }}" onKeyDown="{{ onDraftKey }}" placeholder="Pergunta pra IA…" style="flex:1;min-width:0;height:44px;border:0;background:transparent;color:var(--tx);padding:0 12px;font-size:14px;outline:none">
+        <button onClick="{{ sendDraft }}" style="height:44px;padding:0 18px;border:0;background:var(--gold);color:var(--onGold);box-shadow:0 0 0 1px rgba(252,192,0,0.45),0 0 24px rgba(252,192,0,0.32);border-radius:999px;font-size:13px;font-weight:700">Enviar</button>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isMais }}" hint-placeholder-val="{{ false }}">
+      <div style="background:var(--glass);border:1px solid var(--edge);border-radius:18px;box-shadow:inset 0 1px 0 rgba(245,243,241,0.06),0 20px 40px -26px rgba(0,0,0,0.9);backdrop-filter:blur(14px);overflow:hidden;display:flex;flex-direction:column">
+        <sc-for list="{{ moreItems }}" as="m" hint-placeholder-count="4">
+          <button onClick="{{ m.go }}" style="display:flex;align-items:center;gap:12px;min-height:64px;padding:12px 16px;border:0;border-bottom:1px solid var(--ln);background:transparent;color:var(--tx);text-align:left">
+            <span style="width:8px;height:8px;border-radius:999px;background:{{ m.dot }};flex-shrink:0"></span>
+            <div style="flex:1;display:flex;flex-direction:column;gap:2px;min-width:0"><span style="font-size:15px;font-weight:600">{{ m.label }}</span><span style="font-size:12px;color:var(--mu)">{{ m.sub }}</span></div>
+            <span style="color:var(--mu);font-size:18px">›</span>
+          </button>
+        </sc-for>
+      </div>
+      <div style="background:var(--glass);border:1px solid var(--edge);border-radius:18px;box-shadow:inset 0 1px 0 rgba(245,243,241,0.06),0 20px 40px -26px rgba(0,0,0,0.9);backdrop-filter:blur(14px);padding:16px;display:flex;flex-direction:column;gap:8px;font-size:13px">
+        <span style="font-size:11px;color:var(--mu);font-weight:600;letter-spacing:0.2em;text-transform:uppercase">Fontes</span>
+        <div style="display:flex;justify-content:space-between"><span>Extrato Itaú</span><span style="color:var(--pos);font-weight:600">até 07/10</span></div>
+        <div style="display:flex;justify-content:space-between"><span>Holerite</span><span style="color:var(--pos);font-weight:600">set/26</span></div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isProjecao }}" hint-placeholder-val="{{ false }}">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <sc-for list="{{ projKpis }}" as="p" hint-placeholder-count="3">
+          <div style="background:var(--glass);border:1px solid var(--edge);border-radius:18px;box-shadow:inset 0 1px 0 rgba(245,243,241,0.06),0 20px 40px -26px rgba(0,0,0,0.9);backdrop-filter:blur(14px);padding:14px;display:flex;flex-direction:column;gap:4px"><span style="font-size:11px;color:var(--mu)">{{ p.label }}</span><span style="font-size:18px;font-weight:300;white-space:nowrap;color:{{ p.color }}">{{ p.value }}</span></div>
+        </sc-for>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;padding:3px;border:1px solid var(--edge);border-radius:999px;background:rgba(18,18,17,0.7)">
+        <button onClick="{{ planOff }}" style="height:36px;border:0;border-radius:999px;font-size:12px;font-weight:600;background:{{ planOffBg }};color:{{ planOffColor }}">Como hoje</button>
+        <button onClick="{{ planOn }}" style="height:36px;border:0;border-radius:999px;font-size:12px;font-weight:600;background:{{ planOnBg }};color:{{ planOnColor }}">Com plano IA</button>
+      </div>
+      <div style="background:var(--glass);border:1px solid var(--edge);border-radius:18px;box-shadow:inset 0 1px 0 rgba(245,243,241,0.06),0 20px 40px -26px rgba(0,0,0,0.9);backdrop-filter:blur(14px);padding:16px;display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;gap:12px;font-size:11px;color:var(--mu)"><span style="display:flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:2px;background:var(--bar)"></span>Salário</span><span style="display:flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:2px;background:var(--gold)"></span>13º</span><span style="display:flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:2px;background:var(--red)"></span>Gastos</span></div>
+        <div style="display:grid;grid-template-columns:repeat(15,minmax(0,1fr));gap:3px;align-items:end;height:150px;border-bottom:1px solid var(--ln2)">
+          <sc-for list="{{ proj }}" as="m" hint-placeholder-count="15">
+            <div onClick="{{ m.enter }}" style="display:flex;gap:1px;align-items:flex-end;height:100%;border-radius:4px 4px 0 0;background:{{ m.colBg }}">
+              <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;height:100%"><div style="height:{{ m.h13 }};background:var(--gold);border-radius:2px 2px 0 0"></div><div style="height:{{ m.hInc }};background:var(--bar);opacity:0.9"></div></div>
+              <div style="flex:1;height:{{ m.hExp }};background:var(--red);border-radius:2px 2px 0 0"></div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--mu)"><span>out/26</span><span>abr/27</span><span>dez/27</span></div>
+      </div>
+      <div style="background:var(--glass);border:1px solid var(--edge);border-radius:18px;box-shadow:inset 0 1px 0 rgba(245,243,241,0.06),0 20px 40px -26px rgba(0,0,0,0.9);backdrop-filter:blur(14px);padding:6px 16px">
+        <sc-for list="{{ proj }}" as="m" hint-placeholder-count="15">
+          <div onClick="{{ m.enter }}" style="display:grid;grid-template-columns:62px minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--ln)">
+            <span style="font-size:13px;font-weight:600">{{ m.label }}</span>
+            <span style="font-size:11px;color:var(--mu);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">reserva {{ m.reserve }}</span>
+            <span style="font-size:13px;font-weight:600;color:{{ m.saldoColor }};white-space:nowrap">{{ m.saldo }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isEmprestimos }}" hint-placeholder-val="{{ false }}">
+      <div style="background:var(--glass);border:1px solid var(--edge);border-radius:18px;box-shadow:inset 0 1px 0 rgba(245,243,241,0.06),0 20px 40px -26px rgba(0,0,0,0.9);backdrop-filter:blur(14px);padding:16px;display:flex;justify-content:space-between;align-items:center;gap:10px"><div style="display:flex;flex-direction:column;gap:3px"><span style="font-size:12px;color:var(--mu)">Na folha por mês</span><span style="font-size:22px;font-weight:300;color:var(--neg);white-space:nowrap">{{ k.loansM }}</span></div><span style="font-size:12px;color:var(--mu);text-align:right">52% do<br>líquido</span></div>
+      <div style="background:var(--glass);border:1px solid var(--edge);border-radius:18px;box-shadow:inset 0 1px 0 rgba(245,243,241,0.06),0 20px 40px -26px rgba(0,0,0,0.9);backdrop-filter:blur(14px);padding:6px 16px">
+        <sc-for list="{{ loans }}" as="l" hint-placeholder-count="6">
+          <button onClick="{{ l.sim }}" style="width:100%;display:flex;flex-direction:column;gap:8px;padding:12px 8px;margin:0 -8px;width:calc(100% + 16px);border:0;border-bottom:1px solid var(--ln);border-radius:10px;text-align:left;color:var(--tx);background:{{ l.rowBg }}">
+            <div style="display:flex;justify-content:space-between;gap:8px;width:100%"><span style="font-size:14px;font-weight:600">{{ l.name }}</span><span style="font-size:14px;font-weight:600;white-space:nowrap">{{ l.parc }}</span></div>
+            <div style="position:relative;height:6px;width:100%;background:var(--s3);border-radius:999px;overflow:hidden"><div style="height:100%;width:{{ l.w }};background:{{ l.bar }};border-radius:999px"></div></div>
+            <span style="font-size:11px;color:var(--mu)">{{ l.cur }}/{{ l.total }} · {{ l.endLabel }}</span>
+          </button>
+        </sc-for>
+      </div>
+      <div style="background:var(--glass);border:1px solid rgba(252,192,0,0.32);border-radius:18px;box-shadow:inset 0 1px 0 rgba(245,243,241,0.06),0 20px 40px -26px rgba(0,0,0,0.9);backdrop-filter:blur(14px);padding:18px;display:flex;flex-direction:column;gap:12px">
+        <span style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:var(--goldTx)">SIMULADOR IA</span>
+        <span style="font-size:19px;font-weight:300;line-height:1.3">E se eu quitar {{ sim.name }}?</span>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:12px">
+          <div style="display:flex;flex-direction:column;gap:2px"><span style="color:var(--mu)">Saldo nominal</span><b style="font-size:15px;font-weight:600">{{ sim.left }}</b></div>
+          <div style="display:flex;flex-direction:column;gap:2px"><span style="color:var(--mu)">Libera por mês</span><b style="font-size:15px;font-weight:600;color:var(--goldTx)">{{ sim.parc }}</b></div>
+          <div style="display:flex;flex-direction:column;gap:2px"><span style="color:var(--mu)">Parcelas evitadas</span><b style="font-size:15px;font-weight:600">{{ sim.leftN }}</b></div>
+          <div style="display:flex;flex-direction:column;gap:2px"><span style="color:var(--mu)">Terminaria em</span><b style="font-size:15px;font-weight:600">{{ sim.end }}</b></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;padding:14px;border:1px solid var(--ln2);border-radius:14px">
+          <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:11px;color:var(--mu);font-weight:600;letter-spacing:0.2em;text-transform:uppercase">Reserva mínima</span><span style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:{{ rmin.color }}">{{ rmin.status }}</span></div>
+          <span style="font-size:22px;font-weight:300">{{ rmin.target }} <span style="font-size:12px;color:var(--mu)">= 1 mês de fixos</span></span>
+          <div style="height:6px;background:var(--s3);border-radius:999px;overflow:hidden"><div style="height:100%;width:{{ rmin.w }};background:{{ rmin.color }}"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--mu)"><span>Hoje {{ rmin.now }}</span><span>Chega em <b style="color:var(--tx)">{{ rmin.when }}</b></span></div>
+          <span style="font-size:12px;line-height:1.5">{{ rmin.rule }}</span>
+        </div>
+        <div style="font-size:13px;line-height:1.55;padding:12px 14px;border-radius:12px;background:var(--s2)">{{ sim.advice }}</div>
+      </div>
+      <div style="background:var(--glass);border:1px solid var(--edge);border-radius:18px;box-shadow:inset 0 1px 0 rgba(245,243,241,0.06),0 20px 40px -26px rgba(0,0,0,0.9);backdrop-filter:blur(14px);padding:16px;display:flex;flex-direction:column;gap:6px">
+        <span style="font-size:11px;color:var(--mu);font-weight:600;letter-spacing:0.2em;text-transform:uppercase">Fora da folha · na conta</span>
+        <sc-for list="{{ contaLoans }}" as="c" hint-placeholder-count="5">
+          <div style="display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:4px 0"><span>{{ c.name }}</span><span style="font-weight:600;white-space:nowrap">{{ c.v }}</span></div>
+        </sc-for>
+        <span style="font-size:12px;color:var(--neg)">{{ k.loanIn }} em novos créditos (ago–set)</span>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isHolerite }}" hint-placeholder-val="{{ false }}">
+      <div style="background:var(--glass);border:1px solid var(--edge);border-radius:18px;box-shadow:inset 0 1px 0 rgba(245,243,241,0.06),0 20px 40px -26px rgba(0,0,0,0.9);backdrop-filter:blur(14px);padding:18px;display:flex;flex-direction:column;gap:12px">
+        <span style="font-size:11px;color:var(--mu);font-weight:600;letter-spacing:0.2em;text-transform:uppercase">Do bruto ao líquido</span>
+        <sc-for list="{{ waterfall }}" as="w" hint-placeholder-count="6">
+          <div style="display:flex;flex-direction:column;gap:5px">
+            <div style="display:flex;justify-content:space-between;gap:8px;font-size:13px"><span style="color:{{ w.labelColor }};font-weight:{{ w.weight }}">{{ w.label }}</span><span style="font-weight:{{ w.weight }};color:{{ w.valColor }};white-space:nowrap">{{ w.value }}</span></div>
+            <div style="position:relative;height:14px"><div style="position:absolute;top:0;bottom:0;left:{{ w.left }};width:{{ w.w }};background:{{ w.color }};border-radius:4px"></div></div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="background:var(--glass);border:1px solid var(--edge);border-radius:18px;box-shadow:inset 0 1px 0 rgba(245,243,241,0.06),0 20px 40px -26px rgba(0,0,0,0.9);backdrop-filter:blur(14px);padding:6px 16px">
+        <sc-for list="{{ payItems }}" as="p" hint-placeholder-count="12">
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;padding:10px 0;border-bottom:1px solid var(--ln);font-size:12px">
+            <span>{{ p.desc }}</span><span style="white-space:nowrap">{{ p.ven }}<span style="color:var(--neg)">{{ p.des }}</span></span>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isBancos }}" hint-placeholder-val="{{ false }}">
+      <div style="background:var(--glass);border:1px solid var(--edge);border-radius:18px;box-shadow:inset 0 1px 0 rgba(245,243,241,0.06),0 20px 40px -26px rgba(0,0,0,0.9);backdrop-filter:blur(14px);padding:18px;display:flex;flex-direction:column;gap:18px">
+        <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px">
+          <sc-for list="{{ steps }}" as="s" hint-placeholder-count="4"><div style="height:3px;border-radius:999px;background:{{ s.bar }}"></div></sc-for>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:20px;font-weight:300">{{ step.title }}</span><span style="font-size:13px;color:var(--mu);line-height:1.55">{{ step.body }}</span></div>
+        <div style="display:flex;flex-direction:column;border:1px solid var(--ln);border-radius:14px;overflow:hidden">
+          <sc-for list="{{ step.items }}" as="it" hint-placeholder-count="3"><div style="display:flex;justify-content:space-between;gap:10px;padding:12px 14px;border-bottom:1px solid var(--ln);font-size:13px"><span>{{ it.a }}</span><span style="color:var(--mu);text-align:right">{{ it.b }}</span></div></sc-for>
+        </div>
+        <button onClick="{{ stepNext }}" style="height:48px;border:0;background:var(--gold);color:var(--onGold);box-shadow:0 0 0 1px rgba(252,192,0,0.45),0 0 24px rgba(252,192,0,0.32);border-radius:999px;font-size:14px;font-weight:700">{{ step.cta }}</button>
+        <sc-if value="{{ step.canBack }}" hint-placeholder-val="{{ false }}"><button onClick="{{ stepBack }}" style="height:44px;border:1px solid var(--ln2);background:transparent;color:var(--tx);border-radius:999px;font-size:13px;font-weight:600">Voltar</button></sc-if>
+      </div>
+      <div style="background:var(--glass);border:1px solid var(--edge);border-radius:18px;box-shadow:inset 0 1px 0 rgba(245,243,241,0.06),0 20px 40px -26px rgba(0,0,0,0.9);backdrop-filter:blur(14px);padding:18px;display:flex;flex-direction:column;gap:12px">
+        <span style="font-size:11px;color:var(--mu);font-weight:600;letter-spacing:0.2em;text-transform:uppercase">Plano B · carregar extrato</span>
+        <sc-if value="{{ up.idle }}" hint-placeholder-val="{{ true }}">
+          <label style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:20px 12px;border:1.5px dashed var(--ln2);border-radius:14px;text-align:center;cursor:pointer">
+            <input type="file" accept=".ofx,.csv,.pdf,.xlsx,.xls" onChange="{{ onFile }}" style="display:none">
+            <span style="font-size:14px;font-weight:600">Escolher arquivo</span><span style="font-size:12px;color:var(--mu)">OFX, CSV, XLSX ou PDF</span>
+          </label>
+        </sc-if>
+        <sc-if value="{{ up.busy }}" hint-placeholder-val="{{ false }}">
+          <div style="height:4px;background:var(--s3);border-radius:999px;overflow:hidden"><div style="height:100%;width:{{ up.pctW }};background:var(--gold)"></div></div><span style="font-size:12px;color:var(--mu)">{{ up.stage }}</span>
+        </sc-if>
+        <sc-if value="{{ up.done }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;justify-content:space-between;font-size:13px"><span>{{ up.count }} lançamentos</span><span style="color:var(--pos);font-weight:600">Importado</span></div>
+          <span style="font-size:12px;color:var(--mu)">{{ up.period }}</span>
+          <button onClick="{{ upReset }}" style="height:44px;border:1px solid var(--ln2);background:transparent;color:var(--tx);border-radius:999px;font-size:13px;font-weight:600">Carregar outro</button>
+        </sc-if>
+      </div>
+    </sc-if>
+  </div>
+
+  <div style="flex-shrink:0;display:grid;grid-template-columns:repeat(5,1fr);padding:6px 8px 28px;border-top:1px solid var(--edge);background:rgba(12,12,11,0.78);backdrop-filter:blur(18px)">
+    <button onClick="{{ mt.geral.go }}" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:52px;border:0;background:transparent;color:{{ mt.geral.color }};font-size:11px;font-weight:{{ mt.geral.weight }};letter-spacing:0.02em">
+        <span style="width:44px;height:30px;border-radius:999px;display:flex;align-items:center;justify-content:center;background:{{ mt.geral.bg }};box-shadow:{{ mt.geral.glow }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5 12 4l8 6.5V19a1 1 0 0 1-1 1h-4.5v-5.5h-5V20H5a1 1 0 0 1-1-1z"></path></svg></span>
+        <span>Início</span>
+      </button>
+      <button onClick="{{ mt.gastos.go }}" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:52px;border:0;background:transparent;color:{{ mt.gastos.color }};font-size:11px;font-weight:{{ mt.gastos.weight }};letter-spacing:0.02em">
+        <span style="width:44px;height:30px;border-radius:999px;display:flex;align-items:center;justify-content:center;background:{{ mt.gastos.bg }};box-shadow:{{ mt.gastos.glow }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="14" rx="3"></rect><path d="M4 9.5h16"></path><path d="M8 14.5h3"></path></svg></span>
+        <span>Gastos</span>
+      </button>
+      <button onClick="{{ mt.metas.go }}" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:52px;border:0;background:transparent;color:{{ mt.metas.color }};font-size:11px;font-weight:{{ mt.metas.weight }};letter-spacing:0.02em">
+        <span style="width:44px;height:30px;border-radius:999px;display:flex;align-items:center;justify-content:center;background:{{ mt.metas.bg }};box-shadow:{{ mt.metas.glow }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"></circle><circle cx="12" cy="12" r="4"></circle><circle cx="12" cy="12" r="0.6" fill="currentColor"></circle></svg></span>
+        <span>Metas</span>
+      </button>
+      <button onClick="{{ mt.ia.go }}" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:52px;border:0;background:transparent;color:{{ mt.ia.color }};font-size:11px;font-weight:{{ mt.ia.weight }};letter-spacing:0.02em">
+        <span style="width:44px;height:30px;border-radius:999px;display:flex;align-items:center;justify-content:center;background:{{ mt.ia.bg }};box-shadow:{{ mt.ia.glow }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5c.6 3.9 2.6 5.9 6.5 6.5-3.9.6-5.9 2.6-6.5 6.5-.6-3.9-2.6-5.9-6.5-6.5 3.9-.6 5.9-2.6 6.5-6.5Z"></path><path d="M18.5 15.5c.25 1.6 1 2.35 2.5 2.5-1.5.25-2.25 1-2.5 2.5-.25-1.5-1-2.25-2.5-2.5 1.5-.15 2.25-.9 2.5-2.5Z"></path></svg></span>
+        <span>IA</span>
+      </button>
+      <button onClick="{{ mt.mais.go }}" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:52px;border:0;background:transparent;color:{{ mt.mais.color }};font-size:11px;font-weight:{{ mt.mais.weight }};letter-spacing:0.02em">
+        <span style="width:44px;height:30px;border-radius:999px;display:flex;align-items:center;justify-content:center;background:{{ mt.mais.bg }};box-shadow:{{ mt.mais.glow }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="12" r="1.3" fill="currentColor"></circle><circle cx="12" cy="12" r="1.3" fill="currentColor"></circle><circle cx="18" cy="12" r="1.3" fill="currentColor"></circle></svg></span>
+        <span>Mais</span>
+      </button>
+  </div>
+</div>
+</x-import>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;planoIA&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Projeção&quot;},&quot;contarOutraConta&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Projeção&quot;},&quot;ocultarValores&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Privacidade&quot;}}">
+const LOANS=[
+ {id:'a',parc:380,cur:12,total:12},{id:'b',parc:402.5,cur:10,total:12},
+ {id:'c',parc:255.3,cur:13,total:18},{id:'d',parc:140,cur:10,total:18},
+ {id:'e',parc:240.9,cur:11,total:18},{id:'f',parc:248.75,cur:6,total:36}];
+const EXT=[["07/10","PAY APPLE",-5.86,"assinaturas"],["07/10","PAY QUIOSQ",-9.86,"lanches"],["06/10","PAY QUIOSQ",-8.65,"lanches"],["06/10","PAY CANTINA",-8,"lanches"],["06/10","PIX QRS FIBRA NET",-86,"contas"],["06/10","PAY RESTAU",-18,"restaurantes"],["06/10","PAY CANTINA",-19.44,"lanches"],["06/10","PAY CANTINA",-7,"lanches"],["06/10","REND PAGO APLIC AUT APR",0.01,"outros_in"],["06/10","PAY CANTINA",-9.13,"lanches"],["06/10","PAY CANTINA",-7,"lanches"],["06/10","PIX QRS AGUAS CIDADE",-96.83,"contas"],["06/10","PIX QRS DLOCAL BRAS",-53,"assinaturas"],["05/10","PAY HORTI",-61.19,"mercado"],["05/10","PAY CANTINA",-7.3,"lanches"],["05/10","PAY PASTEL",-17,"lanches"],["05/10","PAY ATACAD",-20,"mercado"],["05/10","PAY EMPORI",-50.23,"mercado"],["05/10","PAY ACOUGU",-16,"mercado"],["05/10","PAY MERCAD",-25.29,"mercado"],["05/10","PAY CANTINA",-3.83,"lanches"],["05/10","PAY CANTINA",-12.78,"lanches"],["05/10","PAY PASTEL",-13.32,"lanches"],["05/10","PAY IFD W",-45.27,"delivery"],["05/10","PAY CANTINA",-9.87,"lanches"],["05/10","REMUNERACAO/SALARIO",3000,"salario"],["05/10","CREDITO CONSIGNADO 101",-345.58,"emprestimo"],["05/10","CREDITO CONSIGNADO 205",-132.81,"emprestimo"],["05/10","CREDITO CONSIGNADO 101",-40.05,"emprestimo"],["05/10","CREDITO CONSIGNADO 318",-148.92,"emprestimo"],["05/10","PIX TRANSF MARIANA",-17,"pessoas"],["05/10","PIX TRANSF Bruno C",-24,"pessoas"],["05/10","PAY IFD 5",-38.18,"delivery"],["05/10","PAY PASTEL",-12,"lanches"],["05/10","PIX QRS CIA ENERGIA",-272.93,"contas"],["05/10","PAY PIZZA",-31,"restaurantes"],["05/10","PAY BURGER",-19,"restaurantes"],["05/10","PAY CANTINA",-11,"lanches"],["02/10","PAY PANIF",-20.39,"mercado"],["02/10","PAY CANTINA",-6,"lanches"],["01/10","PAY IFD R",-15.48,"delivery"],["01/10","PAY CANTINA",-8.97,"lanches"],["01/10","PAY CANTINA",-2,"lanches"],["30/09","PAY CANTINA",-10.87,"lanches"],["30/09","PAY CANTINA",-2,"lanches"],["30/09","PAY CANTINA",-6.38,"lanches"],["30/09","PIX AUT EBANX",-24.8,"assinaturas"],["30/09","PAY MP N",-14,"lanches"],["30/09","PAY BARBEA",-16,"saude"],["30/09","PIX TRANSF Lucas",-18,"propria"],["30/09","PIX TRANSF CAMILA",-32,"pessoas"],["30/09","PIX TRANSF LUCAS",17.06,"propria"],["30/09","PAY MP A",-32.86,"lanches"],["30/09","PAY PAPELA",-3,"compras"],["29/09","PIX TRANSF Joao Pe",-14,"pessoas"],["29/09","PAY MP N",-18,"lanches"],["29/09","PAY IFD 6",-30.16,"delivery"],["29/09","PIX TRANSF Lucas",-16,"propria"],["29/09","PAY PASTEL",-15.48,"lanches"],["29/09","PAY LANCHE",-59,"lanches"],["28/09","PIX TRANSF CAMILA",-22,"pessoas"],["28/09","PAY PAYGO",-7.94,"lanches"],["28/09","PAY PASTEL",-20,"lanches"],["28/09","PAY CANTINA",-8,"lanches"],["28/09","PAY PANIF",-6.42,"mercado"],["28/09","PAY CANTINA",-6.4,"lanches"],["28/09","PIX TRANSF Lucas",447,"propria"],["28/09","PAY SUPER",-19.43,"mercado"],["28/09","PIX TRANSF Lucas",335,"propria"],["25/09","PAY CANTINA",-3.84,"lanches"],["25/09","PIX TRANSF Lucas",152,"propria"],["25/09","PIX TRANSF Bruno C",-20,"pessoas"],["25/09","PAY QUIOSQ",-13.52,"lanches"],["25/09","PAY QUIOSQ",-2.63,"lanches"],["25/09","PIX TRANSF Lucas",-27.64,"propria"],["25/09","PAY LANCHE",-30,"lanches"],["24/09","PAY PASTEL",-20.75,"lanches"],["24/09","PAY SALGAD",-26,"lanches"],["24/09","PAY AUTO",-4,"transporte"],["24/09","PAY QUIOSQ",-17.48,"lanches"],["24/09","PAY DOCES",-8,"lanches"],["24/09","PAY ACAI",-21,"lanches"],["24/09","PAY CANTINA",-9.75,"lanches"],["23/09","PAY CANTINA",-12.79,"lanches"],["23/09","PAY IFD 5",-34.32,"delivery"],["23/09","PAY QUIOSQ",-7.88,"lanches"],["23/09","PAY IFD 5",-43,"delivery"],["23/09","PAY CANTINA",-6.15,"lanches"],["22/09","PAY CANTINA",-12,"lanches"],["22/09","PAY QUIOSQ",-11.45,"lanches"],["22/09","PAY PANIF",-20,"mercado"],["21/09","PIX TRANSF Lucas",67.63,"propria"],["21/09","PIX TRANSF Lucas",34,"propria"],["21/09","PIX TRANSF Lucas",176.13,"propria"],["21/09","PAY MP N",-28,"lanches"],["21/09","PAY HORTI",-54.41,"mercado"],["21/09","PAY EMPORI",-22.28,"mercado"],["21/09","PAY CANTINA",-13,"lanches"],["21/09","PAY MP N",-25,"lanches"],["21/09","PAY CANTINA",-5.78,"lanches"],["21/09","PAY HORTI",-51.08,"mercado"],["21/09","PAY EMPORI",-28,"mercado"],["21/09","PAY MERCAD",-12,"mercado"],["21/09","PAY CANTINA CENTRAL",-5.75,"lanches"],["21/09","PAY DOCES",-27,"lanches"],["21/09","PAY DOCES",-2,"lanches"],["21/09","PIX TRANSF Joao Pe",-24,"pessoas"],["21/09","PIX TRANSF Carla M",87.3,"outros_in"],["21/09","PAY CANTINA",-8.62,"lanches"],["21/09","PAY AUTO",-17,"transporte"],["21/09","PAY LANCHE",-4,"lanches"],["21/09","PAY LANCHE",-44,"lanches"],["21/09","PAY MP C",-6,"lanches"],["21/09","PIX TRANSF RAFAEL",-40,"pessoas"],["18/09","PIX TRANSF MARIANA",-23,"pessoas"],["18/09","PIX TRANSF Lucas",-17,"propria"],["18/09","PIX TRANSF Lucas",-21,"propria"],["18/09","PAY MP K",-25,"lanches"],["18/09","PAY CHURRA",-227.41,"restaurantes"],["18/09","PAY MP K",-31,"lanches"],["18/09","PAY QUIOSQ",-11.08,"lanches"],["18/09","PAGTO ITAU SEGUROS",0.79,"outros_in"],["18/09","PAGTO ITAU SEGUROS",0.82,"outros_in"],["18/09","REND PAGO APLIC AUT MAIS",0.01,"outros_in"],["17/09","PIX TRANSF MARIANA",-15,"pessoas"],["17/09","PAY TAPIOC",-17.91,"lanches"],["17/09","PAY LAVA",-36,"transporte"],["17/09","PAY PANIF",-14.22,"mercado"],["17/09","PAY PASTEL",-37,"lanches"],["17/09","PAY QUIOSQ",-2.34,"lanches"],["16/09","PAY ATACAD",-14,"mercado"],["16/09","PAY SUPER",-137.17,"mercado"],["16/09","PAY HORTI",-75.41,"mercado"],["16/09","PAY DOCES",-18,"lanches"],["16/09","ITAU SEGURO CREDITO",-1.89,"tarifas"],["15/09","PIX TRANSF MARIANA",-16,"pessoas"],["15/09","PIX TRANSF Beatriz",-329,"pessoas"],["15/09","PIX QRS PICHAU INFO",-625.76,"compras"],["15/09","PIX QRS SMARTFIT ES",-173.46,"saude"],["15/09","PIX QRS TELEFONICA",-44.45,"contas"],["15/09","PAY MP N",-15,"lanches"],["15/09","PAY IFD 5",-28.71,"delivery"],["15/09","PAY SALAO",-31.93,"saude"],["15/09","PAY SUSHI",-44,"restaurantes"],["15/09","PAY NETFL",-24.33,"assinaturas"],["15/09","CREDITO CONSIGNADO",998,"emprestimo_in"],["15/09","ITAU SEGURO CREDITO",-1.14,"tarifas"],["15/09","ITAU SEGURO CREDITO",-1.09,"tarifas"],["15/09","REND PAGO APLIC AUT MAIS",0.01,"outros_in"],["14/09","PIX TRANSF THIAGO",-32.71,"pessoas"],["14/09","PIX TRANSF Fernand",-61,"pessoas"],["14/09","PIX TRANSF Lucas",-20,"propria"],["14/09","PIX QRS 99 TECNOLOG",-23,"transporte"],["14/09","PIX QRS 99 TECNOLOG",-25.73,"transporte"],["14/09","PAY BAZAR",-74,"compras"],["14/09","PIX QRS 99 TECNOLOG",-34.5,"transporte"],["14/09","PIX QRS CANTINA CENT",-21,"lanches"],["14/09","PIX QRS 99 FOOD",-30.64,"delivery"],["14/09","PIX QRS OFICINA MOTO",-129,"transporte"],["14/09","PIX QRS PIX Marketp",-37,"compras"],["14/09","PAY UTILID",-6,"compras"],["14/09","PIX QRS LOJA ONLINE",-254.56,"compras"],["14/09","PIX QRS 99 TECNOLOG",-9.19,"transporte"],["14/09","PIX QRS 99 TECNOLOG",-45.19,"transporte"],["14/09","PIX QRS 99 TECNOLOG",-17.88,"transporte"],["14/09","PAY CANTINA",-2.76,"lanches"],["14/09","PAY CANTINA",-8,"lanches"],["14/09","PAY CALDO",-57,"lanches"],["14/09","PAY SUPER",-50.8,"mercado"],["14/09","PAY CANTINA",-4.6,"lanches"],["14/09","PAY BOMBON",-40,"lanches"],["14/09","PAY IFD R",-59.96,"delivery"],["14/09","PAY HORTI",-22.76,"mercado"],["14/09","PAY EMPORI",-22.75,"mercado"],["14/09","PAY SUCOS",-15,"lanches"],["14/09","PAY MP N",-21,"lanches"],["14/09","PAY ESPETO",-48.21,"lanches"],["14/09","PAY IFD J",-20.33,"delivery"],["14/09","PAY EMPORI",-39,"mercado"],["14/09","PAY CANTINA",-18,"lanches"],["14/09","PAY CANTINA",-2.85,"lanches"],["14/09","PAY 00400",-202.19,"lanches"],["14/09","PAY 00146",-117.93,"lanches"],["14/09","PAY FEIRA",-47,"mercado"],["14/09","PAY EMPORI",-12,"mercado"],["14/09","CREDITO CONSIGNADO",382,"emprestimo_in"],["14/09","CREDITO CONSIGNADO",297,"emprestimo_in"],["14/09","REND PAGO APLIC AUT MAIS",0.01,"outros_in"],["11/09","PIX TRANSF Lucas",-173,"propria"],["11/09","PIX TRANSF JULIANA",-52,"pessoas"],["11/09","PAY CANTINA",-7.73,"lanches"],["11/09","PAY BARBEA",-185,"saude"],["11/09","PAY PASTEL",-25.95,"lanches"],["11/09","PAY MP N",-18,"lanches"],["11/09","PAY SUCOS",-13,"lanches"],["11/09","PAY IFD 6",-40.24,"delivery"],["11/09","PAY IFD 5",-31.17,"delivery"],["11/09","PAY CANTINA",-12.17,"lanches"],["11/09","PAG BOLETO FINANC MOTO",-957.42,"moto"],["11/09","CREDITO CONSIGNADO 427",-704.06,"emprestimo"],["11/09","CREDITO CONSIGNADO 536",-246.11,"emprestimo"],["11/09","REND PAGO APLIC AUT MAIS",0.01,"outros_in"],["10/09","PIX TRANSF ALUGUEL APTO",-1450,"moradia"],["10/09","PIX TRANSF Lucas",-21,"propria"],["10/09","PIX TRANSF MARIANA",-4,"pessoas"],["10/09","PIX TRANSF MARIANA",-17,"pessoas"],["10/09","PIX TRANSF Lucas",-22,"propria"],["10/09","PIX TRANSF Lucas",-52,"propria"],["10/09","PIX TRANSF LUCAS",6903.86,"propria"],["10/09","PAY QUIOSQ",-11.13,"lanches"],["10/09","PAY MP T",-42,"lanches"],["10/09","PAY PANIF",-18.56,"mercado"],["10/09","ITAU SEGURO CREDITO",-0.77,"tarifas"],["09/09","PIX QRS TELEFONICA",-37.43,"contas"],["09/09","PIX QRS INFORMATICA",-21.14,"compras"],["09/09","PIX QRS DLOCAL BRAS",-20,"assinaturas"],["09/09","PIX TRANSF Bruno C",19,"outros_in"],["09/09","PAY SUPER",-53.13,"mercado"],["09/09","PAY IFD 6",-59.02,"delivery"],["09/09","PAY DOCES",-19,"lanches"],["09/09","CREDITO CONSIGNADO",200,"emprestimo_in"],["08/09","PIX TRANSF Pedro H",-218,"pessoas"],["08/09","PIX TRANSF Lucas",-6,"propria"],["08/09","PIX TRANSF LETICIA",-14.16,"pessoas"],["08/09","PIX QRS DLOCAL BRAS",-53,"assinaturas"],["08/09","PIX QRS Pagar Me Pa",-69.94,"compras"],["08/09","PIX QRS DLOCAL BRAS",-76,"assinaturas"],["08/09","PAY SUPER",-7.89,"mercado"],["08/09","PAY ESPETO",-25.18,"lanches"],["08/09","PAY MP N",-30,"lanches"],["08/09","PAY SUPER",-27.63,"mercado"],["08/09","PAY CANTINA",-8,"lanches"],["08/09","PAY CANTINA",-13.43,"lanches"],["08/09","PAY IFD P",-35.58,"delivery"],["08/09","PAY Estac",-15,"transporte"],["08/09","PAY CREPE",-23,"lanches"],["08/09","PAY CANTINA",-10.98,"lanches"],["08/09","PAY BISCOI",-8,"lanches"],["08/09","PAY HORTI",-77.39,"mercado"],["08/09","ESTORNO PAY IFD 6",24.47,"outros_in"],["08/09","PAY FEIRA",-26,"mercado"],["08/09","PAY IFD E",-74.87,"delivery"],["08/09","PAY MINIMER",-204.45,"mercado"],["08/09","PAY SUPER",-97.98,"mercado"],["08/09","PAY IFD J",-47.26,"delivery"],["08/09","PAY IFD 6",-28.98,"delivery"],["08/09","PAY IFD 6",-14.57,"delivery"],["04/09","PIX TRANSF Rodrigo",-222,"pessoas"],["04/09","PIX QRS JOALHERIA",-70.58,"compras"],["04/09","PIX TRANSF PATRICI",-12.81,"pessoas"],["04/09","PIX QRS AMAZON.COM.",-49,"compras"],["04/09","PIX QRS AGUAS CIDADE",-109.18,"contas"],["04/09","PIX QRS FIBRA NET",-134,"contas"],["04/09","PIX QRS FACULDADE EAD",-114,"educacao"],["04/09","PIX QRS CIA ENERGIA",-326.26,"contas"],["04/09","PIX QRS MECANICA",-348,"transporte"],["04/09","PAY BOMBON",-37,"lanches"],["04/09","PAY PASTEL",-35.82,"lanches"],["04/09","PAY HORTI",-46.98,"mercado"],["04/09","PAY EMPORI",-46.7,"mercado"],["04/09","PAY IFD L",-25.67,"delivery"],["04/09","PAY BOBS",-6,"restaurantes"],["04/09","PAG BOLETO LOJA CELULAR",-618.79,"celular"],["04/09","REMUNERACAO/SALARIO",3000,"salario"],["03/09","PAY QUIOSQ",-8.63,"lanches"],["02/09","PAY QUIOSQ",-5.88,"lanches"],["01/09","PIX TRANSF Vinicius",-4,"pessoas"],["01/09","PIX QRS Kiwify Tecn",-34,"educacao"],["01/09","PIX QRS LOJA ROUPAS",-6,"compras"],["01/09","PAY QUIOSQ",-2.66,"lanches"],["01/09","PAY ESTETI",-2,"saude"],["01/09","PAY MP M",-11.52,"lanches"],["31/08","PIX AUT EBANX",-22.8,"assinaturas"],["31/08","PIX TRANSF Lucas",-0.46,"propria"],["31/08","PIX TRANSF EDUARDO",179,"outros_in"],["31/08","PAY ATACAD",-17,"mercado"],["31/08","PAY CALDO",-37,"lanches"],["31/08","PAY HORTI",-43.8,"mercado"],["31/08","PAY CANTINA",-4.93,"lanches"],["31/08","PAY CANTINA",-13.53,"lanches"],["31/08","PAY QUIOSQ",-8.44,"lanches"],["31/08","PAY BOBS",-31.79,"restaurantes"],["31/08","PAY SUCOS",-12,"lanches"],["31/08","PAY CANTINA",-5.59,"lanches"],["31/08","PAY CANTINA CENTRAL",-4.76,"lanches"],["31/08","PAY MP N",-15,"lanches"],["28/08","PIX TRANSF Lucas",-12.3,"propria"],["28/08","PIX QRS 99 TECNOLOG",-29.47,"transporte"],["28/08","PIX QRS FEIRINHA",-16,"compras"],["28/08","PAY CANTINA",-20.67,"lanches"],["28/08","PAY QUIOSQ",-12.62,"lanches"],["28/08","PAY PANIF",-76.24,"mercado"],["27/08","PAGAMENTO CONTA AGUA",-63.02,"contas"],["27/08","PIX TRANSF Lucas",-22,"propria"],["27/08","PIX TRANSF Lucas",-9,"propria"],["27/08","PIX QRS DLOCAL BRAS",-54,"assinaturas"],["27/08","PAY CANTINA",-9,"lanches"],["27/08","PAY QUIOSQ",-14.81,"lanches"],["27/08","PAY CAFE C",-6.24,"lanches"],["27/08","REND PAGO APLIC AUT MAIS",0.02,"outros_in"],["26/08","PIX TRANSF Bruno C",-24,"pessoas"],["26/08","PIX TRANSF Lucas",-18,"propria"],["26/08","PIX QRS Ifood Pago",-46.1,"delivery"],["26/08","PIX QRS DLOCAL BRAS",-18,"assinaturas"],["26/08","PIX TRANSF Bruno C",204,"outros_in"],["26/08","PAY DROGA",-24.61,"saude"],["26/08","PAY MP N",-16,"lanches"],["26/08","PIX QRS PAPELARIA",-73,"compras"],["26/08","PAY PASTEL",-31,"lanches"],["26/08","PAY CANTINA",-11.23,"lanches"],["25/08","PIX TRANSF Lucas",-12,"propria"],["25/08","PIX QRS LOJA NOTEBOOK",-3926.93,"compras"],["25/08","PIX TRANSF CREDITA",3533,"emprestimo_in"],["25/08","PIX TRANSF Simone",0.01,"outros_in"],["25/08","PAY SUPER",-64.68,"mercado"],["25/08","PAY CAFE D",-19.19,"lanches"],["25/08","PAY IFD M",-48,"delivery"],["25/08","PAY MP N",-16,"lanches"],["25/08","ITAU SEGURO CREDITO",-1.68,"tarifas"],["24/08","PIX TRANSF ALINE",-19.6,"pessoas"],["24/08","PIX QRS UBER DO BRA",-28.25,"transporte"],["24/08","PAY Estac",-13,"transporte"],["24/08","PAY IFD L",-44.76,"delivery"],["24/08","PAY MANICU",-34.2,"saude"],["24/08","PAY QUIOSQ",-3.82,"lanches"],["24/08","PAY HOTDOG",-19,"lanches"],["24/08","PAY QUIOSQ",-10.8,"lanches"],["24/08","PAY BISTRO",-37,"restaurantes"],["24/08","PAY PAMONH",-22,"lanches"],["24/08","PAY CHOPP",-19,"restaurantes"],["24/08","PIX QRS CALCADOS",-52,"compras"],["24/08","PAY GELADO",-17,"lanches"],["24/08","PAY COXINH",-8.59,"lanches"],["24/08","PIX QRS ELETRONICOS",-230.06,"compras"],["24/08","PAY DOCES",-13,"lanches"],["24/08","PAY IFD C",-27.97,"delivery"],["24/08","PAY CUSCUZ",-41,"lanches"],["24/08","PAY MP V",-18,"lanches"],["24/08","CREDITO CONSIGNADO",615.5,"emprestimo_in"],["21/08","PIX TRANSF Diego M",-58,"pessoas"],["21/08","PIX TRANSF Lucas",179.23,"propria"],["21/08","PAY CAFE D",-28,"lanches"],["20/08","PAY CHOPP",-12,"restaurantes"],["20/08","PAY MP B",-17,"lanches"],["20/08","PAY PASTEL",-21,"lanches"],["20/08","PAY IFD 5",-29.68,"delivery"],["20/08","PAY PADOCA",-2.63,"mercado"],["20/08","PAY QUIOSQ",-9.97,"lanches"],["19/08","PIX QRS EBANX",-28.48,"assinaturas"],["19/08","PAY MP B",-14,"lanches"],["19/08","PAY QUIOSQ",-3.42,"lanches"],["19/08","PAY IFD J",-42.52,"delivery"],["19/08","PAY QUIOSQ",-15.08,"lanches"],["18/08","PIX TRANSF Lucas",-34,"propria"],["18/08","PAY QUIOSQ",-7.99,"lanches"],["18/08","PAY CANTINA",-6.88,"lanches"],["18/08","PAY MP K",-16.5,"lanches"],["18/08","PAY PASTEL",-24,"lanches"],["18/08","PAY BOLOS",-33.49,"lanches"],["18/08","PAY IFD C",-28.75,"delivery"],["17/08","PIX TRANSF GUSTAVO",-20,"pessoas"],["17/08","PIX TRANSF MARIANA",-13,"pessoas"],["17/08","PIX TRANSF Lucas",-13.05,"propria"],["17/08","PIX TRANSF Lucas",-3,"propria"],["17/08","PIX TRANSF Felipe",-25,"pessoas"],["17/08","PIX TRANSF Lucas",-24.24,"propria"],["17/08","PIX TRANSF Simone R",0.01,"outros_in"],["17/08","PAY MP N",-15,"lanches"],["17/08","PAY MP N",-18,"lanches"],["17/08","PAY MP A",-21.36,"lanches"],["17/08","PAY SUPER",-58.4,"mercado"],["17/08","PAY MP C",-14,"lanches"],["17/08","PAY IFD 6",-37.73,"delivery"],["17/08","PAY CANTINA",-9.89,"lanches"],["17/08","PAY ESFIHA",-40,"restaurantes"],["17/08","PAY POSTO",-19,"transporte"],["17/08","PAY BOB'S",-12,"restaurantes"],["17/08","PAY PIPOCA",-27,"lanches"],["17/08","PAY ESTETI",-2,"saude"],["17/08","PAY QUIOSQ",-12.99,"lanches"],["17/08","PAY IFD E",-43.05,"delivery"],["17/08","PAY NETFL",-17.61,"assinaturas"],["17/08","PAY CANTINA",-8.08,"lanches"],["17/08","REND PAGO APLIC AUT MAIS",0.01,"outros_in"],["14/08","PAY MP K",-14,"lanches"],["14/08","PAY SUPER",-16,"mercado"],["14/08","PAY QUIOSQ",-5.27,"lanches"],["13/08","PIX TRANSF Lucas",-169,"propria"],["13/08","PIX QRS PRESENTES",-316,"compras"],["13/08","PIX QRS ARMARINHO",-3,"compras"],["13/08","PIX QRS BRINQUEDOS",-97,"compras"],["13/08","PAY QUIOSQ",-6.43,"lanches"],["13/08","PAY CANTINA",-13.23,"lanches"],["13/08","PAY LAVA",-50,"transporte"],["13/08","PAY IFD D",-55.8,"delivery"],["13/08","PAY BANCA",-7.05,"lanches"],["13/08","PAY PASTEL",-47,"lanches"],["13/08","PAY IFD R",-49.14,"delivery"],["13/08","PAY MP N",-24,"lanches"],["13/08","REND PAGO APLIC AUT MAIS",0.01,"outros_in"],["12/08","PIX TRANSF Lucas",-6,"propria"],["12/08","PIX TRANSF Lucas",-23.87,"propria"],["12/08","PIX TRANSF Lucas",-1.42,"propria"],["12/08","PIX TRANSF Lucas",-6,"propria"],["12/08","PAY DOCES",-35,"lanches"],["12/08","PAY BISTRO",-55,"restaurantes"],["12/08","PAY IFD 6",-40.68,"delivery"],["12/08","PAY CANTINA",-5.01,"lanches"],["12/08","PAY LOJAS",-82.94,"compras"],["12/08","PAY TABACA",-19,"lanches"],["12/08","PAY CANTINA",-13,"lanches"],["12/08","PAG BOLETO FINANC MOTO",-798.94,"moto"],["12/08","PAG BOLETO LOJA CELULAR",-698.77,"celular"],["12/08","REND PAGO APLIC AUT MAIS",0.02,"outros_in"],["11/08","PIX TRANSF Tatiana",-158,"pessoas"],["11/08","PIX TRANSF Lucas",-38,"propria"],["11/08","PIX QRS FACULDADE EAD",-114,"educacao"],["11/08","PIX QRS OTICA",-131,"compras"],["11/08","PAY MP N",-20,"lanches"],["11/08","PAY Estac",-14,"transporte"],["11/08","PAY MP 9",-2,"lanches"],["11/08","PAY TEMAKI",-3,"restaurantes"],["11/08","PAY TEMAKI",-10,"restaurantes"],["11/08","PAY AUTO",-18,"transporte"],["11/08","PAY SALAO",-153.4,"saude"],["11/08","PAY IFD 5",-61.61,"delivery"],["11/08","PAY QUIOSQ",-13.63,"lanches"],["11/08","REND PAGO APLIC AUT MAIS",0.01,"outros_in"],["10/08","PIX TRANSF MATHEUS",-28,"pessoas"],["10/08","PIX TRANSF Lucas",-7,"propria"],["10/08","PIX TRANSF Lucas",-6,"propria"],["10/08","PIX TRANSF Lucas",-7,"propria"],["10/08","PIX TRANSF ALUGUEL APTO",-1450,"moradia"],["10/08","PIX QRS LOCALIZA RE",-481.92,"transporte"],["10/08","PIX QRS FIBRA NET",-109,"contas"],["10/08","PIX QRS 99 FOOD",-40.25,"delivery"],["10/08","PIX QRS 99 TECNOLOG",-19,"transporte"],["10/08","PIX QRS AGUAS CIDADE",-108.71,"contas"],["10/08","PIX QRS CIA ENERGIA",-335.33,"contas"],["10/08","PIX QRS Ifood Pago",-44.63,"delivery"],["10/08","PIX QRS LOCALIZA RE",-311.93,"transporte"],["10/08","PIX TRANSF LUCAS",5413,"propria"],["10/08","PIX TRANSF Lucas",8,"propria"],["10/08","PIX TRANSF Lucas",239,"propria"],["10/08","PAY OSTERIA",-11,"restaurantes"],["10/08","PAY GRILL",-20,"restaurantes"],["10/08","PAY SORVET",-21,"restaurantes"],["10/08","PAY CANTINA",-17.29,"lanches"],["10/08","PAY OSTERIA",-22,"restaurantes"],["10/08","PAY DOCES",-21,"lanches"],["10/08","PAY OSTERIA",-7,"restaurantes"],["10/08","PAY CHURRO",-10,"lanches"],["10/08","PAY PEIXAR",-21,"restaurantes"],["10/08","PAY MP N",-29,"lanches"],["10/08","PAY AUTO",-67,"transporte"],["10/08","PAY AUTO",-48,"transporte"],["10/08","PAY TEMAKI",-5,"restaurantes"],["10/08","PAY BAR DO",-135.62,"restaurantes"],["10/08","PAY DROGA",-36.52,"saude"],["10/08","PAY EMPADA",-24,"lanches"],["10/08","PAY QUENTI",-21,"lanches"],["10/08","PAY GRILL",-124,"restaurantes"]];
+const CAT_LABEL={lanches:'Lanches e pequenos gastos',mercado:'Mercado e padaria',compras:'Compras',pessoas:'Pix para pessoas',transporte:'Transporte e apps',delivery:'Delivery',saude:'Saúde, academia e beleza',restaurantes:'Bares e restaurantes',assinaturas:'Assinaturas',educacao:'Educação',moradia:'Aluguel',moto:'Moto',celular:'Celular',contas:'Contas da casa',emprestimo:'Empréstimos na conta',tarifas:'Seguros e tarifas',propria:'Entre contas',salario:'Salário',emprestimo_in:'Crédito de empréstimo',outros_in:'Outras entradas'};
+const sumBy=(c,m,dmax)=>EXT.filter(t=>t[3]===c&&t[0].slice(3)===m&&(!dmax||+t[0].slice(0,2)<=dmax)).reduce((a,t)=>a+t[2],0);
+const r2=v=>Math.round(v*100)/100;
+const NET=3000,GROSS=5800.37;
+const OUTRA=r2((6903.86+5413)/2);
+const FIXED=[['Aluguel',1450],['Moto',r2((957.42+798.94)/2)],['Celular',658.78],['Contas da casa',r2(-(sumBy('contas','09')))],['Empréstimos na conta',r2(-(sumBy('emprestimo','09')+sumBy('emprestimo','10'))/2)]];
+const FIXED_SUM=FIXED.reduce((a,f)=>a+f[1],0);
+const LIM={lanches:700,mercado:800,compras:300,pessoas:400,transporte:450,delivery:250,saude:300,restaurantes:150,assinaturas:110,educacao:136};
+const VAR=Object.keys(LIM).map(id=>({id,label:CAT_LABEL[id],avg:r2(-sumBy(id,'09')),lim:LIM[id],spent:r2(-sumBy(id,'10'))}));
+const VAR_IDS=new Set(Object.keys(LIM));
+const MONTHS=['out/26','nov/26','dez/26','jan/27','fev/27','mar/27','abr/27','mai/27','jun/27','jul/27','ago/27','set/27','out/27','nov/27','dez/27'];
+const MONTH_LONG=['outubro','novembro','dezembro','janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+const THIRTEENTH={1:2900,2:1768.5,13:2900,14:1768.5};
+const DAILY=[0,1,2,3,4,5,6,7].map(d=>r2(-EXT.filter(t=>VAR_IDS.has(t[3])&&t[0].slice(3)==='10'&&+t[0].slice(0,2)<=d).reduce((a,t)=>a+t[2],0)));
+const DLAST=DAILY.length-1;
+const LOAN_IN=r2(EXT.filter(t=>t[3]==='emprestimo_in').reduce((a,t)=>a+t[2],0));
+const JR_N=EXT.filter(t=>/CANTINA/.test(t[1])).length, JR_SUM=r2(-EXT.filter(t=>/CANTINA/.test(t[1])).reduce((a,t)=>a+t[2],0));
+const IFD_N=EXT.filter(t=>t[3]==='delivery').length;
+const fmtRaw=v=>(v<0?'−':'')+'R$ '+Math.abs(v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+const monthAfter=n=>{const m=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];const t=9+n;return m[t%12]+'/'+String(26+Math.floor(t/12)).padStart(2,'0');};
+const pct=v=>Math.max(0,v).toFixed(2)+'%';
+
+class Component extends DCLogic {
+  state={resIdx:(()=>{try{const v=localStorage.getItem('mdResIdx');return v==null?14:+v}catch(_){return 14}})(),screen:'geral',plan:null,priv:null,theme:null,hov:null,donutHov:null,limits:Object.fromEntries(VAR.map(v=>[v.id,v.lim])),simId:'f',
+    chat:[{role:'ai',text:'Oi, Lucas. Já li teu holerite de setembro e os lançamentos do Itaú. Pergunta o que quiser: onde cortar, quanto guardar, se vale quitar algum empréstimo.'}],
+    draft:'',thinking:false,step:0,up:{st:'done',name:'Pré-visualização de impressão.pdf',count:EXT.length,period:'08/08 a 07/10/26',dups:0},txCat:null,txAll:false};
+  fmt(v){return (this.state.priv ?? this.props.ocultarValores ?? false)?'R$ •••':fmtRaw(v);}
+  netAt(i){return NET+LOANS.filter(l=>l.total-l.cur<i).reduce((s,l)=>s+l.parc,0);}
+  outra(){return (this.props.contarOutraConta ?? true)?OUTRA:0;}
+  project(usePlan){
+    const varSum=usePlan?VAR.reduce((s,v)=>s+this.state.limits[v.id],0):VAR.reduce((s,v)=>s+v.avg,0);
+    let res=0;return MONTHS.map((m,i)=>{const net=this.netAt(i)+this.outra(),t=THIRTEENTH[i]||0,exp=FIXED_SUM+varSum,saldo=net+t-exp;res+=saldo;return {i,net,t,exp,saldo,res};});
+  }
+  componentWillUnmount(){clearInterval(this._upT);}
+  goalIdx(p){return p.findIndex(x=>x.res>=10000);}
+  ask(text){
+    if(!text.trim()||this.state.thinking)return;
+    const chat=[...this.state.chat,{role:'user',text}];
+    this.setState({chat,draft:'',thinking:true,screen:'ia'});
+    const p=this.project(true),pn=this.project(false),w=i=>i>=0?MONTHS[i]:'depois de dez/27';
+    const ctx=`Você é a assistente financeira do app "Saldim". Responda em português do Brasil, direto e acolhedor, em no máximo 5 frases curtas, com números em R$. Sem markdown. Dados do Lucas (out/2026):
+- Salário bruto R$ 5.800,37; líquido R$ 3.000,00. INSS 640,20; IRRF 491,30; plano de saúde 1,00.
+- 6 empréstimos consignados (Crédito Trabalhador) somam R$ 1.667,45/mês: ${LOANS.map(l=>`R$ ${l.parc} parcela ${l.cur}/${l.total}`).join('; ')}. Quando um termina, o líquido sobe.
+- Fixos (extrato Itaú): '+FIXED.map(f=>f[0]+' '+f[1]).join(', ')+'. Renda de outra conta (transferência própria todo dia 10): ~R$ '+OUTRA+'. Novos créditos de empréstimo em ago-set: R$ '+LOAN_IN+'.
+- Variáveis (setembro, extrato Itaú): ${VAR.map(v=>`${v.label} ${v.avg} (limite ${this.state.limits[v.id]}, gasto até dia 7: ${v.spent})`).join('; ')}.
+- Meta: R$ 10 mil de reserva até dez/2027. Com limites bate em ${w(this.goalIdx(p))}; sem limites, ${w(this.goalIdx(pn))}. 13º estimado: nov 2.900,00 e dez 1.768,50.
+Conversa:
+${chat.map(m=>(m.role==='user'?'Lucas: ':'Assistente: ')+m.text).join('\n')}
+Assistente:`;
+    const fb='Não consegui falar com a IA agora. Pelos teus números: os fixos levam R$ 3.100,00 de R$ 3.000,00, então o corte que mais rende é no delivery (R$ 260,00 → R$ 120,00) e guardar cada empréstimo que sai da folha.';
+    const done=t=>this.setState(s=>({chat:[...s.chat,{role:'ai',text:(t||'').trim()||fb}],thinking:false}));
+    try{ if(window.claude&&window.claude.complete){window.claude.complete(ctx).then(done).catch(()=>done(fb));} else done(fb); }catch(e){done(fb);}
+  }
+  renderVals(){
+    const s=this.state,f=v=>this.fmt(v);
+    const dark=true;
+    const usePlan=s.plan ?? this.props.planoIA ?? true;
+    const p=this.project(usePlan),pPlan=this.project(true),pNo=this.project(false);
+    const gi=this.goalIdx(p),giP=this.goalIdx(pPlan),giN=this.goalIdx(pNo);
+    const resI=s.resIdx??14;
+    const setRes=v=>{v=Math.max(0,Math.min(MONTHS.length-1,v));try{localStorage.setItem('mdResIdx',String(v))}catch(_){}this.setState({resIdx:v});};
+    const when=i=>i>=0?MONTHS[i]:'após dez/27';
+    const go=id=>()=>this.setState({screen:id,hov:null});
+    const loansSum=LOANS.reduce((a,l)=>a+l.parc,0);
+    const varAvg=VAR.reduce((a,v)=>a+v.avg,0),varLim=VAR.reduce((a,v)=>a+s.limits[v.id],0),varNow=usePlan?varLim:varAvg;
+    const heads={mais:['Lucas M. da Rocha','Mais'],geral:['Quarta, 7 de outubro','Boa tarde, Lucas'],projecao:['Out/26 a dez/27','Projeção'],gastos:['Extrato Itaú · 08/08 a 07/10 · '+EXT.length+' lançamentos','Gastos'],metas:['Outubro · dia 7 de 31','Limites e metas'],ia:['Lê teu holerite, o Itaú e teus limites','Assistente IA'],emprestimos:['Crédito Trabalhador · desconto em folha','Empréstimos'],holerite:['Competência setembro/26','Holerite'],bancos:['Open Finance Brasil · Banco Central','Conectar bancos']};
+    const navDef=[['geral','Visão geral'],['projecao','Projeção'],['gastos','Gastos'],['metas','Limites e metas'],['ia','Assistente IA','3'],['emprestimos','Empréstimos'],['holerite','Holerite'],['bancos','Conectar bancos']];
+    const nav=navDef.map(([id,label,badge])=>{const a=s.screen===id;return {label,badge:badge||'',badgeDisplay:badge?'inline-block':'none',go:go(id),bg:a?'var(--s2)':'transparent',color:a?'var(--tx)':'var(--mu)',weight:a?600:500,dot:a?'var(--gold)':'transparent'};});
+    // reserve chart
+    const W=600,H=220,all=[...pPlan,...pNo].map(x=>x.res),ymax=Math.max(11500,...all)*1.08,ymin=Math.min(0,...all)*1.15;
+    const X=i=>i/14*W,Y=v=>H*(1-(v-ymin)/(ymax-ymin));
+    const pathOf=arr=>arr.map((x,i)=>(i?'L':'M')+X(i).toFixed(1)+' '+Y(x.res).toFixed(1)).join(' ');
+    const main=usePlan?pPlan:pNo,alt=usePlan?pNo:pPlan;
+    const gIdx=gi>=0?gi:14;
+    const rc={line:pathOf(main),alt:pathOf(alt),area:pathOf(main)+` L${W} ${Y(0)} L0 ${Y(0)} Z`,goalY:Y(10000),zeroY:Y(0),goalTop:pct(Y(10000)/H*100),goalDotLeft:pct(X(gIdx)/W*100),goalDotTop:pct(Y(main[gIdx].res)/H*100)};
+    const hi=s.hov,hx=hi!=null?main[hi]:null;
+    const hov=hx?{left:pct(s.screen==='projecao'?(hi+0.5)/15*100:X(hi)/W*100),top:pct(Y(hx.res)/H*100),tx:hi<3?'translateX(0)':hi>11?'translateX(-100%)':'translateX(-50%)',label:MONTHS[hi],res:f(hx.res)+' na reserva',saldo:(hx.saldo>=0?'+':'')+f(hx.saldo),saldoColor:hx.saldo<0?'var(--neg)':'var(--pos)',inc:f(hx.net+hx.t),exp:f(hx.exp)}:{};
+    const hovCols=MONTHS.map((m,i)=>({enter:()=>this.setState({hov:i})}));
+    const axis=MONTHS.map((m,i)=>({label:m.slice(0,3),op:i%2?0:1}));
+    const maxNet=this.netAt(14);
+    const netBars=MONTHS.map((m,i)=>({h:pct(this.netAt(i)/maxNet*100),color:this.netAt(i)>NET?'var(--pos)':'var(--s3)'}));
+    // donut
+    const FIX_IDS={'Aluguel':'moradia','Moto':'moto','Celular':'celular','Contas da casa':'contas','Empréstimos na conta':'emprestimo'};
+    const cats=[...FIXED.map(([l,v])=>({label:l,v,kind:'fixo',id:FIX_IDS[l]})),...VAR.map(v=>({label:v.label,v:v.avg,kind:'variável',id:v.id}))].sort((a,b)=>b.v-a.v);
+    const total=cats.reduce((a,c)=>a+c.v,0);
+    const top=cats.slice(0,5),rest=cats.slice(5).reduce((a,c)=>a+c.v,0);
+    const pal=['#FCC000','#ED6C26','#E31621','#C8D400',dark?'#F5F3F1':'#1D1D1B',dark?'#5E5A55':'#CFC9C3'];
+    const dItems=[...top,{label:'Outros',v:rest}].map((c,i)=>({...c,color:pal[i]}));
+    let cum=0;const gap=0.6;
+    const donut=dItems.map((c,i)=>{const sh=c.v/total*100,o={color:c.color,dash:Math.max(0,sh-gap).toFixed(2)+' '+(100-sh+gap).toFixed(2),off:(-cum).toFixed(2),sw:s.donutHov===i?'5.6':'4.2'};cum+=sh;return o;});
+    const dh=s.donutHov!=null?dItems[s.donutHov]:null;
+    const donutCenter=dh?{label:dh.label,value:f(dh.v),sub:Math.round(dh.v/total*100)+'% do total'}:{label:'Gasto médio',value:f(total),sub:'por mês'};
+    const donutLegend=dItems.map((c,i)=>({label:c.label,color:c.color,value:f(c.v),share:Math.round(c.v/total*100)+'%',bg:s.donutHov===i?'var(--s2)':'transparent',enter:()=>this.setState({donutHov:i}),leave:()=>this.setState({donutHov:null})}));
+    const notes={};LOANS.forEach(l=>{const i=l.total-l.cur+1;if(i<15)(notes[i]=notes[i]||[]).push(l);});
+    const maxAbs=Math.max(...p.slice(0,6).map(x=>Math.abs(x.saldo)));
+    const next6=p.slice(0,6).map(x=>({label:MONTH_LONG[x.i],saldo:(x.saldo>=0?'+':'')+f(x.saldo),saldoColor:x.saldo<0?'var(--neg)':'var(--pos)',negW:pct(x.saldo<0?-x.saldo/maxAbs*100:0),posW:pct(x.saldo>0?x.saldo/maxAbs*100:0),
+      note:[THIRTEENTH[x.i]?'13º':null,notes[x.i]?'+'+fmtRaw(notes[x.i].reduce((a,l)=>a+l.parc,0))+' na folha':null].filter(Boolean).join(' · ')}));
+    // projection bars
+    const maxV=Math.max(...p.map(x=>Math.max(x.net+x.t,x.exp)));
+    const proj=p.map(x=>({label:MONTHS[x.i],short:MONTHS[x.i].slice(0,3),inc:f(x.net+x.t),exp:f(x.exp),saldo:(x.saldo>=0?'+':'')+f(x.saldo),reserve:f(x.res),
+      saldoK:(x.saldo<0?'−':'+')+(Math.abs(x.saldo)/1000).toLocaleString('pt-BR',{maximumFractionDigits:1})+'k',
+      saldoColor:x.saldo<0?'var(--neg)':'var(--pos)',hInc:pct(x.net/maxV*100),h13:pct(x.t/maxV*100),hExp:pct(x.exp/maxV*100),incRadius:x.t?'0':'3px 3px 0 0',
+      colBg:s.hov===x.i?'var(--s2)':'transparent',enter:()=>this.setState({hov:x.i})}));
+    const projKpis=[{label:'Reserva em '+MONTHS[resI],value:f(p[resI].res),sub:planLabelOf(usePlan),color:'var(--goldTx)'},{label:'Meta de R$ 10 mil',value:when(gi),sub:'com 13º guardado',color:'var(--tx)'},{label:'Líquido em jul/27',value:f(this.netAt(9)),sub:'5 empréstimos quitados',color:'var(--tx)'}];
+    function planLabelOf(u){return u?'com o plano da IA':'gastando como hoje';}
+    // gastos
+    const allCats=cats.map(c=>({label:c.label,kind:c.kind,value:f(c.v),w:pct(c.v/cats[0].v*100),share:Math.round(c.v/(NET+OUTRA)*100)+'%',color:c.kind==='fixo'?'var(--mu)':'#FCC000',go:()=>this.setState(st=>({txCat:st.txCat===c.id?null:c.id})),bg:s.txCat&&s.txCat===c.id?'var(--s2)':'transparent'}));
+    const PW=310,PH=120,limMonth=varLim,ymaxP=Math.max(limMonth,DAILY[DLAST])*1.05;
+    const pX=d=>d/30*PW,pY=v=>PH*(1-v/ymaxP);
+    const pl=DAILY.map((v,d)=>(d?'L':'M')+pX(d).toFixed(1)+' '+pY(v).toFixed(1)).join(' ');
+    const paceD=DAILY[DLAST]-limMonth*DLAST/31;const pace={line:pl,area:pl+` L${pX(DLAST)} ${PH} L0 ${PH} Z`,limY:pY(limMonth),diff:f(Math.abs(paceD)),word:paceD>0?'acima':'abaixo',color:paceD>0?'var(--neg)':'var(--pos)'};
+    const txSrc=(s.txCat?EXT.filter(t=>t[3]===s.txCat):EXT).slice(0,s.txAll?60:14).map(t=>[t[0],t[1],CAT_LABEL[t[3]]||t[3],t[2]]);
+    const tx=txSrc.map(([d,name,cat,v])=>({d,name,cat,ini:name.replace(/^(PAY|PIX TRANSF|PIX QRS|PIX AUT|PAG BOLETO|PAG BOLETO BANCO)\s*/,'').replace(/[^A-Za-zÀ-ú0-9]/g,'').slice(0,2).toUpperCase(),v:(v>0?'+':'')+f(v),color:v>0?'var(--pos)':'var(--tx)'}));
+    // limits
+    const limits=VAR.map(v=>{const lim=s.limits[v.id],r=lim?v.spent/lim:0,over=v.spent>lim,warn=!over&&r>7/31+0.15;
+      const set=d=>()=>this.setState(st=>({limits:{...st.limits,[v.id]:Math.max(0,st.limits[v.id]+d)}}));
+      const pc=Math.min(100,r*100);
+      return {label:v.label,spent:f(v.spent),limit:f(lim),avg:f(v.avg),dash:pc.toFixed(2)+' '+(100-pc).toFixed(2),pctLabel:Math.round(r*100)+'%',statusColor:over?'var(--neg)':warn?'var(--warn)':'var(--pos)',status:over?'Estourou':warn?'Atenção':'No ritmo',dec:set(-10),inc:set(10)};});
+    // loans
+    const loanRows=LOANS.map(l=>{const left=l.total-l.cur,a=s.simId===l.id;return {name:'Contrato '+l.total+'x',cur:l.cur,total:l.total,parc:f(l.parc),w:pct(Math.min(left,15)/15*100),bar:a?'#E31621':(dark?'#5E2426':'#F3B7BA'),barLabel:left>15?'até '+monthAfter(left):(left?left+'x':''),doneDisplay:left?'none':'block',
+      endLabel:left===0?'última paga':'última '+monthAfter(left),sim:()=>this.setState({simId:l.id}),rowBg:a?'var(--s2)':'transparent'};});
+    const lb=MONTHS.map((m,i)=>LOANS.filter(l=>l.total-l.cur>=i+0&&l.total-l.cur>i-0&&l.total-l.cur>=i).reduce((a,l)=>a+(l.total-l.cur>i?l.parc:0),0));
+    const lbMax=Math.max(...lb,1);
+    const loanBars=lb.map(v=>({h:pct(v/lbMax*100),op:v===lbMax?1:0.55}));
+    const loanKpis=[{label:'Parcelas por mês',value:f(loansSum),sub:'52% do salário líquido',color:'var(--neg)'},{label:'Ainda a pagar',value:f(LOANS.reduce((a,l)=>a+(l.total-l.cur)*l.parc,0)),sub:'nominal, soma das parcelas',color:'var(--tx)'},{label:'Em jul/27 na folha',value:f(270.39),sub:'só o contrato de 36x',color:'var(--pos)'}];
+    const sl=LOANS.find(l=>l.id===s.simId),sLeft=sl.total-sl.cur;
+    const sim={name:'o contrato de '+sl.total+'x',left:f(sLeft*sl.parc),parc:f(sl.parc),leftN:String(sLeft),end:sLeft?monthAfter(sLeft):'já terminou',
+      advice:sLeft===0?'Esse já foi quitado na folha de setembro. A partir de novembro esse valor volta pro teu líquido.':sLeft<=2?'Faltam poucas parcelas. Não vale usar reserva aqui: ele sai sozinho em breve. Guarda o valor liberado quando terminar.':sl.total===36?'É o mais longo: vai até '+monthAfter(sLeft)+'. Bom candidato pra quitar com parte do 13º, mas só depois da reserva mínima acima. Pede o saldo com desconto de juros antes.':'Quitar agora libera '+fmtRaw(sl.parc)+' por mês. Compara o saldo com desconto com o que tu juntaria guardando esse valor até o fim.'};
+    const RMIN=FIXED_SUM,pR=this.project(usePlan),riM=pR.findIndex(x=>x.res>=RMIN),nowRes=0;
+    const canPay=riM>=0?pR[riM].res-RMIN:0;
+    const rmin={target:f(RMIN),now:f(nowRes),w:pct(Math.min(100,nowRes/RMIN*100)),when:riM>=0?MONTHS[riM]:'após dez/27',
+      status:nowRes>=RMIN?'Pronta':'Ainda não',color:nowRes>=RMIN?'var(--pos)':'var(--warn)',
+      parts:FIXED.map(([l,v])=>({label:l,value:f(v)})),
+      rule:sLeft===0?'Esse contrato já acabou: não precisa da reserva.':(nowRes>=RMIN?'Tua reserva já cobre 1 mês. Pode usar só o que passar de '+f(RMIN)+' pra quitar.':'Hoje tu não tem reserva guardada. Não quita nada antes de juntar '+f(RMIN)+' ('+(riM>=0?MONTHS[riM]:'após dez/27')+', '+planLabelOf(usePlan)+'). Depois disso, usa só o que passar desse valor.')};
+    // holerite waterfall
+    const wf=[['Salário bruto',GROSS,0,'var(--bar)'],['INSS',640.2,GROSS-640.2,'var(--neg)'],['IRRF',491.3,GROSS-640.2-491.3,'var(--neg)'],['Empréstimos (6)',loansSum,NET+1.42,'#E31621'],['Plano e arred.',1.42,NET,'var(--neg)'],['Salário líquido',NET,0,'var(--pos)']];
+    const waterfall=wf.map(([label,v,start,color],i)=>({label,color,left:pct(start/GROSS*100),w:pct(Math.max(v/GROSS*100,0.4)),value:(i&&i<5?'−':'')+f(v),weight:i===0||i===5?700:500,labelColor:i===0||i===5?'var(--tx)':'var(--mu)',valColor:i===5?'var(--pos)':(i?'var(--neg)':'var(--tx)')}));
+    const payItems=[['001','Salário Base',5800,0],['999','Arredondamento no Mês',0.37,0],['892','Desc. Mensalidade Plano de Saúde',0,1],['903','INSS Folha',0,640.2],['914','IRRF Folha',0,491.3],['869','Desc. Empréstimo (Crédito Trabalhador) Parc. 13/18',0,255.3],['869','Desc. Empréstimo (Crédito Trabalhador) Parc. 12/12',0,380],['869','Desc. Empréstimo (Crédito Trabalhador) Parc. 6/36',0,248.75],['869','Desc. Empréstimo (Crédito Trabalhador) Parc. 10/18',0,140],['869','Desc. Empréstimo (Crédito Trabalhador) Parc. 11/18',0,240.9],['869','Desc. Empréstimo (Crédito Trabalhador) Parc. 10/12',0,402.5],['610','Desc Arredondamento Mês Anterior',0,0.42]].map(([cod,desc,v,d])=>({cod,desc,ven:v?f(v).replace('R$ ',''):'',des:d?f(d).replace('R$ ',''):''}));
+    // bancos
+    const stepDefs=[
+      {title:'Escolhe a instituição',body:'Tu informou que usa só o Itaú. Vamos pedir acesso de leitura à tua conta corrente e ao cartão de crédito.',items:[{a:'Itaú Unibanco',b:'Conta corrente + cartão'}],cta:'Continuar'},
+      {title:'Revisa o que vai ser compartilhado',body:'Esses dados ficam disponíveis por 12 meses. Dá pra cancelar antes, a qualquer hora.',items:[{a:'Saldos e extrato',b:'Últimos 12 meses'},{a:'Faturas e lançamentos do cartão',b:'Últimos 12 meses'},{a:'Limites e cheque especial',b:'Atual'}],cta:'Ir pro Itaú autorizar'},
+      {title:'Autoriza no app do Itaú',body:'Tu vai ser levado pro app do Itaú, confirma com senha ou biometria e volta pra cá automaticamente.',items:[{a:'Redirecionando para',b:'app Itaú'},{a:'Validade do consentimento',b:'até out/27'}],cta:'Já autorizei'},
+      {title:'Itaú conectado',body:'Puxamos 12 meses de lançamentos. A IA separou por categoria e calculou tua média de gastos variáveis.',items:[{a:'Lançamentos importados',b:'1.284'},{a:'Última atualização',b:'hoje, 07/10 às 14h30'}],cta:'Ver meus gastos'}];
+    const st=stepDefs[s.step];
+    const steps=['Instituição','Consentimento','Autorizar','Pronto'].map((label,i)=>({n:i+1,label,bar:i<=s.step?'var(--gold)':'var(--s3)',color:i<=s.step?'var(--tx)':'var(--mu)'}));
+    const alerts=[{tag:'DÍVIDA',color:'var(--neg)',title:'R$ '+LOAN_IN.toLocaleString('pt-BR',{minimumFractionDigits:2})+' em novos empréstimos',body:'Entre 24/08 e 15/09 entraram 6 créditos consignados na conta. Além dos 6 da folha, já tem '+fmtRaw(FIXED[4][1])+'/mês debitando na conta.'},{tag:'INCOMUM',color:'var(--warn)',title:'Compra de R$ 3.926,93 na Loja Notebook',body:'Em 25/08, no mesmo dia de um crédito de R$ 3.533,00.'},{tag:'FOLHA',color:'var(--pos)',title:'Contrato de 12x terminou',body:'Novembro entra R$ 3.380,00 líquido.'}];
+    const prompts=['Onde estou gastando mais?','E se eu quitar o contrato de 36x?','Quanto guardar por mês pra 10 mil?','Posso trocar de celular?'].map(t=>({text:t,go:()=>this.ask(t)}));
+    const chat=s.chat.map(m=>{const u=m.role==='user';return {text:m.text,justify:u?'flex-end':'flex-start',bg:u?'var(--s3)':'transparent',pad:u?'12px 16px':'2px 0',dotDisplay:u?'none':'block'};});
+    const u=s.up||{st:'idle'};
+    const up={idle:u.st==='idle',busy:u.st==='busy',done:u.st==='done',name:u.name||'',pctW:pct(u.p||0),pctLabel:Math.round(u.p||0)+'%',stage:(u.p||0)<40?'Lendo arquivo…':(u.p||0)<80?'IA separando por categoria…':'Conferindo duplicados…',
+      count:u.count?u.count.toLocaleString('pt-BR'):'',period:u.period||'',dups:String(u.dups||0),border:s.upFlag?'var(--gold)':'var(--ln)',dash:s.drag?'var(--gold)':'var(--ln2)',dropBg:s.drag?'rgba(252,192,0,0.06)':'transparent'};
+    const startUpload=file=>{if(!file)return;clearInterval(this._upT);this.setState({up:{st:'busy',name:file.name,p:0},drag:false,upFlag:false});
+      this._upT=setInterval(()=>{const cur=this.state.up;if(!cur||cur.st!=='busy'){clearInterval(this._upT);return;}const p=Math.min(100,cur.p+7+Math.random()*9);
+        if(p>=100){clearInterval(this._upT);this.setState({up:{st:'done',name:cur.name,count:180+Math.round(Math.min(file.size||40000,400000)/400)%900,period:'jul/26 a out/26',dups:Math.round(Math.random()*12)}});}else this.setState({up:{...cur,p}});},180);};
+    const priv=s.priv ?? this.props.ocultarValores ?? false;
+    const expT=FIXED_SUM+varNow;
+    return {
+      nav,head:{kicker:heads[s.screen][0],title:heads[s.screen][1]},
+      showPlanToggle:s.screen==='geral'||s.screen==='projecao',
+      isGeral:s.screen==='geral',isProjecao:s.screen==='projecao',isGastos:s.screen==='gastos',isMetas:s.screen==='metas',isIA:s.screen==='ia',isEmprestimos:s.screen==='emprestimos',isHolerite:s.screen==='holerite',isBancos:s.screen==='bancos',
+      goMetas:go('metas'),goGastos:go('gastos'),goProjecao:go('projecao'),goIA:go('ia'),
+      planLabel:planLabelOf(usePlan),resIdx:String(resI),resOpts:MONTHS.map((m,i)=>({v:String(i),label:m})),onResIdx:e=>setRes(+e.target.value),resPrev:()=>setRes(resI-1),resNext:()=>setRes(resI+1),resAtStart:resI<=0,resAtEnd:resI>=MONTHS.length-1,resAtStartOp:resI<=0?0.35:1,resAtEndOp:resI>=MONTHS.length-1?0.35:1,resQuick:[['Fim do ano',2],['6 meses',6],['1 ano',12],['dez/27',14]].map(([label,i])=>{const on=i===resI;return {label,go:()=>setRes(i),bg:on?'rgba(252,192,0,0.14)':'transparent',bd:on?'rgba(252,192,0,0.45)':'var(--ln2)',color:on?'var(--goldTx)':'var(--mu)'};}),rc,hov,hasHov:hi!=null,hovCols,axis,clearHov:()=>this.setState({hov:null}),netBars,
+      k:{net:f(NET),gross:f(GROSS),desc:f(GROSS-NET),exp:f(expT),expPctW:pct(Math.min(100,expT/NET*100)),saldo:(p[0].saldo>=0?'+':'')+f(p[0].saldo),saldoColor:p[0].saldo<0?'var(--neg)':'var(--pos)',
+        goalWhen:when(gi),goalWhenPlan:when(giP),goalWhenNo:when(giN),reserveEnd:f(p[resI].res),resGoal:p[resI].res>=10000?'Meta de R$ 10 mil batida nesse mês':'Faltam '+f(10000-p[resI].res)+' pra meta',resGoalColor:p[resI].res>=10000?'var(--pos)':'var(--mu)',netJul:f(this.netAt(9)),freed:f(this.netAt(9)-NET),
+        saving:f(varAvg-varLim),loansM:f(loansSum),outraLabel:f(OUTRA),loanIn:f(LOAN_IN),setOut:f(-EXT.filter(t=>t[0].slice(3)==='09'&&t[2]<0&&t[3]!=='propria').reduce((a,t)=>a+t[2],0)),setIn:f(3499+OUTRA),monthNo:f(pNo[3].saldo),monthPlan:f(pPlan[3].saldo),jrN:String(JR_N),jrSum:f(JR_SUM),ifdN:String(IFD_N),leakSet:f(VAR.filter(v=>['lanches','delivery','pessoas'].includes(v.id)).reduce((a,v)=>a+v.avg,0)),planBarW:pct(giP>=0?(giP+1)/15*100:100),noBarW:pct(giN>=0?(giN+1)/15*100:100),varSpent:f(DAILY[DLAST]),varLim:f(varLim)},
+      donut,donutCenter,donutLegend,next6,proj,projKpis,allCats,pace,tx,limits,paceOff:(-(7/31*100)+0.3).toFixed(2),
+      loans:loanRows,rmin,loanBars,loanKpis,sim,waterfall,payItems,steps,step:{...st,canBack:s.step>0&&s.step<3},
+      stepNext:()=>s.step<3?this.setState({step:s.step+1}):this.setState({screen:'gastos'}),stepBack:()=>this.setState({step:Math.max(0,s.step-1)}),
+      alerts,prompts,chat,thinking:s.thinking,draft:s.draft,onDraft:e=>this.setState({draft:e.target.value}),onDraftKey:e=>{if(e.key==='Enter')this.ask(s.draft);},sendDraft:()=>this.ask(s.draft),
+      planOn:()=>this.setState({plan:true}),planOff:()=>this.setState({plan:false}),
+      planOnBg:usePlan?'var(--gold)':'transparent',planOnColor:usePlan?'#1D1D1B':'var(--mu)',planOffBg:usePlan?'transparent':'var(--s3)',planOffColor:usePlan?'var(--mu)':'var(--tx)',
+      up,onFile:e=>startUpload(e.target.files&&e.target.files[0]),onDrop:e=>{e.preventDefault();startUpload(e.dataTransfer.files&&e.dataTransfer.files[0]);},
+      onDragOver:e=>{e.preventDefault();if(!s.drag)this.setState({drag:true});},onDragLeave:()=>this.setState({drag:false}),
+      upReset:()=>this.setState({up:{st:'idle'}}),flagUpload:()=>this.setState({upFlag:true}),goUpload:()=>this.setState({screen:'bancos',upFlag:true,hov:null}),
+      txHead:{title:s.txCat?(CAT_LABEL[s.txCat]||'Lançamentos'):'Últimos lançamentos',action:s.txCat?'Limpar filtro':'Itaú',more:s.txAll?'Mostrar menos':'Ver mais lançamentos'},
+      txClear:()=>this.setState({txCat:null}),txToggleAll:()=>this.setState({txAll:!s.txAll}),
+      contaLoans:Object.entries(EXT.filter(t=>t[3]==='emprestimo').reduce((a,t)=>{const k=t[1].replace('CREDITO CONSIGNADO','Consignado');(a[k]=a[k]||{v:0,d:t[0]});a[k].v+=t[2];return a;},{})).map(([name,o])=>({name,when:'último '+o.d,v:f(o.v)})),
+      isSub:['projecao','emprestimos','holerite','bancos'].includes(s.screen),isMais:s.screen==='mais',goMais:go('mais'),
+      mhead:s.screen==='mais'?{kicker:'Lucas M. da Rocha',title:'Mais'}:{kicker:heads[s.screen][0],title:s.screen==='geral'?'Oi, Lucas':heads[s.screen][1]},
+      mt:Object.fromEntries(['geral','gastos','metas','ia','mais'].map(id=>{const on=s.screen===id||(id==='mais'&&['mais','projecao','emprestimos','holerite','bancos'].includes(s.screen));return [id,{go:go(id),color:on?'var(--gold)':'var(--mu)',weight:on?700:500,bg:on?'rgba(252,192,0,0.12)':'transparent',glow:on?'inset 0 0 0 1px rgba(252,192,0,0.35),0 0 16px rgba(252,192,0,0.3)':'none'}];})),
+      moreItems:[['projecao','Projeção','Out/26 a dez/27 · reserva e sobra'],['emprestimos','Empréstimos','6 na folha + consignados na conta'],['holerite','Holerite','Setembro/26 · bruto ao líquido'],['bancos','Conectar bancos','Open Finance ou carregar extrato']].map(([id,label,sub])=>({label,sub,go:go(id),dot:id==='emprestimos'?'var(--neg)':'var(--gold)'})),
+      privShort:priv?'Mostrar':'Ocultar',
+      togglePriv:()=>this.setState({priv:!priv}),privLabel:priv?'Mostrar valores':'Ocultar valores'
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+name: saldim
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-saldim}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-saldim}
+      POSTGRES_DB: ${POSTGRES_DB:-saldim}
+    ports: ["5432:5432"]
+    volumes: [db-data:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-saldim}"]
+      interval: 3s
+      retries: 20
+
+  api:
+    build: { context: ., dockerfile: apps/api/Dockerfile }
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-saldim}:${POSTGRES_PASSWORD:-saldim}@db:5432/${POSTGRES_DB:-saldim}?schema=public
+      JWT_SECRET: ${JWT_SECRET:-troque-este-segredo}
+      WEB_ORIGIN: ${WEB_ORIGIN:-http://localhost:3001}
+      API_PORT: 3333
+      SEED_ON_START: ${SEED_ON_START:-true}
+      REGISTRATION_OPEN: ${REGISTRATION_OPEN:-true}
+      CATEGORY_RULES: ${CATEGORY_RULES:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      ANTHROPIC_MODEL: ${ANTHROPIC_MODEL:-claude-sonnet-5-5}
+      USD_BRL: ${USD_BRL:-5.40}
+      PLUGGY_CLIENT_ID: ${PLUGGY_CLIENT_ID:-}
+      PLUGGY_CLIENT_SECRET: ${PLUGGY_CLIENT_SECRET:-}
+      PLUGGY_WEBHOOK_URL: ${PLUGGY_WEBHOOK_URL:-}
+      PLUGGY_WEBHOOK_SECRET: ${PLUGGY_WEBHOOK_SECRET:-}
+    ports: ["3333:3333"]
+    depends_on: { db: { condition: service_healthy } }
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      args: { NEXT_PUBLIC_API_URL: "${NEXT_PUBLIC_API_URL:-http://localhost:3333}" }
+    environment:
+      REGISTRATION_OPEN: ${REGISTRATION_OPEN:-true}
+    ports: ["3001:3000"]
+    depends_on: [api]
+
+volumes:
+  db-data:

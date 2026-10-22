@@ -1,0 +1,6 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "design", "runtimeExecutable": "python3", "runtimeArgs": ["-m", "http.server", "4100", "--directory", "design"], "port": 4100 }
+  ]
+}

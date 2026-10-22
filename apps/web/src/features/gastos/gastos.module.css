@@ -1,0 +1,170 @@
+.screen { display: flex; flex-direction: column; gap: 16px; }
+
+/* saldo atual + gasto do período */
+.balance { display: flex; flex-wrap: wrap; gap: 20px 40px; align-items: stretch; }
+.balanceMain, .balanceSide { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.balanceMain { flex: 1 1 320px; }
+.balanceSide { flex: 0 1 300px; padding-left: 40px; border-left: 1px solid var(--ln); }
+.balanceBig { font-size: 40px; font-weight: 300; letter-spacing: -0.02em; line-height: 1.1; }
+.balanceMid { font-size: 26px; font-weight: 300; letter-spacing: -0.01em; line-height: 1.2; }
+@media (max-width: 767px) {
+  .balance { gap: 16px; }
+  .balanceSide { flex-basis: 100%; padding: 16px 0 0; border-left: 0; border-top: 1px solid var(--ln); }
+  .balanceBig { font-size: 34px; }
+  .balanceMid { font-size: 22px; }
+}
+
+/* filtro de período */
+.period {
+  align-self: flex-start;
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--edge);
+  border-radius: 999px;
+  background: rgba(18, 18, 17, 0.7);
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.period::-webkit-scrollbar { display: none; }
+.periodBtn {
+  position: relative;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 0;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  background: transparent;
+  color: var(--mu);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.periodBtn:hover { color: var(--tx); }
+.periodOn, .periodOn:hover { background: var(--s3); color: var(--tx); }
+.periodSelect svg { opacity: 0.7; }
+/* o select nativo cobre o botão: abre o seletor do sistema (bom no celular) */
+.periodSelect select {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  font-size: 16px;
+}
+.periodSelect:focus-within { box-shadow: 0 0 0 2px rgba(252, 192, 0, 0.45); }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 20px; align-items: start; }
+.colL, .colR { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+.hint { font-size: 12px; color: var(--mu); white-space: nowrap; }
+.hintM, .hintInline { display: none; }
+
+.cats { display: flex; flex-direction: column; gap: 16px; }
+.catRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 44px 96px;
+  gap: 14px;
+  align-items: center;
+  padding: 6px 8px;
+  margin: 0 -8px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--tx);
+  text-align: left;
+}
+.catRow:hover, .catOn { background: var(--s2); }
+.catMain { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
+.catName { display: flex; align-items: center; gap: 8px; font-size: 14px; min-width: 0; }
+.catLabel { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.kind { font-size: 10px; color: var(--mu); letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; }
+.catValM { display: none; }
+.bar { height: 4px; background: var(--s3); border-radius: 999px; overflow: hidden; }
+.bar div { height: 100%; border-radius: 999px; }
+.share { font-size: 12px; color: var(--mu); text-align: right; }
+.catVal { font-size: 14px; font-weight: 600; text-align: right; white-space: nowrap; }
+
+.insight { display: flex; flex-direction: column; gap: 10px; padding: 22px 24px; }
+
+.pace { display: flex; flex-direction: column; gap: 14px; }
+.paceTop { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.paceBig { font-size: 30px; font-weight: 200; white-space: nowrap; }
+.paceOf { font-size: 13px; color: var(--mu); }
+.perDay { font-size: 13px; color: var(--mu); margin-top: -8px; }
+.perDay b { color: var(--tx); font-weight: 600; }
+.cycleBar { height: 8px; border-radius: 999px; background: var(--s3); overflow: hidden; }
+.cycleBar > div { height: 100%; border-radius: inherit; background: var(--gold); }
+.cycleBar > div.barOver { background: var(--neg); }
+.barLegend { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; font-size: 12px; color: var(--mu); margin-top: -6px; }
+.barLegend b { color: var(--tx); font-weight: 600; }
+.paceChart { position: relative; height: 120px; }
+.paceChart svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.glow { filter: drop-shadow(0 0 6px rgba(252, 192, 0, 0.6)); }
+.paceAxis { display: flex; justify-content: space-between; font-size: 11px; color: var(--mu); }
+
+.tx { display: flex; flex-direction: column; gap: 2px; }
+.txHead { margin-bottom: 10px; }
+.txRow { display: grid; grid-template-columns: 34px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--ln); }
+.txBtn { width: 100%; border: 0; border-bottom: 1px solid var(--ln); background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.txBtn:hover .txName { color: var(--goldTx); }
+.ini {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--s2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--mu);
+}
+.txTx { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.txName { font-size: 14px; overflow-wrap: anywhere; }
+.txMeta { font-size: 12px; color: var(--mu); }
+.txVal { font-size: 14px; font-weight: 600; white-space: nowrap; }
+.more {
+  margin-top: 12px;
+  border: 1px solid var(--ln2);
+  background: transparent;
+  color: var(--tx);
+  border-radius: 999px;
+  padding: 9px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.more:hover:not(:disabled) { background: var(--s2); }
+.more:disabled { opacity: 0.6; }
+
+@media (max-width: 767px) {
+  .grid { display: flex; flex-direction: column; align-items: stretch; gap: 14px; }
+  .colL, .colR { display: contents; }
+  .orderPace { order: 1; }
+  .orderCats { order: 2; }
+  .orderInsight { order: 3; }
+  .orderUnexpected { order: 4; }
+  .orderTx { order: 5; }
+  .hintM { display: inline; font-size: 11px; }
+  .hintInline { display: inline; }
+  .cats { gap: 6px; }
+  .catRow { display: flex; flex-direction: column; align-items: stretch; gap: 6px; padding: 8px; }
+  .catName { justify-content: space-between; gap: 10px; font-size: 13px; }
+  .kind, .share, .catVal { display: none; }
+  .catValM { display: inline; font-weight: 600; white-space: nowrap; }
+  .insight { padding: 18px; }
+  .pace { gap: 10px; }
+  .paceBig { font-size: 28px; }
+  .paceOf { font-size: 12px; }
+  .paceChart { height: 90px; }
+  .txHead { margin-bottom: 6px; }
+  .txRow { grid-template-columns: 36px minmax(0, 1fr) auto; gap: 10px; }
+  .ini { width: 36px; height: 36px; }
+  .txName { font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .txMeta { font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .txVal { font-size: 13px; }
+  .more { height: 44px; font-size: 13px; }
+}

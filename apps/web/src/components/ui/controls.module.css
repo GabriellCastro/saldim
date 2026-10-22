@@ -1,0 +1,105 @@
+/* Controles do design "Acesso e Perfil": pílulas douradas, inputs 50px, switch, marca. */
+
+/* ---- PillButton ---- */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 0;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s, border-color 0.15s, opacity 0.15s;
+}
+.lg { height: 52px; padding: 0 24px; }
+.md { height: 48px; padding: 0 24px; font-size: 14px; }
+.sm { height: auto; padding: 9px 14px; font-size: 12px; font-weight: 600; }
+.block { display: flex; width: 100%; }
+.pill:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.gold {
+  background: var(--gold);
+  color: var(--onGold);
+  box-shadow: 0 0 0 1px rgba(252, 192, 0, 0.45), 0 0 26px rgba(252, 192, 0, 0.32);
+}
+.gold:hover:not(:disabled) { background: var(--goldHover); color: var(--onGold); }
+
+.outline { background: transparent; color: var(--tx); border: 1px solid var(--ln2); font-weight: 600; }
+.md.outline { padding: 0 20px; }
+.outline:hover:not(:disabled) { background: var(--s2); color: var(--tx); }
+
+.ghost { background: transparent; color: var(--mu); font-size: 13px; font-weight: 600; }
+.lg.ghost, .md.ghost { height: 44px; }
+.ghost:hover:not(:disabled) { color: var(--tx); }
+
+/* ---- TextInput ---- */
+.field { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.label { display: flex; justify-content: space-between; gap: 8px; font-size: 12px; color: var(--mu); font-weight: 600; }
+.control { position: relative; display: flex; }
+.input {
+  flex: 1;
+  min-width: 0;
+  height: 50px;
+  padding: 0 16px;
+  border-radius: 12px;
+  border: 1px solid var(--ln2);
+  background: rgba(18, 18, 17, 0.8);
+  color: var(--tx);
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(252, 192, 0, 0.15); }
+.input:disabled { border-color: var(--ln); background: transparent; color: var(--mu); }
+.input[aria-invalid='true'] { border-color: var(--neg); }
+.withAdornment { padding-right: 64px; }
+.adornment { position: absolute; right: 8px; top: 8px; }
+.error { font-size: 12px; color: var(--neg); }
+
+/* ---- Switch ---- */
+.switch {
+  position: relative;
+  width: 44px;
+  height: 26px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  background: var(--s3);
+  transition: background 0.15s, box-shadow 0.15s;
+}
+.switch::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background: var(--mu);
+  transition: left 0.15s, background 0.15s;
+}
+.switchOn { background: var(--gold); box-shadow: 0 0 12px rgba(252, 192, 0, 0.35); }
+.switchOn::after { left: 21px; background: var(--onGold); }
+
+/* ---- BrandMark ---- */
+.brand { display: flex; align-items: center; gap: 10px; }
+.logo {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--gold);
+  color: var(--onGold);
+  box-shadow: 0 0 0 1px rgba(252, 192, 0, 0.5), 0 0 22px rgba(252, 192, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 16px;
+}
+.logoSm { width: 30px; height: 30px; font-size: 15px; }
+.brandName { font-weight: 700; font-size: 16px; letter-spacing: 0.01em; }
+
+@media (max-width: 767px) {
+  .input { font-size: 16px; }
+}

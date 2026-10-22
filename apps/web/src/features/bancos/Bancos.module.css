@@ -1,0 +1,148 @@
+.layout { display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start; }
+.card {
+  background: var(--glass);
+  border: 1px solid var(--edge);
+  border-radius: var(--radius);
+  box-shadow: inset 0 1px 0 rgba(245, 243, 241, 0.06), 0 24px 48px -28px rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(14px);
+}
+.eyebrow { letter-spacing: 0.22em; }
+.mu { color: var(--mu); }
+.ok { color: var(--pos); font-weight: 600; white-space: nowrap; }
+.bad { color: var(--neg); font-weight: 600; white-space: nowrap; }
+.ellipsis { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+
+/* ---------- card principal ---------- */
+.main { flex: 2 1 520px; min-width: 0; padding: 32px; display: flex; flex-direction: column; gap: 28px; }
+.steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.step { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.stepBar { height: 3px; border-radius: 999px; background: var(--s3); transition: background 0.3s; }
+.stepOn .stepBar { background: var(--gold); }
+.stepText { display: flex; flex-direction: column; gap: 2px; font-size: 11px; overflow-wrap: anywhere; color: var(--mu); }
+.stepText span:last-child { font-weight: 600; }
+.stepOn .stepText span:last-child { color: var(--tx); }
+
+.intro { display: flex; flex-direction: column; gap: 12px; }
+.title { margin: 0; font-size: 26px; font-weight: 300; }
+.body { margin: 0; font-size: 15px; color: var(--mu); line-height: 1.6; max-width: 560px; text-wrap: pretty; }
+
+.drop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 34px 14px;
+  border: 1.5px dashed var(--ln2);
+  border-radius: 14px;
+  background: transparent;
+  cursor: pointer;
+  text-align: center;
+  transition: border-color 0.15s, background 0.15s;
+}
+.drop:hover, .dropOn { border-color: var(--gold); }
+.dropOn { background: rgba(252, 192, 0, 0.06); }
+.dropTitle { font-size: 14px; font-weight: 600; }
+.dropSub { font-size: 12px; color: var(--mu); }
+.mob { display: none; }
+
+.progress { display: flex; flex-direction: column; gap: 10px; padding: 14px; border: 1px solid var(--ln); border-radius: 14px; font-size: 13px; }
+.progressHead { display: flex; justify-content: space-between; gap: 8px; }
+.progress > .mu { font-size: 12px; }
+.track { height: 4px; background: var(--s3); border-radius: 999px; overflow: hidden; }
+.fill { height: 100%; background: var(--gold); transition: width 0.18s linear; }
+
+.table { display: flex; flex-direction: column; border: 1px solid var(--ln); border-radius: 14px; overflow: hidden; font-size: 14px; }
+.table > div { display: flex; justify-content: space-between; gap: 12px; padding: 14px 18px; border-bottom: 1px solid var(--ln); }
+.table > div:last-child { border-bottom: 0; }
+.tableErr { border-color: rgba(255, 90, 95, 0.4); }
+.tableErr .mu { line-height: 1.5; }
+
+.ctas { display: flex; gap: 10px; flex-wrap: wrap; }
+.ctas:empty { display: none; }
+.gold {
+  border: 0;
+  background: var(--gold);
+  color: var(--onGold);
+  box-shadow: 0 0 0 1px rgba(252, 192, 0, 0.45), 0 0 26px rgba(252, 192, 0, 0.32);
+  border-radius: 999px;
+  padding: 13px 24px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.gold:hover { background: var(--goldHover); color: var(--onGold); }
+.outline {
+  border: 1px solid var(--ln2);
+  background: transparent;
+  color: var(--tx);
+  border-radius: 999px;
+  padding: 13px 20px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.outline:hover { border-color: var(--gold); }
+.hint { font-size: 11px; color: var(--mu); line-height: 1.5; margin-top: -12px; }
+
+/* ---------- Open Finance ---------- */
+.of { flex: 1 1 100%; min-width: 0; padding: 28px 32px; display: flex; flex-direction: column; gap: 18px; }
+.ofHead { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px 24px; }
+.ofHead .intro { flex: 1 1 420px; }
+.ofTag { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mu); }
+.ofDot { width: 6px; height: 6px; border-radius: 999px; background: var(--pos); box-shadow: 0 0 8px var(--pos); }
+.ofRow { display: flex; align-items: center; gap: 14px; padding: 14px 0; border-top: 1px solid var(--ln); font-size: 14px; }
+.ofRow .sourceName { flex: 1; gap: 3px; }
+.ofLogo {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: var(--s2);
+  border: 1px solid var(--ln);
+  object-fit: contain;
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.ofActions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.ofLink { border: 0; background: none; padding: 0; color: var(--mu); font-size: 12px; font-weight: 600; }
+.ofLink:hover:not(:disabled) { color: var(--neg); }
+.ofOk, .ofErr { font-size: 13px; padding: 10px 14px; border-radius: 12px; }
+.ofOk { color: var(--pos); background: rgba(60, 194, 116, 0.08); border: 1px solid rgba(60, 194, 116, 0.3); }
+.ofErr { color: var(--neg); background: rgba(255, 90, 95, 0.08); border: 1px solid rgba(255, 90, 95, 0.3); }
+.gold:disabled, .outline:disabled { opacity: 0.5; cursor: default; }
+
+/* ---------- lateral ---------- */
+.side { flex: 1 1 280px; min-width: 0; display: flex; flex-direction: column; gap: 12px; }
+.panel { padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+.source { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; font-size: 14px; }
+.source a { text-decoration: none; }
+.sourceName { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.sub { font-size: 12px; color: var(--mu); }
+.note { font-size: 12px; color: var(--mu); line-height: 1.55; padding: 0 4px; }
+
+/* ---------- mobile ---------- */
+@media (max-width: 767px) {
+  .layout { flex-direction: column; flex-wrap: nowrap; gap: 14px; align-items: stretch; }
+  .card { border-radius: 18px; }
+  .main { flex: none; padding: 18px; gap: 18px; }
+  .steps { gap: 6px; }
+  .stepText { display: none; }
+  .intro { gap: 8px; }
+  .title { font-size: 20px; }
+  .body { font-size: 13px; line-height: 1.55; }
+  .drop { padding: 20px 12px; gap: 4px; }
+  .desk { display: none; }
+  .mob { display: inline; }
+  .table { font-size: 13px; }
+  .table > div { padding: 12px 14px; }
+  .ctas > * { flex: 1; text-align: center; height: 44px; padding-top: 0; padding-bottom: 0; display: flex; align-items: center; justify-content: center; }
+  .hint { margin-top: 0; }
+  .side { flex: none; }
+  .of { flex: none; padding: 18px; gap: 14px; }
+  .ofHead .gold { width: 100%; height: 44px; }
+  .ofRow { flex-wrap: wrap; }
+  .ofActions { width: 100%; padding-left: 54px; }
+  .panel { padding: 18px; }
+}
